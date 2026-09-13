@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-dbd836d1a044/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-dbd836d1a044
-projection_sha256: c1e06c6e4dade3067453b61ae72c1018da9f05c9579cec7ba9aa8173aa83c9fa
+projection_sha256: 721476767e342725ae30e0977cb67107392bce6c6bed597c6ff29991f4ab7673
 parent: 메모리 관리
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-d160fea60072

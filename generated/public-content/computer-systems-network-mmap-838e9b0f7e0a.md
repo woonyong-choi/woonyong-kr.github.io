@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-mmap-838e9b0f7e0a/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-mmap-838e9b0f7e0a
-projection_sha256: 77ac8c8cc0cf56320b9de66b5e95330c8924ff3f18ef33ff74e0750244fdc6fb
+projection_sha256: f9122e87ebc184ea76c43ee6d0da70d9ee6f6ee0aad3eb5d9c8153fcce37556b
 parent: 가상 메모리 구현
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-83f24986336f

@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-cc14ff5f728b/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-cc14ff5f728b
-projection_sha256: dfbd93894ab16b48d6b258d3c84f2912a118a84bc58b196c4f71fbc12a992b54
+projection_sha256: 8a69c1a505b58efaa1a2c988c04455ea7142be5727f02c534ff06518d22940ed
 parent: 커널 구조
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-5cd3e3706e06
@@ -16,6 +16,45 @@ ancestor: CS 기초
 
 # 부팅
 {: .no_toc }
+
+PintOS의 `main()`은 64 Bit C 코드다. 이 함수가 실행되기 전에는 Firmware와 Loader가 이미 커널 이미지를 메모리에 올리고, CPU 모드와 임시 Page Table, Stack을 준비해야 한다. 아래 흐름은 학습 저장소의 `5afaa6d`에 들어 있는 x86 BIOS 부팅 경로를 기준으로 한다.
+
+## BIOS에서 커널의 첫 명령까지
+
+이 BIOS 부팅 경로에서는 디스크 첫 Sector의 Loader가 물리 주소 `0x7c00`에서 실행된다. `loader.S`는 16 Bit Real Mode 코드로 시작한다. `cli`로 외부의 Maskable Interrupt를 막고, Segment Register와 `0x7c00` 아래로 자라는 Stack을 준비한다.
+
+Loader는 Port `0x64`·`0x60`의 키보드 컨트롤러 경로로 A20을 활성화한다. A20 주소 비트가 강제로 0이면 `0x100000`과 `0x0`이 겹치는 것처럼 주소 Alias가 생기기 때문이다. BIOS의 `int 0x15`·E820 기능으로 메모리 지도를 받은 뒤에는 GDT를 읽고 CR0.PE를 켠다. Far Jump로 CS를 다시 읽으면 32 Bit 코드 Segment에서 실행을 이어 간다.
+
+인터럽트를 막은 상태에서도 코드에 적힌 `int 0x15` 같은 소프트웨어 호출은 실행할 수 있다. IF가 모든 종류의 인터럽트와 예외를 막는 것은 아니다. 보호 모드 전환 뒤에는 Segment Register를 다시 설정하고 임시 Stack을 `LOADER_PHYS_BASE + 0x30000`에 둔다.
+
+커널은 파일 이름을 찾아 읽지 않는다. Loader가 IDE 장치를 Polling하며 LBA 1부터 `KERNEL_LOAD_PAGES × 8`개의 Sector를 순서대로 읽는다. Sector 하나는 512 Byte이며 `rep insw`로 16 Bit 값 256개를 받는다. 목적지는 물리 주소 `LOADER_PHYS_BASE=0x200000`이다. 적재를 끝내면 그 주소를 호출해 `start.S`의 진입 코드로 넘어간다. [Loader의 적재 경로](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/threads/loader.S)
+
+Port I/O의 상대는 QEMU에서 제공하는 IDE 장치일 수 있다. Guest의 명령·Status Polling과 Host의 디스크 이미지 접근은 서로 다른 단계다. QEMU의 모든 Machine과 Firmware가 이 BIOS 경로를 사용하는 것은 아니며, 해당 학습 실행 설정과 장치 구성을 함께 확인한다.
+
+## 두 주소 범위를 임시로 Mapping한다
+
+`start.S`는 CR4.PAE를 켜고 부트 Page Table을 만든다. 2 MiB Page를 나타내는 PDE 128개로 물리 주소 `[0, 256 MiB)`를 연결한다. 주소 공간은 4단계 Paging 형식이지만 이 Mapping은 PDE의 큰 Page에서 끝나므로 PML4·PDPT·PD까지만 순회한다.
+
+| Mapping | Table의 선택 | 가상 주소 범위 | 연결되는 물리 주소 |
+| --- | --- | --- | --- |
+| Identity Mapping | PML4 0, PDPT 0, PDE 0~127 | `[0, 0x10000000)` | `[0, 256 MiB)` |
+| Kernel 직접 Mapping | PML4 1, PDPT 0, PDE 32~159 | `[0x8004000000, 0x8014000000)` | `[0, 256 MiB)` |
+
+두 번째 PDE 배열에서 256 Byte를 건너뛰는 코드는 `256 / 8 = 32`번째 Entry에서 시작한다는 뜻이다. PML4 1번의 512 GiB와 PDE 32번의 64 MiB가 합쳐져 `LOADER_KERN_BASE=0x8004000000`이 된다. 이 상수는 커널 이미지가 적재되는 물리 주소 `0x200000`과 역할이 다르다.
+
+Identity Mapping은 Paging을 켜는 직후의 명령과 낮은 주소 접근을 이어 준다. Kernel Mapping은 링크된 높은 VA로 C 코드를 실행할 준비를 한다. `RELOC(x)`는 아직 높은 주소를 사용할 수 없는 구간에서 `x - LOADER_KERN_BASE`를 계산한다. 이름을 바꾸는 매크로가 별도의 Mapping을 설치하는 것은 아니다. [부트 Page Table 구성](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/threads/start.S)
+
+## 64 Bit 코드와 main으로 넘어간다
+
+Table을 준비한 뒤 CR3에 PML4의 물리 주소를 넣고, EFER의 LME·SCE 비트와 CR0의 PG를 설정한다. IA-32e 모드 활성화와 64 Bit 코드 Segment로의 전환은 순서가 있는 단계다. 이 코드는 64 Bit GDT를 읽고 `lret`으로 `entry_64`에 들어간다.
+
+`entry_64`는 RBP를 0으로 만들고 RSP를 `LOADER_KERN_BASE + 0x1000`으로 설정한 뒤 높은 주소의 `main`을 호출한다. 앞서 Loader가 쓰던 임시 Stack과 이 부트 Stack을 구분해야 한다. 주소 공간과 호출 Stack의 관계는 [주소 공간](/wiki/computer-systems-network-topic-3521ee6344f1/)에서 이어진다.
+
+현재 `bootstrap` 앞부분에는 CPU 지원을 확인하려는 CPUID 관련 명령이 있지만, `EAX=0`으로 호출한 뒤 `LONG_MODE` 비트를 검사하는 `test` 다음에 결과를 처리하는 조건 분기가 없다. 이 코드를 완성된 Long Mode 지원 검사로 볼 수는 없다. 지원하지 않는 CPU를 거부하는지까지 확인하려면 해당 검사 경로를 따로 검증해야 한다. 여기서는 소스의 제어 흐름을 읽었으며 실제 CPU를 바꾸어 부팅한 결과를 포함하지 않는다.
+
+`main()`은 BSS를 비우고 명령행을 해석한 뒤 Thread와 Console, 메모리 할당자와 Kernel Page Table을 준비한다. 이어 인터럽트와 장치, 빌드 옵션에 따른 사용자 프로그램 기능을 초기화한다. `thread_start()`에서 인터럽트를 허용한 뒤에도 Serial Queue·Timer 보정·디스크·파일 시스템·VM 초기화가 남아 있다. 모든 빌드가 모든 기능을 포함하는 것은 아니므로 `USERPROG`·`FILESYS`·`VM` 조건을 함께 읽는다. [main의 초기화 순서](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/threads/init.c)
+
+Linux의 부팅 경로는 Firmware와 아키텍처, 이미지 형식에 따라 달라진다. EFI Stub을 포함한 커널은 기존 EFI Bootloader 없이도 EFI 실행 이미지로 적재할 수 있다. PintOS의 Sector 단위 BIOS Loader나 옛 GRUB의 Stage 구성을 모든 Linux 부팅에 대응시키지는 않는다. [Linux EFI Boot Stub](https://docs.kernel.org/admin-guide/efi-stub.html)
 
 ## 사용할 메모리를 먼저 구분한다
 

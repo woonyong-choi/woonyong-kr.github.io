@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-d38307e3894c/
 publication_state: publish
 has_toc: false
 projection_id: Wiki/keywords/computer-systems-network-topic-d38307e3894c
-projection_sha256: b258fced75af37aced13608f2eddc4bc8998bafe4494c2dd16d0013191a3c985
+projection_sha256: 5e43f49f2e30b0e8efd1b6f5724c1db61ffef2255a776d7cf0c3ed2ea83a5bd9
 parent: 입출력
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-d4ff1bb79941
@@ -121,6 +121,43 @@ PIT는 설정된 카운터와 모드에 따라 Timer 출력을 만들고, PIC는
 표의 Vector는 PintOS가 PIC를 초기화하면서 정한 배치다. IRQ 번호와 Vector 값을 같은 숫자로 읽지 않는다. PIC는 요청 상태(IRR), Mask(IMR), 처리 중인 상태(ISR)를 구별한다. 요청이 생겨도 Mask와 우선순위, CPU의 인터럽트 허용 상태 등에 따라 바로 Handler가 실행되는 것은 아니다. [PintOS PIC 초기화](https://github.com/woonyong-kr/lrn-pintos/blob/9d1b14cbdf41425ba8867af743c03cf32190ee9b/pintos/threads/interrupt.c#L356), [QEMU PIC 모델](https://github.com/qemu/qemu/blob/v10.0.0/hw/intc/i8259.c)
 
 현재 `timer_init()`은 PIT Counter 0에 모드와 카운터를 쓰고 Vector `0x20`의 Handler를 등록한다. `TIMER_FREQ=100`일 때 코드의 정수 계산은 `(1193180 + 50) / 100 = 11932`다. QEMU의 PIT 모델은 가상 시간인 `QEMU_CLOCK_VIRTUAL`을 사용해 다음 출력 변화를 예약하고 IRQ Line의 상태를 갱신한다. Guest의 Timer 설정 주기와 Host 벽시계에서 관찰하는 Handler 실행 간격은 다를 수 있다. [Timer 설정](https://github.com/woonyong-kr/lrn-pintos/blob/9d1b14cbdf41425ba8867af743c03cf32190ee9b/pintos/devices/timer.c), [QEMU PIT의 가상 시간](https://github.com/qemu/qemu/blob/v10.0.0/hw/timer/i8254.c)
+
+PIT 계열 칩에는 Counter 0·1·2가 있고 데이터 Port는 각각 `0x40`·`0x41`·`0x42`다. Counter 1의 DRAM Refresh와 Counter 2의 Speaker 연결은 전통적인 PC의 용도이며, 현재 PintOS의 Scheduler Tick은 Counter 0을 사용한다. 1.19318 MHz는 이 PC 타이머 경로에서 사용하는 입력 Clock 값이다. 칩 자체가 항상 그 주파수의 내부 발진기를 갖는다는 뜻은 아니다.
+
+`0x34 = 00 11 010 0₂`에서 차례로 Counter 0, 하위 Byte 뒤 상위 Byte 쓰기, Mode 2, Binary Counting을 읽는다. Binary Counter에 쓰는 16비트 값 0은 65,536으로 해석된다. 호환 칩인 82C54의 Mode 2 설명에서 OUT은 처음 HIGH이며, Count가 1이면 한 CLK 동안 LOW가 되고 다음 CLK에서 HIGH로 돌아오며 재로드한다. GATE도 계수와 재시작에 관여한다. 이 하드웨어 주기는 `thread_awake()`가 끝날 때 재로드하는 소프트웨어 루프가 아니다. [82C54 데이터시트, Mode 2](https://www.renesas.com/us/en/document/dst/82c54-datasheet#page=13), [QEMU의 Count 로드](https://github.com/qemu/qemu/blob/v10.0.0/hw/timer/i8254.c#L102)
+
+다음 계산은 제어어와 두 Byte의 쓰기 순서를 확인한다. PintOS의 Count 계산 상수 `1193180`과 QEMU v10.0.0의 `PIT_FREQ=1193182`는 조금 다르므로 각각의 명목 출력 주파수를 표시한다. 실제 IRQ 수신 간격이나 물리 발진기의 오차를 측정한 결과가 아니다. [QEMU PIT_FREQ](https://github.com/qemu/qemu/blob/v10.0.0/include/hw/timer/i8254.h#L33)
+
+```run-python
+control = 0x34
+channel = (control >> 6) & 3
+access = (control >> 4) & 3
+mode = (control >> 1) & 7
+bcd = control & 1
+target_hz = 100
+count = (1193180 + target_hz // 2) // target_hz
+low, high = count & 0xff, count >> 8
+assert (channel, access, mode, bcd) == (0, 3, 2, 0)
+assert low | (high << 8) == count
+print(f"channel={channel}, access={access}, mode={mode}, bcd={bcd}")
+print(f"count={count}, bytes={low:#04x} -> {high:#04x}")
+for label, clock_hz in [("PintOS 계산 상수", 1193180), ("QEMU v10.0.0", 1193182)]:
+    rate = clock_hz / count
+    print(f"{label}: {rate:.9f} Hz, 목표 대비 {(rate / target_hz - 1) * 100:.6f}%")
+```
+
+실행 결과:
+
+```text
+channel=0, access=3, mode=2, bcd=0
+count=11932, bytes=0x9c -> 0x2e
+PintOS 계산 상수: 99.998323835 Hz, 목표 대비 -0.001676%
+QEMU v10.0.0: 99.998491452 Hz, 목표 대비 -0.001509%
+```
+
+QEMU의 사용자 공간 `isa-pit` 모델은 입력 Clock마다 루프를 돌며 Count를 1씩 줄이지 않는다. `PITChannelState`는 `include/hw/timer/i8254_internal.h`에 정의되어 있고 Count·읽기 상태·래치·`count_load_time` 등을 보관한다. `pit_load_count()`가 저장하는 시각은 Host 벽시계가 아니라 `QEMU_CLOCK_VIRTUAL`의 값이다. Mode 2의 `pit_get_count()`는 그 시각 이후의 입력 Cycle 수를 계산해 `N - (d % N)`으로 현재 Count를 구한다. 하위·상위 Byte를 읽는 사이에도 시간이 진행할 수 있으므로 같은 순간의 값을 읽으려면 Count Latch 동작을 구별해야 한다. [PIT 상태](https://github.com/qemu/qemu/blob/v10.0.0/include/hw/timer/i8254_internal.h), [Count 읽기와 래치](https://github.com/qemu/qemu/blob/v10.0.0/hw/timer/i8254.c#L49)
+
+예약된 `pit_irq_timer()`는 `pit_irq_timer_update()`를 호출한다. 이 함수는 `pit_get_next_transition_time()`과 `pit_get_out()`으로 다음 시점과 출력 Level을 구하고 `qemu_set_irq()`로 Line을 갱신한 뒤 Timer를 다시 예약하거나 지운다. 항상 IRQ를 HIGH로 올리기만 하는 함수가 아니다. 이 이벤트 모델을 설명할 때 물리 칩의 모든 Pulse·GATE 타이밍을 완전히 재현한다고 확대하지 않으며, 별도의 `kvm-pit` 경로와도 구분한다. [출력 갱신](https://github.com/qemu/qemu/blob/v10.0.0/hw/timer/i8254.c#L242), [Mode별 시간·출력 계산](https://github.com/qemu/qemu/blob/v10.0.0/hw/timer/i8254_common.c#L28)
 
 ## 초기화와 완료 처리를 코드 순서로 따라간다
 

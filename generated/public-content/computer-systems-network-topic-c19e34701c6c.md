@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-c19e34701c6c/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-c19e34701c6c
-projection_sha256: e0a310a23e25f25c749be82be0f37a4e3521a708d505e3d9203a3a5c0e825e5d
+projection_sha256: 4f3cfbe8c7af09a04c0601e93a0e24ed42d5395ad59a2ba3f69f5973126c892b
 parent: 커널 구조
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-5cd3e3706e06
@@ -99,7 +99,24 @@ Handler가 반환하면 `intr_entry`가 일반 Register와 Segment를 복원하�
 
 ## IRQ0을 처리한 뒤 CPU를 양보하기까지
 
-PintOS의 PIC 초기화는 IRQ0–7을 vector `0x20`–`0x27`에, IRQ8–15를 `0x28`–`0x2f`에 연결한다. IRQ0의 경로는 다음 순서다.
+PintOS의 PIC 초기화는 IRQ0–7을 vector `0x20`–`0x27`에, IRQ8–15를 `0x28`–`0x2f`에 연결한다. 이 Vector Base는 초기화로 정한다. 칩의 IRQ0–15가 기본적으로 CPU Vector 0–15에 고정되어 있다는 뜻은 아니다. 두 8입력 PIC에서 Master IRQ2는 Slave 연결에 쓰이므로 독립적인 외부 장치 입력은 15개다.
+
+현재 `pic_init()`의 초기화 값을 Port 쓰기 순서로 읽으면 다음과 같다. Command Port는 Master `0x20`, Slave `0xa0`이고 Data Port는 각각 `0x21`, `0xa1`이다.
+
+| 쓰는 내용 | Master | Slave | 의미 |
+|---|---|---|---|
+| 먼저 Data에 Mask 설정 | `0xff` | `0xff` | 모든 입력을 Mask |
+| ICW1, Command에 쓰기 | `0x11` | `0x11` | 초기화, Edge Trigger, Cascade, ICW4 사용 |
+| ICW2, Data에 쓰기 | `0x20` | `0x28` | Vector Base |
+| ICW3, Data에 쓰기 | `0x04` | `0x02` | Master IRQ2의 Slave, Slave의 연결 번호 2 |
+| ICW4, Data에 쓰기 | `0x01` | `0x01` | 8086 모드, 명시적 EOI |
+| 마지막 Data에 Mask 설정 | `0x00` | `0x00` | 모든 Mask 해제 |
+
+실제 소스의 ICW1 주석에는 `single mode`라는 표현이 있지만 `0x11`의 Single Mode Bit는 0이다. 뒤의 ICW3와 함께 읽으면 Cascade 설정이다. `intr_register_ext()`는 `0x20`–`0x2f` 범위를 검사하며 DPL 0, `INTR_OFF`로 Handler를 등록한다. PIC의 입력 Mask를 해제하는 것과 CPU의 IF를 켜는 것은 별도 단계다. [PIC 초기화와 등록](https://github.com/woonyong-kr/lrn-pintos/blob/9d1b14cbdf41425ba8867af743c03cf32190ee9b/pintos/threads/interrupt.c), [QEMU의 ICW 해석](https://github.com/qemu/qemu/blob/v10.0.0/hw/intc/i8259.c#L187)
+
+QEMU의 Edge Trigger 경로에서 `pic_set_irq()`는 LOW→HIGH 변화를 IRR에 남긴다. `pic_get_irq()`는 `IRR & ~IMR`의 후보와 ISR에 남은 처리 중 요청의 우선순위를 비교한다. CPU가 요청을 받아들이는 `pic_intack()` 단계는 ISR을 세우고 해당 Edge 요청의 IRR을 지운다. EOI는 그 뒤 ISR을 정리하는 명령이다. Slave 요청은 Master IRQ2와 Slave의 로컬 IRQ를 거쳐 Slave Base에 로컬 번호를 더한 Vector로 전달된다. IF만 켜져 있다고 모든 요청이 즉시 Handler에 들어가는 것은 아니다. [QEMU 요청 선택·응답·Cascade](https://github.com/qemu/qemu/blob/v10.0.0/hw/intc/i8259.c#L40)
+
+IRQ0의 Guest Handler 경로는 다음 순서다.
 
 1. CPU가 IDT의 `intr20_stub`으로 진입한다.
 2. Stub은 Error Code 자리의 0과 vector `0x20`을 넣는다.
@@ -133,6 +150,8 @@ if (yield_on_return)
 현재 `thread_tick()`에는 MLFQS를 선택했을 때의 `recent_cpu`·`load_avg`·우선순위 갱신도 있다. `user_ticks` 통계는 `t->pml4 != NULL`로 분류하므로, 그 순간의 CS가 Ring 3인지 직접 측정한 시간 통계와는 다르다. [Thread의 tick 처리와 스케줄링](https://github.com/woonyong-kr/lrn-pintos/blob/9d1b14cbdf41425ba8867af743c03cf32190ee9b/pintos/threads/thread.c)
 
 EOI는 PIC가 기록한 처리 중 상태를 정리하는 응답이다. 현재 PintOS는 Master의 command port `0x20`에 `0x20`을 쓰고, Slave IRQ이면 `0xa0`에도 보낸다. 이 처리를 미룬 채 다른 실행으로 넘어가면 같은 IRQ와 PIC의 우선순위 관계에 있는 요청이 지연될 수 있다. 모든 종류의 CPU Exception과 IRQ가 영원히 차단된다는 뜻은 아니다.
+
+`0x20`은 특정 IRQ 번호를 적지 않는 Non-specific EOI이며 현재 일반 우선순위 모드에서는 해당 PIC의 가장 높은 처리 중 IRQ를 정리한다. Slave IRQ에는 두 PIC의 상태 정리가 필요하다. PintOS의 Master→Slave 순서를 모든 구현의 권장 순서로 일반화하지 않는다. 예를 들어 Linux v6.12의 `mask_and_ack_8259A()`는 Slave에 Specific EOI를 보낸 뒤 Master IRQ2에 Specific EOI를 보낸다. [QEMU EOI 처리](https://github.com/qemu/qemu/blob/v10.0.0/hw/intc/i8259.c#L247), [Linux v6.12의 PIC 응답](https://github.com/torvalds/linux/blob/v6.12/arch/x86/kernel/i8259.c)
 
 등록된 C Handler가 없으면 대부분의 vector는 Frame을 출력하고 Panic으로 이어진다. `0x27`과 `0x2f`에는 Spurious IRQ를 위한 예외 경로가 있다. 이 두 번호의 모든 IRQ가 가짜라는 뜻은 아니며, 여기의 예외는 **등록된 Handler가 없는 경우**에 적용된다.
 
@@ -199,6 +218,10 @@ Linux의 `NO_HZ` 설정은 Idle CPU나 조건을 만족하는 CPU의 불필요�
 
 Linux v6.12에서 해당 주기 처리 함수의 이름은 `sched_tick()`이다. 이 함수는 Run Queue의 시간을 갱신하고 현재 Task의 `sched_class->task_tick()`을 호출한다. 모든 Task의 고정 잔여 시간을 하나씩 줄이고 그 자리에서 RIP를 교환하는 공통 루틴은 아니다. 재스케줄링 요청과 실제 전환은 별도 경로이며, Fair Scheduler의 EEVDF 선택과 다른 정책의 차이는 [우선순위 스케줄링의 OS 비교](/wiki/computer-systems-network-topic-6276ce481024/#linux와-windows를-비교하는-기준)에서 이어진다. [Linux v6.12 sched_tick](https://github.com/torvalds/linux/blob/v6.12/kernel/sched/core.c#L5584-L5614)
 
+현대 Timer는 먼저 시간을 읽는 **Clocksource**와 지정 시점에 인터럽트를 발생시키는 **Clockevent**를 구분해 비교한다. Linux가 항상 PIT→HPET→APIC→TSC 순서로 장치를 교체하는 고정 경로는 아니다. Linux v6.12의 PIT 드라이버에도 조건부 One-shot 지원이 있어 “PIT는 주기 모드만 가능하다”는 비교표는 맞지 않는다. APIC Timer의 LVT와 외부 입력 LINT0을 같은 것으로 보거나, TSC Counter의 주파수를 현재 CPU 실행 주파수와 항상 같다고 보면 안 된다. Windows의 QPC도 적합한 TSC 또는 Platform Counter를 사용하므로 “Windows는 APIC를 쓴다”만으로 시간 측정을 설명할 수 없다. [Linux Clocksource·Clockevent](https://docs.kernel.org/timers/timekeeping.html), [Linux PIT One-shot](https://github.com/torvalds/linux/blob/v6.12/drivers/clocksource/i8253.c#L139), [APIC Timer·LINT Register 구분](https://github.com/torvalds/linux/blob/v6.12/arch/x86/include/asm/apicdef.h#L103), [Windows QPC와 TSC](https://learn.microsoft.com/en-us/windows/win32/sysinfo/acquiring-high-resolution-time-stamps)
+
+QEMU 시각을 ns 단위로 표현한다는 사실은 1 ns의 실제 IRQ 전달 정밀도를 보장하지 않는다. `icount` 설정에서는 실행한 명령 수로 가상 시간의 진행을 계산할 수 있지만 Cycle-accurate CPU 모델은 아니다. Host 부하와 실행 설정을 고정하지 않은 채 Emulator 오버헤드나 Handler 지연을 일정한 ns 수치로 제시하지 않는다. [QEMU icount의 범위](https://www.qemu.org/docs/master/devel/tcg-icount.html)
+
 ## GDB에서는 저장된 Frame부터 읽는다
 
 다음은 Debug Symbol이 일치하는 PintOS Guest에 연결한 뒤 사용할 관찰 명령이다. 실행 결과를 미리 정한 로그가 아니라, 실제로 읽어야 할 값과 위치를 보여 준다. 함수 호출을 수반하는 `thread_current()`나 Debug 정보에 없는 `list_entry` Macro 대신 저장된 인자와 메모리를 우선 읽는다.
@@ -221,3 +244,5 @@ p intr_handlers[$frame->vec_no]
 Timer 흐름은 `timer_interrupt`, `thread_tick`, `intr_yield_on_return`, `thread_yield`의 Breakpoint로 이어서 관찰할 수 있다. 함수 진입 직후와 대입문 실행 뒤를 구분해야 tick 값의 전후 관계를 잘못 읽지 않는다. 외부 IRQ 마무리에서 `in_external_intr`, `yield_on_return`, EOI 호출 순서를 함께 확인하면 된다.
 
 Guest GDB의 `info threads`는 보통 QEMU가 노출한 vCPU를 가리키며 PintOS의 모든 Thread 목록을 자동으로 보여 주는 명령이 아니다. QEMU의 `pit_irq_timer_update()`나 `pic_set_irq()`를 조사하려면 QEMU 자체의 Debug Symbol을 사용한 Host Debugger가 필요하다. 두 관찰 대상의 차이는 [Debugger](/wiki/platform-delivery-operations-topic-f89d71c7eb29/)에 정리되어 있다.
+
+GDB의 `$pc`는 현재 명령 위치이며 경과 시간을 재는 Clock이 아니다. 이를 상수나 이전 주소와 빼서 tick 간 시간을 측정하지 않는다. `timer_init()`의 Count 대입 전이나 `timer_interrupt()`의 `ticks++` 전에서 멈추면 아직 갱신되지 않은 값이 보인다. 고정 소스 줄 번호 대신 함수·대입 위치와 Disassembly를 확인하고, 짧은 지연의 `timer_calibrate()`·`loops_per_tick` 및 Sleep 관찰은 [알람 시계](/wiki/computer-systems-network-alarm-clock-4f0f0546530e/)의 기존 예제를 사용한다.

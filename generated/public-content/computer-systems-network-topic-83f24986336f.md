@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-83f24986336f/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-83f24986336f
-projection_sha256: e9d2be356bbbbac663f76099d7604e1d6fc2aed27f72fef6aa67b16a1a15543b
+projection_sha256: 1750773dc773428d70cf589adceeb4253d48186e71eec984641d32e501aa35c1
 parent: PintOS
 content_status: ready
 public_parent_id: Wiki/projects/pintos
@@ -234,6 +234,35 @@ print('한 Slot의 Sector 수:', sectors_per_page)
 print('4 MiB Disk의 Slot 수:', slots)
 assert (frame_units, sectors_per_page, slots) == (8192, 8, 1024)
 ```
+
+## 구현을 연결하고 확인하는 순서
+
+처음 구현할 때는 SPT 등록, 첫 Claim, Page Fault 복구를 먼저 연결하면 이후 기능의 실패 지점을 찾기 쉽다. [보조 페이지 테이블](/wiki/computer-systems-network-topic-aa5da5d73167/)에서 같은 페이지의 중복 등록과 주소 정렬을 확인하고, [지연 적재](/wiki/computer-systems-network-topic-0a62f7f28b03/)에서 등록한 정보가 첫 접근까지 살아 있는지 살핀다. Claim이 성공했다면 Page와 Frame의 연결만 보지 않고 PTE와 실제 바이트까지 확인한다.
+
+이때 서로 다른 네 가지 관리 정보를 구분하면 복구 경로가 분명해진다.
+
+| 관리 정보 | 기억하는 것 |
+|---|---|
+| PML4에서 이어지는 Page Table | 현재 VA의 물리 주소와 접근 권한 |
+| SPT | 프로세스의 가상 페이지와 복구 정보 |
+| Frame Table | 상주 Frame과 교체 후보 |
+| Swap Bitmap과 Page의 Swap Metadata | 사용 중인 Slot과 해당 Page를 복구할 위치 |
+
+다음에는 [Stack 성장과 Page Fault 분기](/wiki/computer-systems-network-topic-5cebdbc10ddf/), [페이지 교체](/wiki/computer-systems-network-topic-163345dd1b02/), [Swap](/wiki/computer-systems-network-swap-11630540adf8/)을 연결한다. [mmap](/wiki/computer-systems-network-mmap-838e9b0f7e0a/)에서는 주소 범위·파일 참조와 Dirty Writeback을, [fork](/wiki/computer-systems-network-topic-4af2e32913a4/)에서는 UNINIT·상주·Swap 상태별 소유권을 확인한다. 이 순서는 기능 간 의존성을 살피기 위한 순서이며, 모든 구현에 고정된 유일한 절차는 아니다.
+
+정리 경로는 마지막에만 추가하지 않는다. 각 할당과 파일 참조를 넣을 때 등록 실패, 초기화 실패, 첫 접근 없이 종료하는 경우를 함께 살핀다. [프로세스 종료와 exec의 정리](/wiki/computer-systems-network-topic-93ebb5bf7e48/)에서는 Frame, Swap Slot, aux, 파일 참조가 어느 함수에서 반환되는지까지 연결한다. 실패를 반환했다는 사실만으로 할당한 자원이 모두 정리됐다고 판단하지 않는다.
+
+GDB에서는 한 함수에 멈춘 상태로 모든 지역 변수를 읽으려 하지 말고, 값이 만들어지는 위치를 따라간다. 디버그 빌드에 연결한 뒤의 관찰 기준은 다음과 같다.
+
+| 멈출 위치 | 값이 준비된 뒤 비교할 내용 |
+|---|---|
+| `vm_alloc_page_with_initializer`, `spt_find_page` | 등록한 VA와 페이지 경계로 내린 검색 주소 |
+| `page_fault` | CR2에서 읽은 Fault 주소, `f->error_code`, `f->rip`와 저장한 RSP |
+| `vm_do_claim_page` | Page–Frame 연결, PTE 설치 결과, `swap_in()` 반환값 |
+| `lazy_load_segment`, `file_backed_swap_in` | 파일 Offset, 읽은 길이, Frame의 파일 바이트와 0 채움 |
+| 타입별 `destroy`와 `process_cleanup` | Frame·Slot·aux·파일 참조의 반환과 남아 있는 Mapping |
+
+Fault 주소는 접근 대상이고 RIP는 실행 중인 명령어 주소다. 복구 뒤 두 주소가 같아지는 것이 아니라, 같은 명령어가 준비된 Mapping을 사용해 다시 실행되는지를 확인한다. `x/32xb`로 바이트를 읽을 때도 해당 함수의 지역 변수 범위와 Frame의 생존 여부를 먼저 확인한다. 위 표는 관찰 방법이며 Kernel 테스트의 실행 결과는 아니다.
 
 ## 다른 OS와 QEMU를 비교할 때
 
