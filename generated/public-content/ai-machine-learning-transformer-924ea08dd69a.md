@@ -6,7 +6,7 @@ permalink: /wiki/ai-machine-learning-transformer-924ea08dd69a/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/ai-machine-learning-transformer-924ea08dd69a
-projection_sha256: 0e2d9cfd924dea1909effc17c845ed67769ac09b0f52598fab10262c5412f084
+projection_sha256: fc2b3b5610eb8e0b4d597dee5ccfe63e23e8757f2eb692b3650e2c879b50e2c1
 parent: LLM
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning/llm
@@ -104,7 +104,7 @@ Post-LN의 마지막 연산은 정규화다. 이 예제처럼 affine 값을 고�
 
 폭 D, FFN 배수, block 개수 L은 파라미터 수와 계산량을 바꾼다. D를 고정한 채 H만 바꾸는 것은 전체 폭을 늘리는 일과 다르며 각 head 폭만 바뀔 수 있다. 현재 config는 `emb_dim`, `n_heads`, `n_layers`, `ffn_mult`, `qkv_bias`, `norm_first`, `norm_eps`, 활성화·dropout 위치·attention 구현·tying을 선택한다. 기본 D=256, H=8, L=6이지만 tokenizer와 context 크기도 함께 필요하다.
 
-현재 일반 Linear·Embedding 가중치는 `init_std` 표준편차의 정규분포, Linear bias는 0으로 초기화하고, LayerNorm gamma·beta는 1·0에서 시작한다. config의 seed 필드만으로 언제나 seed가 적용되는 것은 아니다. 모델 생성자의 debug seed 분기와 학습 진입점의 `set_seed` 호출을 함께 확인한다. seed를 고정해도 라이브러리·장치·연산의 결정성 조건이 달라지면 결과가 바뀔 수 있다. [현재 config](https://github.com/woonyong-kr/lrn-gpt/blob/027830d7f49904f656c2d3003d4f6a818ef50269/src/config.py), [현재 model](https://github.com/woonyong-kr/lrn-gpt/blob/027830d7f49904f656c2d3003d4f6a818ef50269/src/model.py)
+현재 일반 Linear·Embedding 가중치는 `init_std` 표준편차의 정규분포로, Linear bias는 0으로 초기화하고, LayerNorm gamma·beta는 1·0에서 시작한다. config의 seed 필드만으로 언제나 seed가 적용되는 것은 아니다. 모델 생성자의 debug seed 분기와 학습 진입점의 `set_seed` 호출을 함께 확인한다. seed를 고정해도 라이브러리·장치·연산의 결정성 조건이 달라지면 결과가 바뀔 수 있다. [현재 config](https://github.com/woonyong-kr/lrn-gpt/blob/027830d7f49904f656c2d3003d4f6a818ef50269/src/config.py), [현재 model](https://github.com/woonyong-kr/lrn-gpt/blob/027830d7f49904f656c2d3003d4f6a818ef50269/src/model.py)
 
 ## GPT-2 small의 파라미터를 같은 조건으로 센다
 
@@ -145,3 +145,23 @@ BERT의 문맥 표현에 분류 head를 붙이면 입력에 대한 클래스 점
 같은 점수 집합에서 threshold를 낮추면 더 많은 입력을 양성으로 분류한다. 이 때문에 놓치는 양성은 줄 수 있지만 정상 입력을 잘못 잡는 비용이 생긴다. precision이 모든 threshold 변화에서 단조롭게 움직인다고 보장하지는 않는다. 인용·반박·풍자 같은 문맥도 평가에 포함해야 한다.
 
 NSMC 감성 분류는 리뷰의 긍정·부정을 구분하는 과업이다. 이 레이블은 유해성 레이블과 다르므로 감성 분류의 구현이나 정확도로 유해 콘텐츠 탐지 성능을 판단할 수 없다. 두 학습 노트는 BERT·GPT와 moderation의 설계 원리를 다루며, 별도 유해성 모델의 구현·배포 결과를 제공하지는 않는다. [BERT와 GPT의 차이 · 7875b64](https://github.com/woonyong-kr/lrn-gpt/blob/7875b64f85f19959d66dcaf06c1dcbeb129d71eb/docs/woonyong/03-bert-and-gpt.md) [BERT로 유해 콘텐츠를 감지하는 원리 · 7875b64](https://github.com/woonyong-kr/lrn-gpt/blob/7875b64f85f19959d66dcaf06c1dcbeb129d71eb/docs/woonyong/04-bert-harmful-content-detection.md)
+
+## Transformer Explainer로 생성 과정을 살펴본다
+
+[Transformer Explainer](https://poloclub.github.io/transformer-explainer/)는 브라우저에서 GPT-2를 실행하며 내부 계산과 다음 토큰 예측을 보여 주는 학습 도구다. [Attention](/wiki/ai-machine-learning-attention-820ced4d5b89/)의 계산과 이 문서의 생성 과정을 화면과 대조할 수 있다.
+
+로컬 실행을 준비할 때는 코드를 가져온 commit과 Node.js·npm 버전, Lockfile을 함께 확인한다. 확인한 `bfe50af`의 README는 Node.js 20 이상과 npm 10 이상을 요구하며 다음 설치·실행 순서를 안내한다. 아래는 별도 터미널에서 개발 서버를 준비하는 명령이다. 이 문서의 Run 예제처럼 결과가 끝나는 단일 계산은 아니다.
+
+```bash
+git clone https://github.com/poloclub/transformer-explainer.git
+cd transformer-explainer
+git checkout bfe50afba10b9b560b84143ee1107d977defa74f
+npm install
+npm run dev -- --host 127.0.0.1
+```
+
+서버가 출력한 로컬 주소로 접속한다. README의 기본 포트는 5173이다. 패키지 선언을 확인한 것과 해당 조합의 설치·실행에 성공한 것은 다르며, 여기서는 새 로컬 실행 결과를 제시하지 않는다. [확인한 README](https://github.com/poloclub/transformer-explainer/blob/bfe50afba10b9b560b84143ee1107d977defa74f/README.md), [package.json의 명령과 의존성](https://github.com/poloclub/transformer-explainer/blob/bfe50afba10b9b560b84143ee1107d977defa74f/package.json)
+
+화면을 열었다면 HTTP 응답만으로 실행 성공을 판단하지 않는다. 모델과 Tokenizer 요청이 끝나고 Generate가 활성화되는지, 예제와 직접 입력에서 다음 토큰 후보가 바뀌는지 확인한다. 모바일에서는 실제 화면에서 사용할 수 있는 입력 방식도 살펴야 한다. 로딩 시간과 다운로드 크기는 브라우저 Cache·네트워크·소스 버전에 따라 달라지므로 이전 측정값을 현재 결과처럼 사용하지 않는다.
+
+`npm run build`와 `npm run check`도 확인하는 대상이 다르다. 빌드 성공 뒤에도 타입 검사나 접근성 진단이 남을 수 있고, 모델 요청 실패로 생성이 막힐 수 있다. 문제를 조사할 때는 설치 조합, 빌드, 타입 검사, 브라우저 Console·Network, 생성 결과를 구분한다. 학습 도구를 별도 서비스로 운영하려면 의존성 호환성·접근성·번들 크기와 모델·Tokenizer의 출처도 다시 확인한다.

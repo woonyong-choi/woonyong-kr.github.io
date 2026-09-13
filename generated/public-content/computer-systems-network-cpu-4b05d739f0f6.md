@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-cpu-4b05d739f0f6/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-cpu-4b05d739f0f6
-projection_sha256: e653a0b952ac8801a067dc5c6f757c95db8c7bba05cfaf5dcd7eed995f671d56
+projection_sha256: 5e54dacf0136760d9dfcb3e2434cc689e9195131addea379e5aa9ef56da242ff
 parent: 컴퓨터 구조
 content_status: ready
 public_parent_id: Wiki/computer-systems-network/computer-architecture
@@ -187,3 +187,70 @@ SYSCALL mask=0x47700, mask 적용=0x2
 RSP가 어느 Stack을 가리키는지도 중단 위치에 따라 다르다. [SYSCALL 진입 직후](/wiki/computer-systems-network-topic-3cc26725c1cb/#진입-주소에-도착해도-스택은-아직-사용자-것이다)에는 아직 User Stack이고, PintOS Assembly가 Kernel Stack으로 옮긴 뒤에야 Handler의 Frame을 쌓는다. [인터럽트와 syscall의 복귀](/wiki/computer-systems-network-topic-41565131cfca/#인터럽트와-시스템-콜은-복귀-경로가-다르다), [fork의 User RSP와 Kernel 실행 문맥](/wiki/computer-systems-network-topic-4af2e32913a4/#같은-가상-주소와-다른-프레임)을 구분하면 같은 Register 이름을 다른 Stack의 주소로 잘못 읽는 일을 피할 수 있다. QEMU에서 이 값을 전달하는 과정은 [Guest Register의 번호 변환](/wiki/computer-systems-network-qemu-b1366076be02/#gdb-번호와-regs-배열의-번호)에 연결되어 있다.
 
 RIP·RSP·Flag와 일부 GPR을 복원한다고 CPU의 모든 상태를 복원한 것은 아니다. 주소 공간을 고르는 CR3, FPU·SIMD, Debug Register 같은 상태는 별도 경로를 가진다. [커널과 사용자 영역](/wiki/computer-systems-network-topic-41565131cfca/)에서 `intr_frame`의 192 Byte 배치와 복원 코드를 읽고, [Debugger](/wiki/platform-delivery-operations-topic-f89d71c7eb29/)에서 현재 Frame과 저장된 Frame을 같은 중단점에서 비교한다. 다음에 Register 값이 이상해 보이면 먼저 값의 크기, 호출 규약, 관찰 시점을 각각 확인한다.
+
+## GPU와 작업을 나누는 기준
+
+한 실행 흐름을 빨리 끝내는 지연 시간과 많은 작업을 처리하는 처리량은 다른 목표다. CPU는 복잡한 제어 흐름을 포함한 Thread를 빠르게 실행하도록 설계하며, GPU는 많은 Thread의 연산을 함께 처리하는 데 비중을 둔다. 그래픽 처리를 위해 발전한 GPU는 행렬 연산과 과학 계산에도 쓰인다. [CUDA 안내의 CPU·GPU 설계 비교](https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/introduction.html)
+
+CPU의 Cache·분기 예측·Out-of-Order Execution은 실행 중의 대기를 줄이는 데 쓰인다. GPU는 많은 연산 장치와 실행할 Thread를 이용해 처리량을 높인다. 이것은 설계 방향의 비교다. 코어 수, Clock, Cache 크기와 칩 면적의 비율은 제품마다 다르므로 고정된 숫자로 외우지 않는다. CPU Core와 CUDA Core도 같은 단위의 독립 실행 장치가 아니다.
+
+NVIDIA의 CUDA 모델에서는 여러 SM이 연산을 나누고, SM 안에 Register·Cache·연산 장치가 있다. Thread는 Block과 Grid로 구성되며 Block 안에서는 32개씩 Warp를 이룬다. 같은 Warp 안에서 분기 경로가 갈리면 일부 Lane을 Mask한 채 경로를 실행할 수 있어 이용률에 영향을 준다. “수천 Thread가 항상 같은 명령으로 동시에 전진한다”거나 “GPU에는 제어 기능과 Cache가 없다”라고 줄일 수는 없다. [CUDA의 하드웨어와 SIMT 모델](https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/programming-model.html)
+
+데이터 병렬성이 높다는 것은 같은 연산을 여러 데이터에 나누어 적용할 여지가 크다는 뜻이다. 이미지 필터, 신경망의 행렬 연산과 Batch 처리가 대표적인 예다. 반대로 이전 결과가 다음 계산의 입력인 짧은 연쇄, 복잡한 분기와 작은 요청은 GPU에 일을 맡기는 준비 비용까지 고려해야 한다. 웹 서버·Compiler·게임에도 병렬화할 부분이 있으므로 프로그램 이름만으로 전체를 한 장치에 배정하지 않는다.
+
+### 독립적인 결과와 다음 반복의 입력
+
+길이 784인 벡터와 784×256 행렬을 곱하면 결과는 길이 256인 벡터다. 각 결과 원소는 같은 입력과 서로 다른 열을 사용하므로 다른 결과 원소가 완성될 때까지 기다릴 필요가 없다. 각 원소 안의 합산도 나눌 수 있지만 Floating-point에서는 합산 순서가 결과의 오차에 영향을 줄 수 있다.
+
+다음은 더 작은 정수 입력으로 결과 열의 계산 순서를 바꿔 보는 예제다. 뒤의 Fibonacci 반복에서는 반대로 앞의 두 값이 다음 값에 필요하다. 이 Python 코드는 의존 관계를 보여 주며 실제 GPU 작업이나 병렬 성능을 측정하지 않는다.
+
+```run-python
+x = [1, 2, 3]
+weights = [[1, 2], [3, 4], [5, 6]]
+
+
+def column_sum(column):
+    return sum(value * row[column] for value, row in zip(x, weights))
+
+
+forward = [column_sum(i) for i in (0, 1)]
+backward = {i: column_sum(i) for i in (1, 0)}
+assert forward == [backward[0], backward[1]] == [22, 28]
+print("independent columns:", forward)
+
+
+def fibonacci(n):
+    if n < 0:
+        raise ValueError("n은 음수일 수 없습니다")
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+
+values = [fibonacci(i) for i in range(11)]
+assert values[-1] == 55
+print("dependent steps:", values)
+```
+
+Fibonacci의 이 반복식에는 순차 의존성이 있다. 모든 Fibonacci 계산이 반드시 같은 반복식만 사용해야 하거나 여러 입력을 병렬로 처리할 수 없다는 뜻은 아니다. 선택한 알고리즘에서 무엇이 서로 의존하는지 먼저 살펴야 한다.
+
+### 배치와 전송, 완료 시점을 함께 측정한다
+
+NumPy의 `A @ B`와 PyTorch의 `A @ B`는 비슷하게 보이지만 실행 장치와 내부 라이브러리, 정밀도 설정은 다를 수 있다. PyTorch의 `device='cuda'`는 Tensor를 CUDA 장치에 두는 지정이다. `torch.randn(..., device='cuda')`로 그 장치에서 값을 생성하는 것과 CPU에 있던 Tensor를 `.to('cuda')`로 옮기는 것을 같은 전송 비용으로 계산하지 않는다.
+
+GPU 연산은 보통 비동기로 제출된다. Host에서 호출이 반환한 시각만 재면 실제 계산 완료보다 짧게 보일 수 있다. 아래는 이미 같은 CUDA 장치에 준비한 `A`, `B`로 측정 경계를 설명하는 발췌다. PyTorch와 CUDA 장치, 입력 준비가 필요한 코드이며 이 문서의 GPU 실행 결과는 아니다.
+
+```python
+torch.cuda.synchronize(A.device)
+start = time.perf_counter()
+C = A @ B
+torch.cuda.synchronize(A.device)
+elapsed = time.perf_counter() - start
+```
+
+이 범위에는 입력 생성과 Host→Device 전송이 들어 있지 않다. 전체 요청 시간을 비교하려면 필요한 전송과 결과 회수도 포함하고, 순수 연산 시간을 비교하려면 그 범위를 양쪽에서 맞춘다. 초기화·Warm-up, 반복 측정, 같은 입력·크기·타입과 결과 오차, CPU Thread 수와 GPU 정밀도 설정도 함께 기록한다. 동일한 `float32`라는 이름만으로 모든 내부 연산 정밀도가 같다고 가정하지 않는다. [PyTorch의 CUDA 비동기 실행과 정밀도](https://docs.pytorch.org/docs/2.14/notes/cuda.html)
+
+입력 크기와 장치가 정해지지 않은 상태에서 “CPU는 몇 초, GPU는 몇 밀리초”라는 비율을 제시하지 않는다. 연산량이 작거나 전송·동기화가 큰 비중을 차지하면 GPU가 유리하지 않을 수 있다. CPU와 GPU를 비교할 때는 프로그램 전체의 이름보다 나눌 수 있는 작업과 실제 완료 비용을 기준으로 삼는다.
+
+이미지에 같은 계산을 반복하는 예는 [CNN](/wiki/ai-machine-learning-topic-de3a4dbc880f/)에서 볼 수 있다. 실행할 Thread를 바꾸며 상태를 저장·복원하는 과정은 [Context Switch](/wiki/computer-systems-network-topic-6d5c07c64010/)와 연결된다.
