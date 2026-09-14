@@ -79,6 +79,18 @@ for (const width of [375, 1440]) {
   });
 }
 
+test('@core root redirect does not render its HTML declaration as text', async ({ page, request }) => {
+  const response = await request.get('/');
+  expect(response.ok()).toBe(true);
+  // Parse without navigating so the redirect cannot hide a malformed first frame.
+  const document = await page.evaluate(html => {
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+    return { doctype: parsed.doctype?.name, text: parsed.body.textContent };
+  }, await response.text());
+  expect(document.doctype).toBe('html');
+  expect(document.text).not.toContain('<!doctype');
+});
+
 test('@core root opens Home and sidebar navigation returns to the same document', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveURL(new RegExp(`${browserPages.home}$`));
