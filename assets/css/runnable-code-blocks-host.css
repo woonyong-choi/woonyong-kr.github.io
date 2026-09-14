@@ -1,6 +1,6 @@
 /* WN Docs supplies semantic host tokens; the upstream adapter owns component UI. */
 [data-wn-theme="light"] {
-  --background-primary: #ffffff;
+  --background-primary: var(--wn-code-background);
   --background-secondary: #f5f6fa;
   --background-secondary-alt: #f5f6fa;
   --background-modifier-border: #eeebee;
@@ -34,7 +34,7 @@
 }
 
 [data-wn-theme="dark"] {
-  --background-primary: #2b2d30;
+  --background-primary: var(--wn-code-background);
   --background-secondary: #1e1f22;
   --background-secondary-alt: #2b2d30;
   --background-modifier-border: #44434d;
