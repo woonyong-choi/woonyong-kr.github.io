@@ -19,13 +19,15 @@ for (const { path, language, excerpt } of [
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
         await source.scrollIntoViewIfNeeded();
         const pre = source.locator('..');
-        await pre.hover();
         const sourceOffset = () => source.evaluate(element =>
           element.getBoundingClientRect().left - element.parentElement!.getBoundingClientRect().left);
         const beforeOffset = await sourceOffset();
-        await page.mouse.wheel(2000, 0);
-        // Observe the code moving inside its container after the real wheel input.
-        await expect.poll(sourceOffset).toBeLessThan(beforeOffset - 1);
+        // Retry the real gesture while scrolling settles after the viewport change.
+        await expect.poll(async () => {
+          await pre.hover();
+          await page.mouse.wheel(2000, 0);
+          return sourceOffset();
+        }).toBeLessThan(beforeOffset - 1);
         await expect(page.locator('.rcb')).toHaveCount(0);
       } finally { await context.close(); }
     });
