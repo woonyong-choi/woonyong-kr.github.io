@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_commit": "ddd766de7e8ccc36edf5c1803e5857c2cf658d6d",
-  "tree_sha256": "dae9a6574c91e7958652c0c4dee3a557c7600a00eaca7664f04109a8547caf94",
+  "source_commit": "2678760e746179b37de5f2e01a4406949f2d5ea0",
+  "tree_sha256": "4aa74d0a1efad8ce2712b574f60ce203a776a89f17345a212e42770894d993d1",
   "files": [
     {
       "path": "resume/assets/choiwoonyong-front-white-BlPD-2yp.jpg",
@@ -9,14 +9,14 @@
       "sha256": "4956015d3053f55b7980a5f7bc0e10b1b0887cb4c68401b23165e2db2d6c6472"
     },
     {
-      "path": "resume/assets/index-Bc6Eekch.css",
-      "bytes": 93321,
-      "sha256": "f4429767904f94f673cddde43fd8feedaf69fcbbdd1abe8052c936f83e91289d"
+      "path": "resume/assets/index-DRKaEDCN.js",
+      "bytes": 155148,
+      "sha256": "07555c26b7ddc049378b418f5a19b3ecda82309fd42f3a4fb74fc44a9ce14e71"
     },
     {
-      "path": "resume/assets/index-C3Jj8eb0.js",
-      "bytes": 154760,
-      "sha256": "e6b34de0e6b85b55bac1602f136fd461aec172dec3dd9bd81a4d792a451893e0"
+      "path": "resume/assets/index-v1v5pu4n.css",
+      "bytes": 93198,
+      "sha256": "740884c64880a548e1e45066c29bea5b2db9e8efe7c21cece4c9ecf090a3e36c"
     },
     {
       "path": "resume/assets/jetbrains-mono-cyrillic-wght-normal-D73BlboJ.woff2",
@@ -666,17 +666,17 @@
     {
       "path": "resume/index.html",
       "bytes": 518,
-      "sha256": "8f4f1c40fc4c55dbfddf4123801bb30220914f5c47da312aa610c8d4739ed3f9"
+      "sha256": "f9d684b38db66398549a2519ca6fc72f05ef19695ee4a201c483ae21dbd053c2"
     },
     {
       "path": "resume/pdf/choi-woonyong-backend-portfolio.pdf",
-      "bytes": 438465,
-      "sha256": "163592e5b905f15ed93da59809ce43f77fa61379b82d007a7a191382fc639f3d"
+      "bytes": 426395,
+      "sha256": "56b6651b53791180878f15191a8c4dcc4a79b0bab29e0d21138f18bb6797e856"
     },
     {
       "path": "resume/pdf/choi-woonyong-backend-resume.pdf",
-      "bytes": 518668,
-      "sha256": "f08f80c09a24a5bf6a8b12c084bd901c582a9c8e802ed2c0f4ab34176240e996"
+      "bytes": 492975,
+      "sha256": "eb5c82c56c1dd69cbe96ca91c435eead7861e523626deaa5c0b91d4408e172aa"
     }
   ]
 }
