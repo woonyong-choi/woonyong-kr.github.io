@@ -101,6 +101,28 @@ export function checkFileList(actual, expected) {
   if (extras.length || missing.length) throw new Error(`Deployment file boundary failed: unexpected [${extras.join(', ')}]; missing [${missing.join(', ')}]`);
 }
 
+export async function verifyResumeFiles(output, files) {
+  if (!Array.isArray(files) || !files.some(file => file.path === 'resume/index.html')) {
+    throw new Error('Resume publication must include its index');
+  }
+  const paths = new Set();
+  for (const file of files) {
+    if (!/^resume\/(?:index\.html|assets\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:js|css|woff2|jpg|png|svg|webp|ico)|pdf\/[a-z0-9-]+\.pdf)$/u.test(file.path)
+        || paths.has(file.path) || !/^[a-f0-9]{64}$/u.test(file.sha256)
+        || !Number.isSafeInteger(file.bytes) || file.bytes <= 0) {
+      throw new Error('Invalid resume publication file');
+    }
+    paths.add(file.path);
+  }
+  for (const file of files) {
+    const bytes = await readFile(resolve(output, file.path));
+    if (bytes.length !== file.bytes || createHash('sha256').update(bytes).digest('hex') !== file.sha256) {
+      throw new Error(`Resume publication bytes differ: ${file.path}`);
+    }
+  }
+  return [...paths];
+}
+
 export async function checkBuiltSite(root) {
   const output = resolve(root, '_site');
   const config = await siteConfig(root);
@@ -134,6 +156,10 @@ export async function checkBuiltSite(root) {
   for (const path of Object.keys(meta.outputs)) assets.push(relative(root, resolve(root, path)));
   const diagramsMeta = JSON.parse(await readFile(resolve(root, '.jekyll-cache/diagrams-meta.json'), 'utf8'));
   for (const path of Object.keys(diagramsMeta.outputs)) assets.push(relative(root, resolve(root, path)));
+  const resume = JSON.parse(await readFile(resolve(root, 'config/resume-publication.json'), 'utf8'));
+  const resumeFiles = await verifyResumeFiles(output, resume.files);
+  pages.push(...resumeFiles.filter(path => path.endsWith('.html')));
+  assets.push(...resumeFiles.filter(path => !path.endsWith('.html')));
   const expected = new Set([...pages, ...assets, 'sitemap.xml', 'robots.txt', 'CNAME']);
   const actual = (await filesUnder(output)).map(file => relative(output, file)).filter(name => name !== 'build-info.json');
   checkFileList(actual, expected);

@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
+import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
-import { inspectRenderedHtml, inspectRenderedRedirect, checkFileList } from './check-built-site.mjs';
+import { inspectRenderedHtml, inspectRenderedRedirect, checkFileList, verifyResumeFiles } from './check-built-site.mjs';
 import { parseYaml } from './site-policy.mjs';
 
 const base = 'https://docs.example.com/wiki/example/';
@@ -45,6 +49,26 @@ test('Jekyll preserves fenced Python nested-list literals as code', () => {
 test('unexpected deploy files and missing approved pages fail independently', () => {
   assert.throws(() => checkFileList(['index.html', 'private.html'], new Set(['index.html'])), /unexpected \[private.html\]/u);
   assert.throws(() => checkFileList([], new Set(['index.html'])), /missing \[index.html\]/u);
+});
+
+test('resume publication keeps its exact file scope and rejects changed build bytes', async () => {
+  const output = await mkdtemp(join(tmpdir(), 'resume-publication-'));
+  const bytes = Buffer.from('<main>Resume</main>');
+  const index = { path: 'resume/index.html', bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') };
+  try {
+    await mkdir(join(output, 'resume'));
+    await writeFile(join(output, index.path), bytes);
+    assert.deepEqual(await verifyResumeFiles(output, [index]), [index.path]);
+    for (const files of [[], [index, index], [index, { ...index, path: 'private/source.md' }], [index, { ...index, path: 'resume/assets/../source.js' }]]) {
+      await assert.rejects(verifyResumeFiles(output, files));
+    }
+    await writeFile(join(output, index.path), 'changed');
+    await assert.rejects(verifyResumeFiles(output, [index]), /bytes differ/u);
+    await rm(join(output, index.path));
+    await assert.rejects(verifyResumeFiles(output, [index]), /ENOENT/u);
+  } finally {
+    await rm(output, { recursive: true, force: true });
+  }
 });
 
 test('redirect canonical, immediate refresh and fallback share one target', () => {

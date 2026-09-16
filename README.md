@@ -7,6 +7,10 @@ Obsidian Vault에 있고, 이 저장소는 승인된 projection과 테마·웹 �
 
 - `generated/public-content/`는 Vault producer의 결과입니다. 생성 Markdown과
   `projection_sha256`를 사이트에서 수동 수정하거나 재계산하지 않습니다.
+- `/resume/`는 `woon-resume` 담당이 검증한 정적 빌드와 승인된 PDF를 제공합니다.
+  앱 수정은 원본 저장소에서 하고, 공개 writer가 `config/resume-publication.json`의
+  정확한 파일 목록·크기·SHA256과 함께 `resume/`를 갱신합니다. 배포 검사는 빌드 후에도
+  같은 bytes인지 확인하며 원본 저장소·비공개 manifest·자료는 포함하지 않습니다.
 - 공개 문서를 통합할 때는 대표 정본의 `public_redirect_from`에 확인된 이전 공개 slug를
   명시합니다. Producer가 기존 URL에서 대표 문서로 이동하는 HTML을 생성하며, 문서 ID나
   본문을 복제하지 않습니다. 다른 활성 URL과의 충돌·외부 목적지는 거절하고, 비공개 문서의
