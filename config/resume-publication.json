@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_commit": "593f3d5e67956d56d6bbfea669bb45d63594f983",
-  "tree_sha256": "e4afbd2c3c7e9b7b075789723a9e58f5a3223c10519bdf444aa59873d97d54fb",
+  "source_commit": "ddd766de7e8ccc36edf5c1803e5857c2cf658d6d",
+  "tree_sha256": "dae9a6574c91e7958652c0c4dee3a557c7600a00eaca7664f04109a8547caf94",
   "files": [
     {
       "path": "resume/assets/choiwoonyong-front-white-BlPD-2yp.jpg",
@@ -9,14 +9,14 @@
       "sha256": "4956015d3053f55b7980a5f7bc0e10b1b0887cb4c68401b23165e2db2d6c6472"
     },
     {
-      "path": "resume/assets/index-BU7Oq5cL.js",
-      "bytes": 154840,
-      "sha256": "1ec17bb24ff8b0960fa7c273c8f55774d06a62acb2d8ab421d816e7018b162ef"
-    },
-    {
       "path": "resume/assets/index-Bc6Eekch.css",
       "bytes": 93321,
       "sha256": "f4429767904f94f673cddde43fd8feedaf69fcbbdd1abe8052c936f83e91289d"
+    },
+    {
+      "path": "resume/assets/index-C3Jj8eb0.js",
+      "bytes": 154760,
+      "sha256": "e6b34de0e6b85b55bac1602f136fd461aec172dec3dd9bd81a4d792a451893e0"
     },
     {
       "path": "resume/assets/jetbrains-mono-cyrillic-wght-normal-D73BlboJ.woff2",
@@ -666,7 +666,7 @@
     {
       "path": "resume/index.html",
       "bytes": 518,
-      "sha256": "02e301b08782d394e10200b9dccd64f35eecdf332cbf14f7489829cc6ef9f6a1"
+      "sha256": "8f4f1c40fc4c55dbfddf4123801bb30220914f5c47da312aa610c8d4739ed3f9"
     },
     {
       "path": "resume/pdf/choi-woonyong-backend-portfolio.pdf",
