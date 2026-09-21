@@ -1,7 +1,7 @@
 title: WN Docs
 # Show the complete keyword tree for the initial public review. Set false and
 # rebuild to remove planned pages from HTML, navigation and the search index.
-wiki_show_planned: true
+wiki_show_planned: false
 lang: ko-KR
 description: Woon의 공개 기술 문서 기준본
 url: "https://docs.woonyong.com"
