@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "projects": [
+    {
+      "slug": "k8s-clue",
+      "repo": "woonyong-choi/k8s-clue",
+      "ref": "7cc269c448cd61f1f62269cd7ad1ecc9ce064141",
+      "readme_path": "README.md",
+      "readme_bytes": 16207,
+      "readme_sha256": "989ecc5d3abd4d1e5a176c8e5ac307b13cc86e76936fec629dfb96edffc61724",
+      "output_path": "generated/projects/k8s-clue.md",
+      "output_bytes": 20147,
+      "output_sha256": "41049e7d6ca53324340ee361ff3e315bf9c5a16dc82876c99a9f40f7d95199de"
+    },
+    {
+      "slug": "lrn-sql",
+      "repo": "woonyong-choi/lrn-sql",
+      "ref": "7f6cb840b8219cfde7b4f6e7face04b509ee3db4",
+      "readme_path": "README.md",
+      "readme_bytes": 15435,
+      "readme_sha256": "27995425bc1aaa71dc60e667a58096b6a268a521e1f7a2404dd7a097c8e4316a",
+      "output_path": "generated/projects/lrn-sql.md",
+      "output_bytes": 18019,
+      "output_sha256": "6f488645ec36582146f469814feb9c442549a123664546e464047f8c0023c2ea"
+    },
+    {
+      "slug": "lrn-pintos",
+      "repo": "woonyong-choi/lrn-pintos",
+      "ref": "426c648f8fd451e29a6e51c6bdc73d061084d7f5",
+      "readme_path": "README.md",
+      "readme_bytes": 17932,
+      "readme_sha256": "dfd3efe6ade436d15d42efe0cc38f452b0f3df15d9a5284793fd2d356e4b66b3",
+      "output_path": "generated/projects/lrn-pintos.md",
+      "output_bytes": 21921,
+      "output_sha256": "0acbdd724ba3df506caccf1952e241afabf638c46b1611fa1bdc71ac01d41ba4"
+    },
+    {
+      "slug": "lrn-redis",
+      "repo": "woonyong-choi/lrn-redis",
+      "ref": "2092d8ffec701f6542af336852f9d5329906aee9",
+      "readme_path": "README.md",
+      "readme_bytes": 17421,
+      "readme_sha256": "425bc70bfe8d1bd0d42d8ecb5583c7e1240c53d986dc12cc8bde9052e89f0bbe",
+      "output_path": "generated/projects/lrn-redis.md",
+      "output_bytes": 21190,
+      "output_sha256": "211fc1d611257a76783af69688ef415cf4fab4c6a0511fea866d06d4751e5e9b"
+    },
+    {
+      "slug": "lrn-gpt",
+      "repo": "woonyong-choi/lrn-gpt",
+      "ref": "efe8050437bee41075afc4371971c89c021485bd",
+      "readme_path": "README.md",
+      "readme_bytes": 14346,
+      "readme_sha256": "31b027509f174f502cddb82f2441a43633d5a8a78ab8d2a7f3860774d9535e00",
+      "output_path": "generated/projects/lrn-gpt.md",
+      "output_bytes": 17441,
+      "output_sha256": "c6f3c9c0665967d3b36fd90eaa9fdc047fb58537bd958d87e5f5535874e4051d"
+    },
+    {
+      "slug": "lrn-mnist",
+      "repo": "woonyong-choi/lrn-mnist",
+      "ref": "30439e9b2e5159625b15eb313d52e4dfcaf3066d",
+      "readme_path": "README.md",
+      "readme_bytes": 14981,
+      "readme_sha256": "ba9991c84a877177ae4a17be9f778faacbc54fedc887b80448a044afc5547e9b",
+      "output_path": "generated/projects/lrn-mnist.md",
+      "output_bytes": 18855,
+      "output_sha256": "20ae1aba4552bf76c3e59efb308cfeaf36e4f5c1043beb50904f304d490a51ab"
+    },
+    {
+      "slug": "lrn-react",
+      "repo": "woonyong-choi/lrn-react",
+      "ref": "e07766d8c714998a4664f6d6ea69488d639dca8b",
+      "readme_path": "README.md",
+      "readme_bytes": 14942,
+      "readme_sha256": "efa877ef96388622f44b3e45474d6c25e7c573f77a261dc054d55c907a11cf5f",
+      "output_path": "generated/projects/lrn-react.md",
+      "output_bytes": 18888,
+      "output_sha256": "b10dd26ed4b6ba85d38989ac9b3ce9087a8f1d3ce66ce6d3361b6138e6402165"
+    },
+    {
+      "slug": "lrn-malloc",
+      "repo": "woonyong-choi/lrn-malloc",
+      "ref": "19b8479af9c6c863d158000aa36db8f90f0c31fa",
+      "readme_path": "README.md",
+      "readme_bytes": 12613,
+      "readme_sha256": "01259fec16c66d8fae16f33fcead871c5eadd622c1fc7a169f6f7d6e5ffa5fb4",
+      "output_path": "generated/projects/lrn-malloc.md",
+      "output_bytes": 15407,
+      "output_sha256": "9e854285cc6bc3ae20d9c0d971d536d172c8d6fbde5c821529cafa8637719fff"
+    },
+    {
+      "slug": "lrn-http-proxy",
+      "repo": "woonyong-choi/lrn-http-proxy",
+      "ref": "d05aacc41afa0ccd2cdd5823f5e0681199909f72",
+      "readme_path": "README.md",
+      "readme_bytes": 11692,
+      "readme_sha256": "d870be8c1b8e974fb261a83ca09b446d5b4cfab9f9d832fa8c2c592de6e491ec",
+      "output_path": "generated/projects/lrn-http-proxy.md",
+      "output_bytes": 14293,
+      "output_sha256": "cd526e57e064262b6396c34d82a2573f825ea27b13342a81d88c7efe1e6d39be"
+    },
+    {
+      "slug": "lrn-kotlin",
+      "repo": "woonyong-choi/lrn-kotlin",
+      "ref": "214fd8d4684d78ae57f1aeea7a7a7bd03e41f93c",
+      "readme_path": "README.md",
+      "readme_bytes": 12577,
+      "readme_sha256": "253c5c7b17b5b923af8c925fb487cae18ffc3a5db54aff37c6e56890cc66ddd3",
+      "output_path": "generated/projects/lrn-kotlin.md",
+      "output_bytes": 14797,
+      "output_sha256": "bfa834ae878e4c8adfb21f96a137bd40296819e417f55f636207f9797550ef08"
+    }
+  ]
+}

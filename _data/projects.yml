@@ -1,0 +1,212 @@
+# 프로젝트 카드와 페이지 헤더의 유일한 수기 정본.
+#
+# 본문 정본은 각 저장소의 README 이고, 이 파일은 그 README 를 어느 커밋에서
+# 가져올지와 사이트 전용 얇은 헤더에 무엇을 보일지만 소유한다.
+#
+#   ref       40자리 커밋 SHA 만 허용한다. 브랜치 이름은 결정성이 없어 거부한다.
+#   period    git 첫 커밋 ~ 마지막 커밋 날짜. 실제 프로젝트 기간이 따로 있으면 손으로 바꾼다.
+#   status    planned | active | completed | archived
+#   concepts  정확히 3개. 공개된 위키 문서여야 하며 check-projects 가 검증한다.
+#
+# 값을 고친 뒤에는 반드시 `npm run sync:projects` 를 다시 실행한다.
+
+- slug: k8s-clue
+  title: K8s Clue
+  summary: Kubernetes 장애 증거를 보존하고 규칙 기반 RCA로 GitOps Draft PR을 제안한다.
+  status: active
+  period: 2026-08-04 ~ 2026-09-22
+  role: 팀 과제 · 개인 확장
+  repo: woonyong-choi/k8s-clue
+  ref: 7cc269c448cd61f1f62269cd7ad1ecc9ce064141
+  concepts:
+    - title: Kubernetes
+      url: /wiki/kubernetes/
+    - title: LLM
+      url: /wiki/llm/
+    - title: API
+      url: /wiki/api/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/k8s-clue/7cc269c448cd61f1f62269cd7ad1ecc9ce064141/docs/screenshot.png"
+    image_alt: "k8s-clue Golden Path 계약 검증 스크린샷"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-sql
+  title: SQL 엔진
+  summary: Slotted Page·B+Tree·Buffer Pool을 거쳐 디스크의 행을 읽고 쓰는 C11 데이터베이스.
+  status: completed
+  period: 2026-04-16 ~ 2026-09-22
+  role: 팀 과제 · 개인 확장
+  repo: woonyong-choi/lrn-sql
+  ref: 7f6cb840b8219cfde7b4f6e7face04b509ee3db4
+  concepts:
+    - title: B+ Tree
+      url: /wiki/data-b-tree-cd9340fd2546/
+    - title: DB 인덱스
+      url: /wiki/indexes/
+    - title: Database
+      url: /wiki/data-storage/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-sql/7f6cb840b8219cfde7b4f6e7face04b509ee3db4/docs/screenshot.png"
+    image_alt: "lrn-sql REPL 스크린샷"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-pintos
+  title: PintOS
+  summary: 우선순위 스케줄링·시스템 콜·demand paging·Copy-on-Write fork를 구현한 x86-64 커널.
+  status: completed
+  period: 2026-04-23 ~ 2026-09-22
+  role: 팀 과제 · 개인 확장
+  repo: woonyong-choi/lrn-pintos
+  ref: 426c648f8fd451e29a6e51c6bdc73d061084d7f5
+  concepts:
+    - title: 스레드 구현
+      url: /wiki/computer-systems-network-topic-936b351311c8/
+    - title: 가상 메모리 구현
+      url: /wiki/computer-systems-network-topic-83f24986336f/
+    - title: 파일 시스템 구현
+      url: /wiki/computer-systems-network-topic-c76b83867c50/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-pintos/426c648f8fd451e29a6e51c6bdc73d061084d7f5/docs/screenshot.png"
+    image_alt: "PintOS 테스트 통과 스크린샷"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-redis
+  title: Redis 서버
+  summary: RESP2 파서부터 다섯 자료형·TTL·메모리 퇴출·AOF까지 직접 구현한 Key-Value 서버.
+  status: active
+  period: 2026-03-17 ~ 2026-09-22
+  role: 팀 과제 · 개인 확장
+  repo: woonyong-choi/lrn-redis
+  ref: 2092d8ffec701f6542af336852f9d5329906aee9
+  concepts:
+    - title: Redis
+      url: /wiki/redis/
+    - title: Hash Table
+      url: /wiki/computer-science-topic-c3f2953a97c2/
+    - title: 입출력 다중화
+      url: /wiki/computer-systems-network-topic-5022e4b7c883/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-redis/2092d8ffec701f6542af336852f9d5329906aee9/docs/figure.svg"
+    image_alt: "자료구조 매핑: 키 공간 dict, Hash는 ChainedHashTable, Sorted Set은 dict+SkipList"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-gpt
+  title: GPT 구현
+  summary: byte-level BPE와 decoder Transformer를 직접 구현해 학습·재개·생성까지 이었다.
+  status: active
+  period: 2026-05-14 ~ 2026-09-22
+  role: 팀 과제 · 개인 확장
+  repo: woonyong-choi/lrn-gpt
+  ref: efe8050437bee41075afc4371971c89c021485bd
+  concepts:
+    - title: Embedding
+      url: /wiki/ai-machine-learning-topic-7c4a8b2afe4c/
+    - title: Attention
+      url: /wiki/ai-machine-learning-attention-820ced4d5b89/
+    - title: Transformer
+      url: /wiki/ai-machine-learning-transformer-924ea08dd69a/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-gpt/efe8050437bee41075afc4371971c89c021485bd/docs/loss-curve.svg"
+    image_alt: "lrn-gpt 학습 loss 곡선: 검증 loss는 step 100에서 최저(3.09), 이후 과적합으로 상승"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-mnist
+  title: MNIST 분류기
+  summary: NumPy만으로 MLP·역전파·Adam을 구현한 손글씨 숫자 분류기. 테스트 정확도 97.80%.
+  status: active
+  period: 2026-05-13 ~ 2026-09-22
+  role: 3인 팀 과제 · 개인 확장
+  repo: woonyong-choi/lrn-mnist
+  ref: 30439e9b2e5159625b15eb313d52e4dfcaf3066d
+  concepts:
+    - title: 딥러닝
+      url: /wiki/deep-learning/
+    - title: 역전파
+      url: /wiki/ai-machine-learning-topic-f7bb4c8cd38e/
+    - title: 경사 하강법
+      url: /wiki/ai-machine-learning-topic-3d6e9bea717e/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-mnist/30439e9b2e5159625b15eb313d52e4dfcaf3066d/docs/figure.png"
+    image_alt: "테스트 10,000장 혼동행렬(정확도 97.8%)"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-react
+  title: React 런타임
+  summary: Hook·VDOM·keyed diff·DOM patch를 직접 이어 붙인 작은 UI 런타임과 카드 앱.
+  status: active
+  period: 2026-03-26 ~ 2026-09-22
+  role: 팀 과제 · 개인 확장
+  repo: woonyong-choi/lrn-react
+  ref: e07766d8c714998a4664f6d6ea69488d639dca8b
+  concepts:
+    - title: 컴포넌트 렌더링
+      url: /wiki/frontend-topic-556b062c7529/
+    - title: Hooks
+      url: /wiki/frontend-hooks-5f0c93de5131/
+    - title: Effect
+      url: /wiki/frontend-effect-4cf810ca362a/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-react/e07766d8c714998a4664f6d6ea69488d639dca8b/docs/demo.png"
+    image_alt: "lrn-react 카드 앱과 우측 Render/Patch Inspector"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-malloc
+  title: Malloc 할당기
+  summary: 빈 블록을 AVL 트리로 관리하는 할당기를 C로 만들고 first-fit free list와 비교했다.
+  status: completed
+  period: 2026-04-10 ~ 2026-09-22
+  role: 개인 과제 · 개인 구현
+  repo: woonyong-choi/lrn-malloc
+  ref: 19b8479af9c6c863d158000aa36db8f90f0c31fa
+  concepts:
+    - title: 메모리 관리
+      url: /wiki/computer-systems-network-topic-d160fea60072/
+    - title: 주소 공간
+      url: /wiki/computer-systems-network-topic-3521ee6344f1/
+    - title: Paging
+      url: /wiki/computer-systems-network-topic-dbd836d1a044/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-malloc/19b8479af9c6c863d158000aa36db8f90f0c31fa/docs/bench.svg"
+    image_alt: "7개 trace에서 두 구현의 이용률과 처리량"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-http-proxy
+  title: HTTP Proxy
+  summary: 스레드 풀과 LRU 캐시를 갖춘 HTTP/1.x GET 프록시를 C로 구현했다.
+  status: completed
+  period: 2026-04-17 ~ 2026-09-22
+  role: 개인 과제 · 개인 구현
+  repo: woonyong-choi/lrn-http-proxy
+  ref: d05aacc41afa0ccd2cdd5823f5e0681199909f72
+  concepts:
+    - title: Proxy
+      url: /wiki/computer-systems-network-topic-e8bae755299d/
+    - title: Socket
+      url: /wiki/socket/
+    - title: HTTP
+      url: /wiki/computer-systems-network-http-2fe226962c51/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://raw.githubusercontent.com/woonyong-choi/lrn-http-proxy/d05aacc41afa0ccd2cdd5823f5e0681199909f72/docs/figure.png"
+    image_alt: "요청 흐름도: 대기 queue 검증 LRU 캐시 HIT/MISS 원본 캐시 저장 조건"
+  # --- sync:projects 생성 구간 끝
+- slug: lrn-kotlin
+  title: Kotlin 학습
+  summary: Kotlin in Action의 헷갈리는 동작을 실행 결과와 테스트로 확인하는 학습 저장소.
+  status: active
+  period: 2026-08-29 ~ 2026-09-22
+  role: 개인
+  repo: woonyong-choi/lrn-kotlin
+  ref: 214fd8d4684d78ae57f1aeea7a7a7bd03e41f93c
+  concepts:
+    - title: 프로그래밍 언어
+      url: /wiki/programming-languages-runtime-topic-91f4e521b7e6/
+    - title: JVM
+      url: /wiki/jvm/
+    - title: GC
+      url: /wiki/programming-languages-runtime-gc-5ef97fb71b3e/
+  # --- sync:projects 생성 구간 시작 (README 에서 추출합니다. 직접 수정하지 마세요)
+  extract:
+    image: "https://github.com/woonyong-choi/lrn-kotlin/actions/workflows/ci.yml/badge.svg"
+    image_alt: "CI"
+  # --- sync:projects 생성 구간 끝

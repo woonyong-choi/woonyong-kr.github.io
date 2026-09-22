@@ -123,6 +123,46 @@ export async function verifyResumeFiles(output, files) {
   return [...paths];
 }
 
+/**
+ * 프로젝트 본문은 저장소 README 의 vendoring 산출물이다. 렌더된 HTML 이 아니라
+ * 저장소 안의 생성 Markdown 을 매니페스트와 바이트 비교해, 수동 편집과
+ * 동기화 누락을 배포 경계에서 잡는다.
+ */
+export async function verifyProjectPublication(root, manifest) {
+  if (manifest?.schema_version !== 1 || !Array.isArray(manifest.projects) || manifest.projects.length === 0) {
+    throw new Error('Invalid project publication manifest');
+  }
+  const slugs = new Set();
+  const pages = [];
+  const assets = [];
+  for (const item of manifest.projects) {
+    if (!/^[a-z0-9][a-z0-9-]*$/u.test(item.slug ?? '') || slugs.has(item.slug)
+        || !/^[a-f0-9]{40}$/u.test(item.ref ?? '')
+        || !/^[A-Za-z0-9][A-Za-z0-9._-]*\/[A-Za-z0-9][A-Za-z0-9._-]*$/u.test(item.repo ?? '')
+        || !/^[a-f0-9]{64}$/u.test(item.readme_sha256 ?? '')
+        || !/^[a-f0-9]{64}$/u.test(item.output_sha256 ?? '')
+        || item.output_path !== `generated/projects/${item.slug}.md`
+        || !Number.isSafeInteger(item.output_bytes) || item.output_bytes <= 0
+        || !Number.isSafeInteger(item.readme_bytes) || item.readme_bytes <= 0) {
+      throw new Error(`Invalid project publication entry: ${item.slug}`);
+    }
+    slugs.add(item.slug);
+    const bytes = await readFile(resolve(root, item.output_path));
+    if (bytes.length !== item.output_bytes
+        || createHash('sha256').update(bytes).digest('hex') !== item.output_sha256) {
+      throw new Error(`Project publication bytes differ: ${item.slug}`);
+    }
+    pages.push(`projects/${item.slug}/index.html`);
+    if (item.card_image) {
+      if (!/^\/assets\/projects\/[a-z0-9][a-z0-9-]*\.(?:webp|png|jpg|svg)$/u.test(item.card_image)) {
+        throw new Error(`Invalid project card image: ${item.slug}`);
+      }
+      assets.push(item.card_image.slice(1));
+    }
+  }
+  return { pages, assets };
+}
+
 export async function checkBuiltSite(root) {
   const output = resolve(root, '_site');
   const config = await siteConfig(root);
@@ -160,6 +200,10 @@ export async function checkBuiltSite(root) {
   const resumeFiles = await verifyResumeFiles(output, resume.files);
   pages.push(...resumeFiles.filter(path => path.endsWith('.html')));
   assets.push(...resumeFiles.filter(path => !path.endsWith('.html')));
+  const projectManifest = JSON.parse(await readFile(resolve(root, 'config/projects-publication.json'), 'utf8'));
+  const projects = await verifyProjectPublication(root, projectManifest);
+  pages.push('projects/index.html', ...projects.pages);
+  assets.push('assets/css/wn-site-tabs.css', 'assets/css/wn-projects.css', ...projects.assets);
   const expected = new Set([...pages, ...assets, 'sitemap.xml', 'robots.txt', 'CNAME']);
   const actual = (await filesUnder(output)).map(file => relative(output, file)).filter(name => name !== 'build-info.json');
   checkFileList(actual, expected);
