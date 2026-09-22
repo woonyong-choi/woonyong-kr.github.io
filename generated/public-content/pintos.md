@@ -6,7 +6,7 @@ permalink: /wiki/pintos/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/projects/pintos
-projection_sha256: 58910d9f2b04a8fd5353bec68ece5953e2cac89ed0003aa7bed289c72e77d02b
+projection_sha256: d4102f76fe3be8d629b3a0df4ba344bb80d8e7cea8b47e73bb02311b3d34754a
 parent: OS
 content_status: ready
 public_parent_id: Wiki/computer-systems-network/os

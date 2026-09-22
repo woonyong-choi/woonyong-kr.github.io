@@ -6,7 +6,7 @@ permalink: /wiki/data-topic-780a7f203e5a/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/data-topic-780a7f203e5a
-projection_sha256: 45bcdd14cac44ab04a7ad43f40bc1489623a941a044ed510afca9d9fe35c4d80
+projection_sha256: 82f3c7c002ac23d34e57faf43fa4d3f6dbc0d766316c9b1478f1fdd31e574bfb
 parent: 검색 엔진
 content_status: ready
 public_parent_id: Wiki/data-storage/search-engine
@@ -21,7 +21,7 @@ ancestor: Data
 
 “ERR_CONN_RESET이 프록시에서 나는 이유”라는 질문에는 예시 에러 문자열 `ERR_CONN_RESET`과 장애 상황을 설명하는 말이 함께 들어 있다. 이 문자열이 포함된 문서도 찾아야 하고, “연결 재설정”, “upstream 끊김”, “reverse proxy 장애”처럼 다른 표현을 쓴 문서도 살펴야 한다.
 
-키워드 검색은 문서의 단어를 기준으로 후보를 찾으므로 에러 코드, 함수명, 제품명, 조항 번호를 찾는 데 유용하다. [벡터 검색](/wiki/data-topic-1bbc38dd4cb8/)은 질문과 문서를 임베딩한 벡터의 유사성을 이용하므로 표현이 다른 후보를 찾는 데 도움이 된다. 어느 쪽도 관련 문서를 반드시 찾는 것은 아니다. 특히 정확한 문자열을 보존해야 한다면 검색기의 토큰 분리 방식과 검색 필드도 확인해야 한다.
+키워드 검색은 문서의 단어를 기준으로 후보를 찾으므로 에러 코드, 함수명, 제품명, 조항 번호를 찾는 데 유용하다. 벡터 검색은 질문과 문서를 임베딩한 벡터의 유사성을 이용하므로 표현이 다른 후보를 찾는 데 도움이 된다. 어느 쪽도 관련 문서를 반드시 찾는 것은 아니다. 특히 정확한 문자열을 보존해야 한다면 검색기의 토큰 분리 방식과 검색 필드도 확인해야 한다.
 
 이 두 경로에서 후보를 모아 하나의 결과로 결합하는 구성이 하이브리드 검색(Hybrid Search)이다. 질문을 양쪽 검색에 보내고, 같은 문서 ID의 결과를 모은 뒤, 정한 결합 규칙으로 순서를 매겨 필요한 상위 문서를 반환한다.
 
@@ -104,7 +104,7 @@ window=1 candidates=2 top2=['D1', 'D4']
 
 - 에러 문자열이나 고유명사를 놓쳤다면 키워드 보존, 검색 필드, 해당 경로의 후보 수를 먼저 확인한다. 키워드 검색의 비중을 높인 구성도 비교하되, 선택한 결합 방식이 검색별 가중치를 어떻게 지원하는지 확인한다.
 - 다른 표현을 쓴 관련 문서가 없다면 벡터 검색의 후보와 질문 표현을 확인하고, 벡터 검색의 비중을 높인 구성도 비교한다. 사용자 질문을 검색어로 바꾸는 쿼리 변환을 적용하더라도 중요한 코드와 고유명사가 유지되는지 비교한다.
-- 필요한 후보는 있지만 상위 순서가 맞지 않으면 결합 방식과 [재순위화](/wiki/ai-machine-learning-topic-e749086868b1/)를 검토한다. 재랭킹 모델은 후보의 질문·본문 관련성을 다시 평가한다. 후보 목록에 없는 문서를 새로 찾아오는 단계는 아니다.
+- 필요한 후보는 있지만 상위 순서가 맞지 않으면 결합 방식과 재순위화를 검토한다. 재랭킹 모델은 후보의 질문·본문 관련성을 다시 평가한다. 후보 목록에 없는 문서를 새로 찾아오는 단계는 아니다.
 
 RRF 뒤에 모델 재랭킹을 붙일 수도 있다. [Elastic의 RRF 결과 재랭킹 예제](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/retrievers/retrievers-examples#example-rerank-results-of-an-rrf-retriever)는 이 두 단계를 별도로 구성한다. 재랭킹이 필요하다면, 결합 후 충분한 후보를 넘기고 재랭킹 뒤 최종 반환 수를 적용한다.
 

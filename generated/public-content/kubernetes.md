@@ -6,7 +6,7 @@ permalink: /wiki/kubernetes/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/platform-delivery-operations/kubernetes
-projection_sha256: b2f177efa9902b7cc67f13ee97bc27abe83a9d2d8d1f5884af3b7b8a58e749a4
+projection_sha256: 0ebff0c2f7007e16b576c25f3c9d860f8aa8a075e67ca452119acd7582fab187
 parent: DevOps
 content_status: ready
 public_parent_id: Wiki/platform-delivery-operations
@@ -19,9 +19,9 @@ Kubernetes를 운영 환경에 배치할 때는 정상 동작뿐 아니라 장�
 
 ## 운영 환경에서 확인할 것
 
-Control Plane과 Worker Node가 같은 장애로 함께 멈출 수 있는지부터 확인한다. API Server의 복제와 Load Balancing, Zone 분산, etcd 백업·복구, 인증서 갱신과 업그레이드가 검토 대상이다. Worker 용량은 평소 수요뿐 아니라 증가할 수 있는 부하와 [클러스터 DNS](/wiki/platform-delivery-operations-dns-fcf37d875725/) 같은 의존 서비스도 고려한다.
+Control Plane과 Worker Node가 같은 장애로 함께 멈출 수 있는지부터 확인한다. API Server의 복제와 Load Balancing, Zone 분산, etcd 백업·복구, 인증서 갱신과 업그레이드가 검토 대상이다. Worker 용량은 평소 수요뿐 아니라 증가할 수 있는 부하와 클러스터 DNS 같은 의존 서비스도 고려한다.
 
-접근 권한은 사람과 Workload의 신원을 구분해 설정한다. 인증으로 신원을 확인하고, RBAC 등으로 허용할 작업과 범위를 정한다. 자세한 접근 제어는 [Kubernetes 보안](/wiki/backend-services-kubernetes-0322508c208e/)으로 이어진다.
+접근 권한은 사람과 Workload의 신원을 구분해 설정한다. 인증으로 신원을 확인하고, RBAC 등으로 허용할 작업과 범위를 정한다. 자세한 접근 제어는 Kubernetes 보안으로 이어진다.
 
 검토 결과는 구성도와 설정에 연결해야 한다.
 

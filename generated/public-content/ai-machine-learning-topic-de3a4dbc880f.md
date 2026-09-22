@@ -6,7 +6,7 @@ permalink: /wiki/ai-machine-learning-topic-de3a4dbc880f/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/ai-machine-learning-topic-de3a4dbc880f
-projection_sha256: 70ad3cd76e062e1b30b97824874581404bb66ed38247a859beb0cf053f68a168
+projection_sha256: 879dcd33025c5fa376420cec428d6ca2b3846bc769c364ac54181cbccd74ed1a
 parent: 딥러닝
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning/deep-learning
@@ -31,7 +31,7 @@ w가 0 벡터가 아니면 2차원 입력에서 `w1*x1+w2*x2+b=0`은 직선이�
 | NAND | -0.5, -0.5, 0.7 | 1 | 1 | 1 | 0 |
 | XOR | NAND와 OR의 출력을 AND로 연결 | 0 | 1 | 1 | 0 |
 
-같은 입력 순서에서 AND의 z는 `[-0.7,-0.2,-0.2,0.3]`, OR의 z는 `[-0.2,0.3,0.3,0.8]`이다. OR은 b를 -0.7에서 -0.2로 **높여**, 넘어야 할 입력 가중합의 문턱 `-b`를 낮춘다. NAND는 AND의 z에 부호를 바꾼다. 이 네 입력에는 z=0이 없으므로 출력이 반대가 되지만, 일반 실수 입력의 z=0에서는 두 계단 함수가 모두 0이어서 부호 반전만으로 항상 논리 부정이 되지는 않는다.
+같은 입력 순서에서 AND의 z는 `[-0.7,-0.2,-0.2,0.3]`, OR의 z는 `[-0.2,0.3,0.3,0.8]`이다. OR은 b를 -0.7에서 -0.2로 **높여**, 넘어야 할 입력 가중합의 문턱 `-b`를 낮춘다. NAND는 AND에서 구한 z의 부호를 바꾼다. 이 네 입력에는 z=0이 없으므로 출력이 반대가 되지만, 일반 실수 입력의 z=0에서는 두 계단 함수가 모두 0이어서 부호 반전만으로 항상 논리 부정이 되지는 않는다.
 
 ### XOR은 중간 표현을 바꿔 나눈다
 

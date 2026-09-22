@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-big-o-33c1cf0fde3d/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-big-o-33c1cf0fde3d
-projection_sha256: e3f5da927b9c4f248c824fef8bd61ac6ee73252e18538484f33c3a4cfd491473
+projection_sha256: 5709b76972a0e5d6d2e25403b819fbc77f5e69911414b2fb4a587aa4b16d57b1
 parent: 복잡도
 content_status: ready
 public_parent_id: Wiki/computer-science/complexity
@@ -58,4 +58,4 @@ Big O의 상한이 반드시 가장 좁은 상한인 것도 아니다. `3n + 7`�
 
 따라서 Big O 자체가 최악의 경우를 뜻하지는 않는다. 평균 비용에도 Big O를 쓸 수 있다. 다만 평균은 입력이 어떤 확률로 주어진다고 보는지에 따라 달라지므로, 입력 분포를 정하지 않은 채 ‘보통 빠르다’는 의미로 사용해서는 안 된다.
 
-면접 답변이나 코드 설명에서는 먼저 [시간 복잡도](/wiki/computer-science-topic-869aa2bd6535/)의 기준 연산과 입력 크기를 정하고, 최선·평균·최악 중 어느 경우인지 밝힌 뒤 Big O를 붙이면 해석이 분명해진다. 같은 표기는 [공간 복잡도](/wiki/computer-science-topic-580b14bc9c8f/)에도 사용할 수 있다.
+면접 답변이나 코드 설명에서는 먼저 [시간 복잡도](/wiki/computer-science-topic-869aa2bd6535/)의 기준 연산과 입력 크기를 정하고, 최선·평균·최악 중 어느 경우인지 밝힌 뒤 Big O를 붙이면 해석이 분명해진다. 같은 표기는 공간 복잡도에도 사용할 수 있다.

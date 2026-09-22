@@ -6,7 +6,7 @@ permalink: /wiki/aurora/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/platform-delivery-operations/cloud/aurora
-projection_sha256: 5de1f240fb5244ca30e1fe687c15fb5de8a24aca7d795d164361d841d1f742d8
+projection_sha256: c0355238bff559277207ea6fd824eec13eea6eacb5c8c5fd2320f12b40e7266a
 parent: 관리형 서비스
 content_status: ready
 public_parent_id: Wiki/keywords/platform-delivery-operations-topic-f5955687c1b2
@@ -21,7 +21,7 @@ ancestor: DevOps
 
 여기서는 기존 AWS 실습 기록의 구성을 따라 연결 경계를 살펴본다. 아래 리소스 이름은 예시이며, 현재 AWS 계정에서 생성·접속·삭제를 검증했다는 뜻은 아니다.
 
-DB 생성 여부보다 먼저 확인할 것은 누가 DB에 접근할 수 있는가이다. Aurora MySQL 클러스터, DB security group, Secrets Manager, IAM instance profile이 함께 연결되어야 웹 서버가 데이터베이스에 접속할 수 있다.
+DB를 만들 때는 접근할 수 있는 주체부터 확인한다. Aurora MySQL 클러스터, DB security group, Secrets Manager, IAM instance profile이 함께 연결되어야 웹 서버가 데이터베이스에 접속할 수 있다.
 
 ## 접근 범위와 자격 증명
 

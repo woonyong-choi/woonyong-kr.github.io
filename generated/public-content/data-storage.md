@@ -6,7 +6,7 @@ permalink: /wiki/data-storage/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/data-storage
-projection_sha256: 882fefab55073848785443bf0df8837a5d648ab01ac90e9ba73a9936b8509ab7
+projection_sha256: e0c6bb7a999cedfb2fc169cbfc482f2356cce6afa900e8960e9113f2768e9f18
 parent: Data
 content_status: ready
 public_parent_id: Wiki/data
@@ -19,7 +19,7 @@ search_terms:
 # Database
 {: .no_toc }
 
-사용자 한 명에게 이름, 나이, 소속 트랙을 저장하고 여러 주문을 연결한다고 하자. 아무 규칙 없이 파일에 적으면 나이 칸이 비거나 같은 사용자가 중복으로 기록될 수 있다. 주문이 누구의 것인지 찾으려면 파일 사이의 연결도 관리해야 한다. Database는 이런 데이터를 저장하고 조회하며, 여러 작업이 함께 일어날 때 지켜야 할 규칙을 관리한다.
+사용자 한 명의 이름, 나이, 소속 트랙을 저장하고 그 사용자에게 여러 주문을 연결한다고 하자. 아무 규칙 없이 파일에 적으면 나이 칸이 비거나 같은 사용자가 중복으로 기록될 수 있다. 주문이 누구의 것인지 찾으려면 파일 사이의 연결도 관리해야 한다. Database는 이런 데이터를 저장하고 조회하며, 여러 작업이 함께 일어날 때 지켜야 할 규칙을 관리한다.
 
 저장소를 고를 때는 데이터의 모양과 조회 방법부터 살펴본다. 사용자와 주문을 연결해 자주 조회하는지, Key 하나로 값을 찾는지, 여러 변경을 한꺼번에 확정해야 하는지에 따라 필요한 기능이 달라진다.
 
@@ -124,6 +124,6 @@ ACID 지원 여부를 관계형 DB와 NoSQL의 단순한 경계로 삼을 수는
 
 본문 데이터는 관계형 DB에 두고 Redis를 캐시로 함께 사용할 수도 있다. 이때는 어느 쪽이 기준 데이터인지 정하고, 원본이 바뀌었을 때 캐시를 갱신하거나 만료시키는 방식까지 설계한다.
 
-조회 경로는 [Index](/wiki/indexes/), 변경의 보장은 [Transaction](/wiki/transactions/), 저장 구조의 구현은 [lrn-sql](/wiki/lrn-sql/)에서 이어서 다룬다.
+조회 경로는 [Index](/wiki/indexes/), 변경의 보장은 Transaction, 저장 구조의 구현은 [lrn-sql](/wiki/lrn-sql/)에서 이어서 다룬다.
 
 관리형 DB의 접근 권한과 연결 구성은 [Aurora](/wiki/aurora/)에서 살펴본다.

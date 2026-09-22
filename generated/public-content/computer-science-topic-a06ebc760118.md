@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-a06ebc760118/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-a06ebc760118
-projection_sha256: 5cd8220e2782ea447d61793279fe53dccb6fd38bdbc1f834c33fa10577121489
+projection_sha256: c9fdc010ff81f958ccd46dc1bc9bdecf7fea445777c2dbbabfcb5211a18a06a3
 parent: 자료구조
 content_status: ready
 public_parent_id: Wiki/computer-science/data-structures
@@ -46,11 +46,11 @@ Graph로서의 Tree는 루트를 미리 지정하지 않아도 된다. 하나의
 
 1을 Root로 삼으면 2와 3은 1의 자식이다. 2는 4와 5의 부모이고, 4·5·6은 Leaf다. 정점은 6개, 간선은 5개다. 4를 Root로 다시 선택해도 연결 자체는 같지만 부모와 자식의 관계는 달라진다.
 
-자식을 최대 두 개까지 두고 왼쪽·오른쪽을 구분하면 [Binary Tree](/wiki/computer-science-topic-ad17e2814030/)다. 여기에 값의 대소에 따른 배치 규칙까지 더한 [Binary Search Tree](/wiki/computer-science-topic-7ffddbb78b30/)와는 구분한다. 아무 Binary Tree나 중위 순회한다고 값이 정렬되지는 않는다.
+자식을 최대 두 개까지 두고 왼쪽·오른쪽을 구분하면 Binary Tree다. 여기에 값의 대소에 따른 배치 규칙까지 더한 Binary Search Tree와는 구분한다. 아무 Binary Tree나 중위 순회한다고 값이 정렬되지는 않는다.
 
 ## 계층과 추가 연결을 구별한다
 
-데이터베이스 인덱스의 [B+ Tree](/wiki/data-b-tree-cd9340fd2546/)는 탐색을 위한 부모·자식 계층을 갖는다. Leaf 사이의 순차 접근 링크처럼 추가 연결은 이 계층과 별도로 봐야 한다. 파일 시스템도 디렉터리의 포함 계층은 Tree로 설명할 수 있지만, Hard Link와 Symbolic Link까지 모두 따라가는 구조에는 다른 연결이 생길 수 있다.
+데이터베이스 인덱스의 [B+ Tree](/wiki/data-b-tree-cd9340fd2546/)는 탐색을 위한 부모·자식 계층을 갖는다. Leaf 사이의 순차 접근 링크 같은 추가 연결은 이 계층과 별도로 봐야 한다. 파일 시스템도 디렉터리의 포함 계층은 Tree로 설명할 수 있지만, Hard Link와 Symbolic Link까지 모두 따라가는 구조에는 다른 연결이 생길 수 있다.
 
 ## 부모를 처리하는 시점
 

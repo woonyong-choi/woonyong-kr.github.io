@@ -6,7 +6,7 @@ permalink: /wiki/backend-services-topic-463f9208fa66/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/backend-services-topic-463f9208fa66
-projection_sha256: 94ed94ea6e4cc8d855262513a5e36e7754eb6ea731213de9fd82bd631f3fdbbc
+projection_sha256: e1a795f8adeed0684e8ea6ea6fd151324822b3e62c472f131b6723ea627e5595
 parent: 암호학
 content_status: ready
 public_parent_id: Wiki/security/cryptography
@@ -32,7 +32,7 @@ ancestor: CS 기초
 RSA-OAEP는 `mLen ≤ k − 2·hLen − 2`의 제한이 있다. RSA-2048의 모듈러스 길이 `k=256`바이트, SHA-256의 `hLen=32`바이트이면 최대 평문은 190바이트다. 암호문은 256바이트다. 이 값은 OAEP와 해시를 지정한 결과이지 모든 RSA 방식의 공통 평문 한도가 아니다. [RFC 8017 §7.1](https://www.rfc-editor.org/rfc/rfc8017.html#section-7.1)
 
 ```run-javascript
-(async () => {
+await (async () => {
   const pair = await crypto.subtle.generateKey(
     {name: "RSA-OAEP", modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: "SHA-256"},
     false, ["encrypt", "decrypt"]);

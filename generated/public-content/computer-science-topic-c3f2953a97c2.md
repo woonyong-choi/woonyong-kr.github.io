@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-c3f2953a97c2/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-c3f2953a97c2
-projection_sha256: bbf320d2193c27a41e986129a5eee6d5c48a232aeec9fa59fde44cd9ce30b9de
+projection_sha256: cedaa33695184adb1fc64434b48a76689b67bd3e05f4b035dd9a9c68cf5c176a
 parent: 자료구조
 content_status: ready
 public_parent_id: Wiki/computer-science/data-structures
@@ -25,11 +25,11 @@ grand_parent: CS 기초
 
 ## 키에서 Bucket으로
 
-정렬되지 않은 전화번호부에서는 이름을 앞에서부터 비교해야 한다. 정렬된 자료라면 [이진 탐색](/wiki/computer-science-topic-c39ffbeb57c5/)으로 범위를 줄일 수 있다. Hash Table은 다른 방법을 사용한다. 키를 Hash 값으로 바꾸고 그 값으로 Bucket을 고른다. Bucket은 항목을 저장하거나 저장된 항목을 찾아가는 배열의 칸이다.
+정렬되지 않은 전화번호부에서는 이름을 앞에서부터 비교해야 한다. 정렬된 자료라면 이진 탐색으로 범위를 줄일 수 있다. Hash Table은 다른 방법을 사용한다. 키를 Hash 값으로 바꾸고 그 값으로 Bucket을 고른다. Bucket은 항목을 저장하거나 저장된 항목을 찾아가는 배열의 칸이다.
 
 Hash 값이 같거나 같은 Bucket을 골랐다고 해서 키까지 같은 것은 아니다. 해당 위치에 저장한 실제 키를 비교해야 한다. 여러 키가 같은 자리를 가리키면 그 항목을 함께 저장하고 찾아갈 방법도 필요하다.
 
-- [Hash Function](/wiki/computer-science-topic-a4ead10ed55a/)은 키를 Hash 값으로 계산하고 Bucket을 선택하는 과정을 설명한다.
+- [Hash Function](/wiki/computer-science-topic-a4ead10ed55a/)은 키에서 Hash 값을 계산하고 Bucket을 선택하는 과정을 설명한다.
 - [충돌](/wiki/computer-science-topic-8d3fce7eee29/)에서는 서로 다른 키가 같은 위치로 모이는 경우를 구분한다.
 - [Chaining](/wiki/computer-science-topic-16b53895ae32/)은 Bucket 밖의 Node를 연결해 저장한다.
 - [개방 주소법](/wiki/computer-science-topic-beb55415c2d3/)은 배열 안에서 다른 위치를 찾아 저장한다.
@@ -54,6 +54,6 @@ Python의 `dict`·`set`, Java의 `HashMap`, C++의 `unordered_map`은 Hash 기�
 
 키 하나가 존재하는지 확인하거나 값을 빠르게 읽고 갱신할 때 Hash Table이 유용하다. 캐시, 중복 판별, 등장 횟수 세기가 그 예다. Python에서 이 차이는 [기본 문법](/wiki/programming-languages-runtime-topic-ced5bd855b7b/)의 Set과 Dict 예제로 확인할 수 있다.
 
-반대로 특정 구간의 키를 순서대로 읽어야 한다면 Hash 배치만으로는 충분하지 않다. 정렬 구조를 별도로 두거나 Tree 기반 구조를 고려해야 한다. 데이터베이스의 [Hash Index](/wiki/data-topic-6b7c2c7b29cf/)와 [인덱스](/wiki/indexes/)도 조회 조건에 따라 선택이 달라진다.
+반대로 특정 구간의 키를 순서대로 읽어야 한다면 Hash 배치만으로는 충분하지 않다. 정렬 구조를 별도로 두거나 Tree 기반 구조를 고려해야 한다. 데이터베이스의 Hash Index와 [인덱스](/wiki/indexes/)도 조회 조건에 따라 선택이 달라진다.
 
 외부 입력을 키로 받는 서비스에서는 의도적으로 충돌하는 입력도 고려한다. 특정 Bucket에 키를 몰아 처리 비용을 늘리는 공격이 가능하기 때문이다. 무작위 시드나 충돌 완화 구조는 구현별 방어 수단이며, 임의의 간단한 Hash Function을 사용했다고 같은 보호가 생기지는 않는다.

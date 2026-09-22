@@ -6,7 +6,7 @@ permalink: /wiki/platform-delivery-operations-topic-342f2ec03420/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/platform-delivery-operations-topic-342f2ec03420
-projection_sha256: 483181d2225e8dd273adf43bb404ebfc1475e80809ce687bc37d7f015dcbfdc4
+projection_sha256: 83746c7c60d7c55d400f9ecbed40c2f6d573afdadbc2b558e3ebd127f956cd1f
 parent: 클라우드
 content_status: ready
 public_parent_id: Wiki/platform-delivery-operations/cloud
@@ -16,7 +16,7 @@ grand_parent: DevOps
 # 비용 관리
 {: .no_toc }
 
-AWS 실습을 끝내고 콘솔을 닫아도 만들어 둔 서버와 저장소는 남는다. 웹 페이지가 더 이상 필요하지 않더라도 EC2, Aurora, NAT Gateway, ALB 같은 리소스는 별도로 정리해야 한다. 비용을 관리하려면 사용량을 알아차릴 방법과 만든 리소스를 다시 찾는 방법을 실습 전에 준비해야 한다.
+AWS 실습을 끝내고 콘솔을 닫아도 만들어 둔 서버와 저장소는 남는다. 웹 페이지가 더 이상 필요하지 않더라도 EC2, Aurora, NAT Gateway, ALB 같은 리소스는 별도로 정리해야 한다. 비용을 관리하려면 사용량을 확인할 방법과 만든 리소스를 다시 찾는 방법을 실습 전에 준비해야 한다.
 
 ## 알림과 지출 중단은 다르다
 

@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-e51a6ade671c/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-e51a6ade671c
-projection_sha256: 6fcd2b34ad5bd909b9792c7fb6f426831ddbdeb9cba8d4fb9ab0369fa784dcaf
+projection_sha256: 0ebe64ca9dd9a8b7738e2db9c27d8c66b59928ac4f6aa1f5be8fe0b9ca40319e
 parent: HTTP
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-http-2fe226962c51
@@ -49,11 +49,11 @@ DELETE를 파일이나 DB Row를 물리적으로 즉시 지우는 명령으로�
 
 멱등성은 같은 요청을 여러 번 수행해도 의도된 효과가 한 번 수행한 것과 같다는 성질이다. PUT이나 DELETE가 이에 해당한다. DELETE를 반복했을 때 처음에는 성공하고 다음에는 404가 나와도, 응답 코드가 달라졌다는 이유만으로 멱등성이 사라지는 것은 아니다. 결과 상태와 매번 받은 응답은 구분한다.
 
-네트워크 오류 뒤 요청을 다시 보낼 때는 이 차이가 중요하다. POST 작업에 임의로 재시도하면 같은 처리가 중복될 수 있다. 재시도를 허용하려면 요청의 의미와 서버의 중복 처리 방식을 확인해야 한다.
+네트워크 오류 뒤 요청을 다시 보낼 때는 이 차이가 중요하다. POST 작업을 임의로 재시도하면 같은 처리가 중복될 수 있다. 재시도를 허용하려면 요청의 의미와 서버의 중복 처리 방식을 확인해야 한다.
 
 예를 들어 이름을 `김`으로 지정하는 `PUT /users/42`를 세 번 보내면 의도한 최종 상태는 같다. 반면 요청마다 사용자를 생성하도록 만든 `POST /users`를 세 번 보내면 세 명이 생길 수 있다. 이는 해당 API의 처리 방식에 따른 예다. POST를 쓴다는 사실만으로 모든 요청이 반드시 중복 생성되는 것은 아니며, 서버가 중복 요청을 구분하도록 설계할 수도 있다.
 
-안전성·멱등성과 캐시 가능 여부는 따로 판단한다. GET 응답도 캐시 정책에 따라 저장하지 않을 수 있다. POST 응답은 명시적인 신선도 정보와 요청 URI에 일치하는 `Content-Location` 등 정해진 조건을 만족하면 이후 GET·HEAD에 재사용할 수 있지만, 실제 캐시의 지원 범위도 확인해야 한다. 자세한 정책은 [HTTP 캐시](/wiki/computer-systems-network-http-6165d2538d18/)에서 다룬다.
+안전성·멱등성과 캐시 가능 여부는 따로 판단한다. GET 응답도 캐시 정책에 따라 저장하지 않을 수 있다. POST 응답은 명시적인 신선도 정보와 요청 URI에 일치하는 `Content-Location` 등 정해진 조건을 만족하면 이후 GET·HEAD에 재사용할 수 있지만, 실제 캐시의 지원 범위도 확인해야 한다. 자세한 정책은 HTTP 캐시에서 다룬다.
 
 ## Query와 본문에 담는 데이터
 

@@ -6,7 +6,7 @@ permalink: /wiki/pintos-file-descriptors/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/computer-systems-network/os/pintos/file-descriptors
-projection_sha256: 01293bed488b49655ae21c6699322a81d8724ae03e4fd31e5a404b0570cd3a5e
+projection_sha256: 4885ae70ab8768d1a3e3bd85b8b99ca19f960458616f00556be0f96d83143b80
 parent: 사용자 프로그램
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-63dd07ba6393

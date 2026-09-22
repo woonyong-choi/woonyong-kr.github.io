@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-9704fa5d9e29/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-9704fa5d9e29
-projection_sha256: cd0d816221affa97e0f7a8dba69ccbd459fcc2d7ccccc1efa902622bdfe7f194
+projection_sha256: f0d44795c790059410a7e9eea6dd17bae147a56c267c937bc260a6d912ca0e4f
 parent: Tree
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-a06ebc760118
@@ -47,7 +47,7 @@ ancestor: CS 기초
 
 ## 값의 순서만 지키면 길어질 수 있다
 
-[Binary Search Tree](/wiki/computer-science-topic-7ffddbb78b30/)에서는 현재 키보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 내려간다. 서로 다른 키를 저장한다면 모든 노드에서 왼쪽 부분 트리의 키는 현재 키보다 작고 오른쪽 부분 트리의 키는 크다. 이 순서 조건만으로 트리의 모양까지 고르게 정해지지는 않는다.
+Binary Search Tree에서는 현재 키보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 내려간다. 서로 다른 키를 저장한다면 모든 노드에서 왼쪽 부분 트리의 키는 현재 키보다 작고 오른쪽 부분 트리의 키는 크다. 이 순서 조건만으로 트리의 모양까지 고르게 정해지지는 않는다.
 
 정렬된 `1, 2, 3, 4, 5`를 균형 조정 없이 삽입하면 모든 새 값이 오른쪽에 붙는다. 다음 줄의 `R`은 오른쪽 자식으로 가는 연결이다.
 

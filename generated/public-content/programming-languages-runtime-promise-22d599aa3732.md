@@ -6,7 +6,7 @@ permalink: /wiki/programming-languages-runtime-promise-22d599aa3732/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/programming-languages-runtime-promise-22d599aa3732
-projection_sha256: 72543748120276875116faa5642d04929bc7b5508acd9cdff2af55adfb6fcefe
+projection_sha256: fdf988322f5ad288f9187b6900a4df33d570dc00043d7eb387fafecf846c3950
 parent: JavaScript
 content_status: ready
 public_parent_id: Wiki/programming-languages-runtime/javascript
@@ -57,7 +57,7 @@ const getPayment = order => order
   ? Promise.resolve({ orderId: order.id, paid: true })
   : Promise.reject(new Error("주문 없음"));
 
-getUser(7)
+await getUser(7)
   .then(user => getOrders(user))
   .then(orders => getPayment(orders[0]))
   .then(payment => {
@@ -72,7 +72,7 @@ getUser(7)
   });
 ```
 
-Node.js v22.19.0 실행 결과:
+예상 출력:
 
 ```text
 결제 107: true

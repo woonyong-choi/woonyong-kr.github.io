@@ -6,7 +6,7 @@ permalink: /wiki/programming-languages-runtime-topic-2ac2dfca2dd1/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/programming-languages-runtime-topic-2ac2dfca2dd1
-projection_sha256: a32a75bec9b2bc414e5725f0603164e55261721ef4fa4fa15d75be1fc72d5b85
+projection_sha256: 6115c62c7f7a3835f740f242f6b323d63d7e53c94956e176f111aa3ad148fa56
 parent: C
 content_status: ready
 public_parent_id: Wiki/programming-languages-runtime/c
@@ -27,7 +27,7 @@ ancestor: Programming
 
 인덱스 하나를 옮길 때 필요한 크기는 `sizeof(values[0])`다. `int`가 4바이트인 환경이라면 원소 사이가 4바이트이지만, 모든 C 환경에서 `int`를 4바이트로 고정하지는 않는다. 배열의 인덱스 접근을 O(1)로 다루는 것은 시작 위치와 인덱스로 원소를 바로 찾는 계산 모델을 따른다. 실제 메모리 접근 시간에는 Cache와 주소 변환 등의 영향도 있다.
 
-다음 예제는 세 번째 원소를 포인터로 바꾼 뒤 배열로 다시 읽고, 첫 원소부터 배열 끝까지의 거리를 원소 수로 계산한다.
+다음 예제는 포인터를 통해 세 번째 원소를 바꾼 뒤 배열로 다시 읽고, 첫 원소부터 배열 끝까지의 거리를 원소 수로 계산한다.
 
 ```run-c
 #include <assert.h>

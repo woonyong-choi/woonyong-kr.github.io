@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-834a2597bdfc/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-834a2597bdfc
-projection_sha256: f91a0edf7713bbc288010b7ac12724371cc01829c122aea38f7af3f5a91bd95c
+projection_sha256: 3ceeffd9d9f9bd3728c95c3c2a3a2492665ce366a7bf814edfaa480b9fcfd809
 parent: HTTP
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-http-2fe226962c51
@@ -17,7 +17,7 @@ ancestor: CS 기초
 # 상태 코드
 {: .no_toc }
 
-HTTP 상태 코드는 요청 처리 결과를 나타내는 세 자리 숫자다. 네트워크 연결이 성공했더라도 요청한 자원이 없거나 동작을 허용하지 않으면 오류 상태를 응답할 수 있다.
+HTTP 상태 코드는 요청 처리 결과를 나타내는 세 자리 숫자다. 네트워크 연결이 성공했더라도 요청한 자원이 없거나 동작을 허용하지 않으면 오류 상태 코드로 응답할 수 있다.
 
 HTTP/1.x의 상태 라인에는 `HTTP/1.1 200 OK`처럼 사유 구문이 함께 나타난다. 프로그램이 처리 기준으로 삼을 값은 상태 코드다. 같은 코드에 붙는 문구가 같다는 보장은 없으며, HTTP/2·HTTP/3는 HTTP/1.x의 상태 라인 형식을 그대로 쓰지 않는다.
 

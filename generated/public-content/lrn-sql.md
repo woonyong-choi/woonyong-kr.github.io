@@ -6,7 +6,7 @@ permalink: /wiki/lrn-sql/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/projects/minidb
-projection_sha256: d3484f528670459bdacdf97203e57f39a88515e4276ecc5ae2ec81c14dc9f987
+projection_sha256: 0816d1de4a31495ce5939f583839074a5cc21ecb70bb994d9fc2caa5331ca2ae
 parent: Database
 content_status: ready
 public_parent_id: Wiki/data-storage
@@ -23,7 +23,7 @@ grand_parent: Data
 # SQL 엔진 구현
 {: .no_toc }
 
-`SELECT`로 요청한 행이 파일에서 돌아오기까지는 문장 해석, 실행 계획, Index 탐색과 Page 읽기가 이어진다. lrn-sql은 이 경로를 C로 구현한 학습 저장소다. SQL 문법 자체는 [SQL](/wiki/sql/)에서 다루고, 여기서는 문법이 저장 구조와 만나는 지점을 살펴본다.
+`SELECT`로 요청한 행이 파일에서 돌아오기까지는 문장 해석, 실행 계획, Index 탐색과 Page 읽기가 이어진다. lrn-sql은 이 경로를 C로 구현한 학습 저장소다. SQL 문법 자체는 SQL에서 다루고, 여기서는 문법이 저장 구조와 만나는 지점을 살펴본다.
 
 정글 팀 과제에서 출발했으며, 최우녕이 개인 주도로 대부분 직접 구현한 학습 프로젝트다. 실제 사용 가능한 실행 범위와 설치 방법은 [lrn-sql README](https://github.com/woonyong-kr/lrn-sql/blob/913de5c610250326527105eec633ef6e293af7cb/README.md)에서 확인한다.
 

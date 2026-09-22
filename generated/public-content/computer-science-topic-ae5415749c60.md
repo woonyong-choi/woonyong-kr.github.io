@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-ae5415749c60/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-ae5415749c60
-projection_sha256: 90f22bbb8d7eee934f495979ba5cdee05f37fb60aa4d42f01cc8cc4c05c6a56b
+projection_sha256: 60710e0e9668a86b4be27916046834a9f68487050da7de4df122f40c3aa185c3
 parent: Graph
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-1a8e559de264
@@ -34,10 +34,10 @@ ancestor: CS 기초
 
 ## 이웃을 찾는 비용
 
-이웃을 Python List에 담았다면 `v in adjacency[u]`는 해당 목록을 순서대로 확인한다. u의 이웃이 d개일 때 최악의 비교 횟수는 d에 비례한다. 단순 Graph에서 d는 정점 수 이하이지만, 모든 연결 확인에 항상 정점 전체를 훑는 것은 아니다.
+이웃을 Python List에 담았다면 `v in adjacency[u]`는 해당 목록을 순서대로 확인한다. u의 이웃이 d개일 때 최악의 비교 횟수는 d에 비례한다. 단순 Graph에서 d는 정점 수 이하이지만, 연결 여부를 확인할 때마다 정점 전체를 훑는 것은 아니다.
 
 반대로 u의 이웃을 전부 방문하려는 연산에서는 실제 이웃 목록만 따라가면 된다. 간선이 드문 Graph를 DFS나 BFS로 탐색할 때 적합한 이유다. 정점 수를 n, 간선 수를 m이라 하면 전체 저장 공간은 정점별 목록과 이웃 항목을 합쳐 O(n + m)이다.
 
-정점 1만 개, 무방향 간선 2만 개라면 정점별 목록 1만 개와 이웃 항목 4만 개가 필요하다. 이를 정확히 몇 바이트라고 환산하려면 List와 참조의 크기, 여유 용량 등 구현 비용을 알아야 한다. O(n + m)이라는 점근 표기를 실제 메모리 칸 수와 같다고 읽지는 않는다.
+정점 1만 개, 무방향 간선 2만 개라면 정점별 목록 1만 개와 이웃 항목 4만 개가 필요하다. 이를 바이트 단위로 정확히 환산하려면 List와 참조의 크기, 여유 용량 등 구현 비용을 알아야 한다. O(n + m)이라는 점근 표기를 실제 메모리 칸 수와 같다고 읽지는 않는다.
 
 연결 여부 확인이 더 중요하면 [인접 행렬](/wiki/computer-science-topic-914d0bd6e193/)과 비교한다. 이웃을 Hash Set에 담으면 평균적인 포함 검사 비용이 달라지지만, Hash와 충돌 처리 및 메모리 비용도 함께 고려해야 한다.

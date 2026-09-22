@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-869aa2bd6535/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-869aa2bd6535
-projection_sha256: e8f80dda1484bd8977bdeb59468a8a5bda7551a05eb5230c5d90745c5906dda6
+projection_sha256: 21fadb14d7c36cbc271205074f5dd492dab69270231003de18d85151f2c665cf
 parent: 복잡도
 content_status: ready
 public_parent_id: Wiki/computer-science/complexity
@@ -124,4 +124,4 @@ except IndexError:
 
 같은 O(n)이라도 상수 비용과 메모리 접근 방식 때문에 측정 결과는 다를 수 있다. 입력 규모가 큰 경로에서는 증가율을 먼저 보고, 실제 선택에서는 해당 입력과 환경에서 측정한 결과를 함께 사용한다.
 
-시간을 줄이는 선택이 추가 메모리를 요구할 수도 있다. Array 기반 병합 정렬의 일반적인 구현은 O(n log n)의 시간과 함께, 병합 결과를 담는 크기 n의 보조 배열에 O(n)의 추가 공간을 사용한다. 알고리즘을 비교할 때는 처리 시간뿐 아니라 이런 [공간 복잡도](/wiki/computer-science-topic-580b14bc9c8f/)도 함께 살펴야 한다.
+시간을 줄이는 선택이 추가 메모리를 요구할 수도 있다. Array 기반 병합 정렬의 일반적인 구현은 O(n log n)의 시간과 함께, 병합 결과를 담는 크기 n의 보조 배열에 O(n)의 추가 공간을 사용한다. 알고리즘을 비교할 때는 처리 시간뿐 아니라 이런 공간 복잡도도 함께 살펴야 한다.

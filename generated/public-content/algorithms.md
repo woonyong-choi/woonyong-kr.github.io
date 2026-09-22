@@ -6,7 +6,7 @@ permalink: /wiki/algorithms/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/computer-science/algorithms
-projection_sha256: d3dac7f0994740f70ab305edbeaf17f3536c9f6651ac4e309f5d988080363a53
+projection_sha256: 31676d3a67c389f5bc592c269aada43e48c8e63adf5e7bf3302c380d3f1e6d78
 parent: CS 기초
 content_status: planned
 public_parent_id: Wiki/computer-science

@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-1217820258bd/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-1217820258bd
-projection_sha256: 69c2607b220891203dc4894d978313bb80c80e46b816b6c15f3a656e2a649f7e
+projection_sha256: 954ac6a662c57f564ee16ff019db7932daa7026857e1c6a4a32637b23c8a7897
 parent: 사용자 프로그램
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-63dd07ba6393
@@ -82,7 +82,7 @@ for command in ["   ", " ".join(["x"] * 65)]:
 | non-VM | `palloc_get_page(PAL_USER \| PAL_ZERO)`로 Frame을 확보하고 `install_page()`로 writable 매핑을 설치한다. 매핑에 실패하면 확보한 Frame을 반환한다. |
 | VM | `vm_alloc_page(VM_ANON \| VM_MARKER_0, ...)`로 SPT에 등록하고 `vm_claim_page()`로 즉시 Frame과 매핑을 준비한다. `stack_bottom`에 Page의 아래쪽 주소를 기록한다. |
 
-`install_page()`는 기존 매핑이 없는지 확인한 뒤 PML4에 새 매핑을 만든다. 이때 `upage`는 사용자 가상 주소이고 `kpage`는 같은 Frame에 접근하는 Kernel 가상 주소다. 중간 Page Table이 필요하면 그 할당도 성공해야 한다. VM 경로는 인자를 곧바로 써야 하므로 초기 Stack을 미확보 상태로 남겨두지 않는다. 이후의 [스택 확장](/wiki/computer-systems-network-topic-2ca44448445b/)은 별도 Page Fault 정책을 따른다. [non-VM과 VM의 setup_stack](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/userprog/process.c#L1256)
+`install_page()`는 기존 매핑이 없는지 확인한 뒤 PML4에 새 매핑을 만든다. 이때 `upage`는 사용자 가상 주소이고 `kpage`는 같은 Frame에 접근하는 Kernel 가상 주소다. 중간 Page Table이 필요하면 그 할당도 성공해야 한다. VM 경로는 인자를 곧바로 써야 하므로 초기 Stack을 미확보 상태로 남겨두지 않는다. 이후의 스택 확장은 별도 Page Fault 정책을 따른다. [non-VM과 VM의 setup_stack](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/userprog/process.c#L1256)
 
 Page 전체의 초기값은 두 경로에서 같다고 단정할 수 없다. non-VM에는 `PAL_ZERO`가 있지만, 현재 VM의 `vm_get_frame()`은 `PAL_USER`만 전달한다. 초기 Stack의 UNINIT 경로는 `anon_initializer()`로 타입과 상태를 설정할 뿐, 별도 초기화 함수가 없을 때 Page 전체를 0으로 채우지 않는다. `anon_swap_in()`의 zero-fill 코드가 첫 UNINIT 초기화에서도 실행된다고 읽으면 안 된다. 문자열·포인터·NULL·가짜 반환 주소는 적재 코드가 직접 쓰지만, padding의 바이트 값까지 모두 0이라고 보장하는 경로는 아니다. [Frame 확보와 claim](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/vm/vm.c#L274), [UNINIT 초기화](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/vm/uninit.c#L47), [Anonymous Page 초기화](https://github.com/woonyong-kr/lrn-pintos/blob/5afaa6dc2f7e38f6178cc8fcecad8989518f2eb0/pintos/vm/anon.c#L40)
 
@@ -353,4 +353,4 @@ QEMU에서 이 주소들은 Guest 가상 주소다. TCG로 실행할 때 메모�
 | `args-dbl-space` | `two  spaces!`의 연속 공백을 건너뛰어 `argc = 3` |
 | `args-many` | `a`부터 `v`까지 22개 인자와 실행 파일 이름으로 `argc = 23` |
 
-앞의 Python 예제는 문자열 복원, Little Endian 포인터, sentinel, 최종 주소와 크기를 검증한다. 실제 `args-*` 통과 여부와 16바이트 ABI 조건, 최대 인자 경계의 Kernel 동작은 각각 따로 확인해야 한다. 실행 파일이 메모리에 놓이는 과정은 [실행 파일 적재](/wiki/computer-systems-network-topic-a6a32eb78db0/), 초기 Page 이후의 확장은 [스택 확장](/wiki/computer-systems-network-topic-2ca44448445b/)으로 이어진다.
+앞의 Python 예제는 문자열 복원, Little Endian 포인터, sentinel, 최종 주소와 크기를 검증한다. 실제 `args-*` 통과 여부와 16바이트 ABI 조건, 최대 인자 경계의 Kernel 동작은 각각 따로 확인해야 한다. 실행 파일이 메모리에 놓이는 과정은 [실행 파일 적재](/wiki/computer-systems-network-topic-a6a32eb78db0/), 초기 Page 이후의 확장은 스택 확장으로 이어진다.

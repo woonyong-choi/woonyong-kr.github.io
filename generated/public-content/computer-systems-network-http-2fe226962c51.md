@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-http-2fe226962c51/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-http-2fe226962c51
-projection_sha256: 9657703a32aaad8751054030ab74bb46e9645ee6743fd27abc045dcaeacdb5c4
+projection_sha256: 6fc5699b666a49bc43088613d0f73f7a879130ec6be0b299a5e9d795582e478e
 parent: 네트워크
 content_status: ready
 public_parent_id: Wiki/computer-systems-network/network
@@ -33,7 +33,7 @@ HTTP(Hypertext Transfer Protocol)는 클라이언트가 자원에 대한 동작�
 
 HTTP의 무상태성은 이전 요청의 애플리케이션 상태를 프로토콜이 자동으로 이어 주지 않는다는 뜻이다. 로그인 요청을 처리했다는 사실만으로 다음 요청이 누구에게서 왔는지 저절로 정해지지는 않는다.
 
-[Cookie](/wiki/backend-services-topic-caaf6d9c987c/)를 사용하면 브라우저가 저장한 값을 정해진 조건에 맞는 요청과 함께 보낼 수 있다. [Session](/wiki/backend-services-topic-769e7ac782fb/)은 일반적으로 서버가 상태를 보관하고 요청에서 전달된 식별자를 그 상태와 연결하는 방식이다. 요청 사이의 상태를 이런 별도 수단으로 관리하므로, HTTP가 무상태라고 해서 서버가 아무 상태도 보관할 수 없다는 뜻은 아니다.
+[Cookie](/wiki/backend-services-topic-caaf6d9c987c/)를 사용하면 브라우저가 저장한 값을 정해진 조건에 맞는 요청과 함께 보낼 수 있다. Session은 일반적으로 서버가 상태를 보관하고 요청에서 전달된 식별자를 그 상태와 연결하는 방식이다. 요청 사이의 상태를 이런 별도 수단으로 관리하므로, HTTP가 무상태라고 해서 서버가 아무 상태도 보관할 수 없다는 뜻은 아니다.
 
 서버를 여러 대로 늘리면 어떤 서버가 요청을 받더라도 필요한 상태에 접근할 수 있는지 확인해야 한다. Session 저장소를 공유할지, 요청을 특정 서버로 보낼지 같은 선택은 HTTP 메시지 형식과 구분되는 애플리케이션 설계다.
 

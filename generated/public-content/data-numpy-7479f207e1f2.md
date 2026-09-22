@@ -6,7 +6,7 @@ permalink: /wiki/data-numpy-7479f207e1f2/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/data-numpy-7479f207e1f2
-projection_sha256: 19626dd131a8e961446c3a3320487dd5e355bdaaf6340746733dfd96c6a46c63
+projection_sha256: 31b2b83592819e7c7b465ed00a1846d6b9e13c441c9d0cf214d4ef47a22e5165
 parent: 데이터 분석
 content_status: ready
 public_parent_id: Wiki/data/analytics
@@ -41,7 +41,7 @@ Affine의 `x.reshape(x.shape[0], -1)`은 `(N,1,28,28)`을 `(N,784)`로 펼친다
 
 두 배열의 shape를 오른쪽부터 맞추고, 각 축의 크기가 같거나 한쪽이 1이면 연산할 수 있다. 없는 왼쪽 축은 크기 1로 취급한다. `(N,D)+(D,)`는 편향을 각 행에 더하고, `(N,D)-(N,1)`은 각 행의 통계 하나를 해당 행의 모든 열에서 뺀다. 입력을 반복 복제하지 않아도 연산할 수 있지만 연산 결과 배열의 메모리는 여전히 필요하다. [NumPy broadcasting](https://numpy.org/doc/stable/user/basics.broadcasting.html)
 
-`(N,D)-(N,)`는 일반적인 행별 빼기가 아니다. N과 D가 다르고 둘 다 1이 아니면 오류가 나지만, N=D이면 오류 없이 열 방향으로 빼져 더 위험할 수 있다. `(N,1)`을 의도했는지 명시해야 한다. `keepdims=False`가 언제나 오류인 것이 아니라 우연히 맞는 크기로 잘못 계산될 수도 있다.
+`(N,D)-(N,)`는 일반적인 행별 빼기가 아니다. N과 D가 다르고 둘 다 1이 아니면 오류가 나지만, N=D이면 오류 없이 열 방향으로 뺄셈이 이루어져 더 위험할 수 있다. `(N,1)`을 의도했는지 명시해야 한다. `keepdims=False`가 언제나 오류인 것이 아니라 우연히 맞는 크기로 잘못 계산될 수도 있다.
 
 Softmax에서 각 행의 최댓값을 빼는 코드는 다음과 같은 shape로 이어진다.
 

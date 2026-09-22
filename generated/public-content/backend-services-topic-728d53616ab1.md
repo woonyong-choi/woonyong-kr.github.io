@@ -6,7 +6,7 @@ permalink: /wiki/backend-services-topic-728d53616ab1/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/backend-services-topic-728d53616ab1
-projection_sha256: 4b0b8079b0a5a250a66495df26116d21f6daa45828e70fea8f1f3ce566c6590a
+projection_sha256: aec826d40a345bb889d7e0539c5c890a139ce96496092ecea04a966f6ff8e8fa
 parent: 암호학
 content_status: ready
 public_parent_id: Wiki/security/cryptography
@@ -30,7 +30,7 @@ AES-GCM 같은 AEAD는 본문 기밀성과 무결성을 함께 다룬다. 같은
 아래 Run은 Web Crypto가 제공되는 secure context의 JavaScript/Worker 예제다. 매 실행마다 임시 키를 만들고 한 번만 암호화한다. 키를 디스크에 쓰거나 외부로 전송하지 않는다.
 
 ```run-javascript
-(async () => {
+await (async () => {
   const text = new TextEncoder();
   const key = await crypto.subtle.generateKey({name: "AES-GCM", length: 256}, false, ["encrypt", "decrypt"]);
   const iv = crypto.getRandomValues(new Uint8Array(12));

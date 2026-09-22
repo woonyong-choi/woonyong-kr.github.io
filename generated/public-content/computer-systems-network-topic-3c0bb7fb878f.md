@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-3c0bb7fb878f/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-3c0bb7fb878f
-projection_sha256: e6bb2cf3cedd98176bbfb785d3c9d7b057327ceea99c53edf70f9c89c9e5340c
+projection_sha256: 3a1af08554931fede80d208c7b737a2d24deb2c3a0dbe154eaf40cc826967a83
 parent: 네트워크 기초
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-bbc093178a91
@@ -41,6 +41,6 @@ Port 번호는 16 Bit이며 0부터 65535까지 표현할 수 있다. IANA는 �
 
 서버는 보통 `bind()`로 자신이 사용할 로컬 주소와 Port를 정한다. `127.0.0.1`에 바인딩하면 같은 호스트의 Loopback 경로로 접속하고, IPv4의 `INADDR_ANY`는 로컬 IPv4 인터페이스 전반에서 받을 주소를 지정한다. 어느 쪽이든 방화벽과 서비스의 실제 수신 상태는 별도로 확인해야 한다.
 
-소켓 API의 `bind()`에 Port 0을 주면 OS가 사용 가능한 Port를 선택한다. 이 동작은 실제 서비스가 Port 0에서 요청을 받는다는 뜻이 아니다. 선택된 번호는 `getsockname()`으로 알아낼 수 있다. [TCP](/wiki/computer-systems-network-tcp-a7f7f386cd75/)와 [UDP](/wiki/computer-systems-network-udp-c5651ad64f2d/)의 실행 예제는 이 방식을 사용해 고정된 실습 Port가 이미 사용 중인 문제를 피한다.
+소켓 API의 `bind()`에 Port 0을 주면 OS가 사용 가능한 Port를 선택한다. 이 동작은 실제 서비스가 Port 0에서 요청을 받는다는 뜻이 아니다. 선택된 번호는 `getsockname()`으로 알아낼 수 있다. [TCP](/wiki/computer-systems-network-tcp-a7f7f386cd75/)와 [UDP](/wiki/computer-systems-network-udp-c5651ad64f2d/)의 실행 예제는 이 방식을 사용해 고정된 실습 Port가 이미 사용 중이어서 생기는 문제를 피한다.
 
 소켓에서 Port를 구조체에 넣을 때는 Host Byte Order와 Network Byte Order도 구분한다. 예를 들어 C의 `sockaddr_in.sin_port`에 8080을 설정하려면 `htons(8080)`을 사용하고, 반환된 값을 숫자로 읽을 때는 `ntohs()`를 사용한다.

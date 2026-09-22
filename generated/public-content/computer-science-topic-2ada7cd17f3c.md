@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-2ada7cd17f3c/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-2ada7cd17f3c
-projection_sha256: 489b7b8427cc49f652c75f5a5dca2c423a0eefde99452a0253e5bec10f6209ff
+projection_sha256: a1f0fa448460b2725ee775353befda3e94d5c41c4877d1ddf9e4ab851aeb26ae
 parent: 정렬
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-04dc82eee0a0
@@ -97,7 +97,7 @@ flowchart TD
 
 아래 C 프로그램은 이를 숫자만 보고 판단하지 않도록 각 항목에 `key`와 `id`를 둔다. `key`가 정렬 기준이고 `id`는 정렬 전 위치다. **비교에는 `key`만 쓰며 `id`는 비교하지 않는다.** 항목 전체를 옮기므로 식별자도 키와 함께 이동한다. 출력의 `2#0`은 키가 `2`이고 원래 인덱스가 `0`인 항목이라는 뜻이다.
 
-입력 `[2#0, 1#1, 2#2, 1#3, 2#4, 1#5]`를 정렬했을 때 같은 키 `1`의 ID가 `1, 3, 5`, 같은 키 `2`의 ID가 `0, 2, 4`로 남는지 실행에서 확인한다. 모든 값이 같은 입력도 원래 ID 순서가 그대로여야 한다. 단순히 값의 개수가 같다는 것만으로 [안정성](/wiki/computer-science-topic-16ffadb31203/)을 확인한 것은 아니다.
+입력 `[2#0, 1#1, 2#2, 1#3, 2#4, 1#5]`를 정렬했을 때 같은 키 `1`의 ID가 `1, 3, 5`, 같은 키 `2`의 ID가 `0, 2, 4`로 남는지 실행에서 확인한다. 모든 값이 같은 입력도 원래 ID 순서가 그대로여야 한다. 단순히 값의 개수가 같다는 것만으로 안정성을 확인한 것은 아니다.
 
 ## 보조 배열을 확보한 뒤 정렬하기
 

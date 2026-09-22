@@ -6,7 +6,7 @@ permalink: /wiki/cloud/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/platform-delivery-operations/cloud
-projection_sha256: 7099b8009653a461f34d44275de64d9d7213672b2b3b164d3d33697eb4bccb77
+projection_sha256: e8bd1fda55da039d4d0ca82e3765b549f2179cbd3b1f0e9bbc35590daa841a15
 parent: DevOps
 content_status: ready
 public_parent_id: Wiki/platform-delivery-operations
@@ -50,7 +50,7 @@ S3 문서를 검색하는 RAG가 EC2 웹 서버 실습을 먼저 끝내야만 �
 
 행사에서 제공한 실습 계정과 개인 계정은 권한과 사용 기간이 다를 수 있다. 제공된 계정이라면 안내받은 로그인 경로와 Role을 사용하고, 개인 계정이라면 비용 알림과 Budgets를 준비한다. 실습용 브라우저 프로필을 분리하면 서로 다른 계정의 콘솔을 혼동하는 일을 줄일 수 있다.
 
-워크숍에서 지정한 리전을 확인하고 같은 실습의 리소스를 어디에 만들었는지 일관되게 관리한다. 모델이나 기능이 해당 리전을 지원하는지도 확인해야 한다. 이미 만든 리소스가 보이지 않으면 다시 생성하기 전에 계정과 리전부터 살핀다. [Region](/wiki/platform-delivery-operations-topic-92589c24d463/)과 [가용 영역](/wiki/platform-delivery-operations-topic-5f84a0b666fd/)은 서로 다른 배치 경계다.
+워크숍에서 지정한 리전을 확인하고 같은 실습의 리소스를 어디에 만들었는지 일관되게 관리한다. 모델이나 기능이 해당 리전을 지원하는지도 확인해야 한다. 이미 만든 리소스가 보이지 않으면 다시 생성하기 전에 계정과 리전부터 살핀다. Region과 가용 영역은 서로 다른 배치 경계다.
 
 가이드에 나온 이름으로 리소스를 만들 때 같은 이름의 리소스가 이미 있다면, 기존 리소스의 용도와 연결 관계를 먼저 확인한다. 이름이 같다는 이유만으로 이전 실습의 찌꺼기라고 판단해 삭제하지 않는다. 접근 권한의 기본 구조는 [IAM](/wiki/platform-delivery-operations-iam-5c7a5ae7d73b/)에서 다룬다.
 

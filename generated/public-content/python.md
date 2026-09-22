@@ -6,7 +6,7 @@ permalink: /wiki/python/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/programming-languages-runtime/python
-projection_sha256: f23102b6559631f049ad2869eebd46988163afeda0f2accb213aca44e37d83a5
+projection_sha256: 48e23ba9570228e78d1a4b160ce592c5927b01a1018e9a5a95a6edf2c33d5158
 parent: 프로그래밍 언어
 content_status: ready
 public_parent_id: Wiki/keywords/programming-languages-runtime-topic-91f4e521b7e6
@@ -74,4 +74,4 @@ finally:
 
 CPython 3.13.13에서 위 변화와 순환 회수를 확인했다. `sys.getrefcount()` 자체의 임시 참조와 Immortal 객체 등 구현상의 조건 때문에 임의 객체의 출력값을 정확한 소유자 수로 해석하지 않는다. 예제는 새로 만든 보통 객체의 변화를 비교한다. [getrefcount의 한계](https://docs.python.org/3/library/sys.html#sys.getrefcount)
 
-수집 세대와 임계값도 버전·빌드의 설정이다. 현재 값은 `gc.get_threshold()`로 확인하고 해당 버전의 문서와 함께 읽는다. 정해진 할당 횟수가 곧 동일한 실행 시점이나 정지 시간을 뜻하지는 않는다. Python 언어 전체가 참조가 사라진 즉시 객체를 회수한다고 보장하지 않으므로, 파일 등은 [Context Manager](/wiki/programming-languages-runtime-topic-0322526b0594/)와 명시적인 종료로 관리한다.
+수집 세대와 임계값도 버전·빌드의 설정이다. 현재 값은 `gc.get_threshold()`로 확인하고 해당 버전의 문서와 함께 읽는다. 정해진 할당 횟수가 곧 동일한 실행 시점이나 정지 시간을 뜻하지는 않는다. Python 언어 전체가 참조가 사라진 즉시 객체를 회수한다고 보장하지 않으므로, 파일 등은 Context Manager와 명시적인 종료로 관리한다.

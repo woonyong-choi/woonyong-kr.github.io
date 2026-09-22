@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-0865c05ef97a/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-0865c05ef97a
-projection_sha256: 03d0b877efb255ce1b7131cbcc150da56ffd2ec90810dd472f5c36204e037383
+projection_sha256: cd2075acd3fa611aa2db8a8ec8b4e8f8a83c903a244d2f4bf41667fde2bd84fa
 parent: 정렬
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-04dc82eee0a0
@@ -298,7 +298,7 @@ all checks passed
 
 이 입력에서는 어느 위치를 피벗으로 골라도 값이 `7`이다. 따라서 무작위 피벗도 이 Lomuto 구현의 치우침을 해결하지 못한다. `<`를 단순히 `<=`로 바꾸면 같은 값이 왼쪽으로 몰릴 뿐이다. 같은 값이 많은 입력을 다루려면 작은 값·같은 값·큰 값을 따로 모으는 **3-way 파티션**처럼 분할 방법을 바꿀 수 있다. [Quicksort의 중복 키와 3-way 설명](https://algs4.cs.princeton.edu/23quicksort/)은 그 대안을 다룬다. 그 페이지의 양방향 스캔 구현과 여기의 Lomuto 구현은 같지 않으므로, 같은 값 입력에서의 성능도 그대로 옮겨 해석하면 안 된다.
 
-같은 값의 개수를 보존하는 것과 원래 순서를 보존하는 것도 다르다. 값이 `2`인 두 항목에 구분 표시 `A`, `B`를 붙여 `[2_A, 1, 2_B]`를 손으로 따라가 보자. `1`을 왼쪽으로 옮기면 `[1, 2_A, 2_B]`가 되고, 마지막 피벗 교환으로 `[1, 2_B, 2_A]`가 된다. 피벗 양쪽에 원소가 하나씩만 남아 정렬이 끝나므로 두 항목의 상대 순서는 뒤집힌 채 유지된다. 이렇게 같은 정렬 키의 원래 순서를 보장하지 못하므로 이 구현은 [안정 정렬](/wiki/computer-science-topic-16ffadb31203/)이 아니다. 정수만 출력한 결과에서는 같은 값끼리의 구분이 보이지 않는다.
+같은 값의 개수를 보존하는 것과 원래 순서를 보존하는 것도 다르다. 값이 `2`인 두 항목에 구분 표시 `A`, `B`를 붙여 `[2_A, 1, 2_B]`를 손으로 따라가 보자. `1`을 왼쪽으로 옮기면 `[1, 2_A, 2_B]`가 되고, 마지막 피벗 교환으로 `[1, 2_B, 2_A]`가 된다. 피벗 양쪽에 원소가 하나씩만 남아 정렬이 끝나므로 두 항목의 상대 순서는 뒤집힌 채 유지된다. 이렇게 같은 정렬 키의 원래 순서를 보장하지 못하므로 이 구현은 안정 정렬이 아니다. 정수만 출력한 결과에서는 같은 값끼리의 구분이 보이지 않는다.
 
 ## 분할의 균형과 호출 깊이
 
@@ -324,7 +324,7 @@ Lomuto 파티션 자체는 새 배열을 만들지 않고 상수 개의 변수�
 
 무작위 피벗은 이미 정렬된 입력에서 맨 끝 값만 계속 고르는 규칙을 벗어나게 한다. 하지만 이번 예제의 `rand() % 폭`은 **균등 선택을 보장하는 구현이 아니다**. `rand()`의 가능한 값 개수가 폭으로 나누어떨어지지 않으면 나머지별로 대응하는 값의 수가 달라지고, 폭이 `RAND_MAX + 1`보다 크면 선택할 수 없는 위치도 생긴다. 난수열 자체의 성질도 C 라이브러리에 달려 있다. [GNU C Library의 ISO C Random Number Functions](https://sourceware.org/glibc/manual/latest/html_node/ISO-Random.html)는 `rand`의 반환 범위와 `srand`의 역할을 설명한다. 따라서 위 실행을 균등 무작위 모델의 기대 성능 증거로 쓰지 않는다.
 
-첫·중간·끝 값 중 중앙값을 피벗으로 쓰는 **median-of-three**도 선택지다. 이는 세 표본의 중앙값이지 구간 전체의 중앙값은 아니므로, 언제나 반으로 나뉘거나 최악 시간이 사라진다고 보장하지 않는다. 작은 구간에서 [삽입 정렬](/wiki/computer-science-topic-2e933dffbb75/)로 전환해 호출 비용을 줄이는 방법도 있다. [Quicksort의 개선 방법](https://algs4.cs.princeton.edu/23quicksort/)은 두 기법을 소개한다. 둘 다 위 C 프로그램에는 적용하지 않았다.
+첫·중간·끝 값 중 중앙값을 피벗으로 쓰는 **median-of-three**도 선택지다. 이는 세 표본의 중앙값이지 구간 전체의 중앙값은 아니므로, 언제나 반으로 나뉘거나 최악 시간이 사라진다고 보장하지 않는다. 작은 구간에서 삽입 정렬로 전환해 호출 비용을 줄이는 방법도 있다. [Quicksort의 개선 방법](https://algs4.cs.princeton.edu/23quicksort/)은 두 기법을 소개한다. 둘 다 위 C 프로그램에는 적용하지 않았다.
 
 실제 정렬을 선택할 때는 필요한 보장을 먼저 구분한다. [병합 정렬](/wiki/computer-science-topic-2ada7cd17f3c/)은 최악 `O(n log n)`이며, 병합 중 같은 키는 왼쪽 항목부터 선택하면 안정성을 유지할 수 있다. [Heap Sort](/wiki/computer-science-topic-b526fbd435ec/)도 최악 `O(n log n)`이지만 일반적인 제자리 구현은 안정 정렬이 아니다. 퀵 정렬의 분할 깊이가 커지면 힙 정렬로 전환하는 introsort는 최악 시간을 보완하는 결합 방법이다. 이때도 안정성은 따로 확인해야 한다.
 

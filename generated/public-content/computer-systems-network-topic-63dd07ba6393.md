@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-63dd07ba6393/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-63dd07ba6393
-projection_sha256: a9f1fd70ce23b8bfb9b8278fba8de5ff042d7a2eb455565645c4b671142c044f
+projection_sha256: 18a5f5fac06715eaa553f4602c5b1609862782aa453d48fc24c6ff9537a814d0
 parent: PintOS
 content_status: planned
 public_parent_id: Wiki/projects/pintos

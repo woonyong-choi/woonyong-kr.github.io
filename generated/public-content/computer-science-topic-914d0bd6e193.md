@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-914d0bd6e193/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-914d0bd6e193
-projection_sha256: e88298ee4729af9d0eedb7ee1a6869d453c5d231d0e0c1d618e2897123f8364e
+projection_sha256: 1bd324192f06ec3bbd8e58cd6b7d798cca9b66668938d55ba6b3a18ed4dc61ec
 parent: Graph
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-1a8e559de264
@@ -33,7 +33,7 @@ ancestor: CS 기초
 0의 행:  0  1  1  0  0
 ```
 
-1과 2 열에만 1이 있으므로 정점 0은 1, 2와 직접 연결돼 있다. 정점 3으로 가는 경로가 있더라도 0에서 3으로 향하는 간선이 없다면 해당 칸은 0이다. 직접 연결과 여러 간선을 거치는 경로는 구분해야 한다.
+열 1과 2에만 1이 있으므로 정점 0은 1, 2와 직접 연결돼 있다. 정점 3으로 가는 경로가 있더라도 0에서 3으로 향하는 간선이 없다면 해당 칸은 0이다. 직접 연결과 여러 간선을 거치는 경로는 구분해야 한다.
 
 무방향 Graph에서는 `matrix[u][v]`와 `matrix[v][u]`가 같다. 방향 Graph에는 이런 대칭을 가정하지 않는다. 대각선은 정점에서 자기 자신으로 향하는 간선을 나타낼 수 있으며, 자기 간선을 허용하지 않는 위 예제에서는 모두 0이다.
 

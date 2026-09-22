@@ -6,7 +6,7 @@ permalink: /wiki/ai-machine-learning-topic-2095b58a805d/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/ai-machine-learning-topic-2095b58a805d
-projection_sha256: 04fdc5170ade8afb96ae462ccf8d3a008c402651c231a8f72a902417d6c3c36b
+projection_sha256: 1689d2c2cb0803a5a57fae19c9e958adddc6fddad7804fbd40e659b66b9f2fa1
 parent: AI 애플리케이션
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning/applications
@@ -48,7 +48,7 @@ Few-shot
 
 ## 예시를 늘릴 때 무엇이 달라지는가
 
-예시의 레이블 분포·순서·난이도는 모델의 응답에 영향을 줄 수 있다. 예시가 많아지면 문맥과 처리 비용을 사용하고 실제 입력에 남는 길이가 줄어든다. 쉬운 예시만 넣거나 한쪽 라벨만 반복하면 의도한 과업보다 좁은 패턴을 보여 줄 수 있다. 예시 수를 늘리기 전에 지시가 모호한지, 라벨 정의가 일관되는지부터 확인한다.
+예시의 레이블 분포·순서·난이도는 모델의 응답에 영향을 줄 수 있다. 예시가 많아지면 문맥을 차지하고 처리 비용이 들며, 실제 입력에 남는 길이가 줄어든다. 쉬운 예시만 넣거나 한쪽 라벨만 반복하면 의도한 과업보다 좁은 패턴을 보여 줄 수 있다. 예시 수를 늘리기 전에 지시가 모호한지, 라벨 정의가 일관되는지부터 확인한다.
 
 비교할 때는 모델 버전, prompt 전체, 예시 선정 절차, 평가 데이터, sampling 설정을 고정하거나 변경 내역을 기록한다. 한 문장에 답이 출력된 것과 새로운 입력에서 안정적으로 동작하는 것은 다른 수준의 근거다.
 

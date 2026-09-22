@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-1a8e559de264/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-1a8e559de264
-projection_sha256: 719fabfad2818800b7d9cd6afd2a10774465e1d45e0e4bb1a4dbe2e475a9f994
+projection_sha256: ad20eeb417f7a2c8bb49a42c0aaa752562042a698e3b2b760e9ea679b51ea191
 parent: 자료구조
 content_status: ready
 public_parent_id: Wiki/computer-science/data-structures
@@ -38,7 +38,7 @@ Graph는 정점 집합 V와 간선 집합 E로 설명한다. 코드에서는 정
 | 가중치 없음 | 연결의 존재 | 두 역 사이에 구간이 있다 |
 | 가중치 있음 | 간선에 붙은 거리·비용 등의 값 | 구간의 이동 시간이 4분이다 |
 
-[정점](/wiki/computer-science-topic-30fe25823931/)과 [간선](/wiki/computer-science-topic-4ee7a0ead882/)은 관계를 구성하는 요소이고, [Directed Graph](/wiki/computer-science-topic-84cc10349ebb/)는 방향이 있는 연결을 다룬다.
+정점과 간선은 관계를 구성하는 요소이고, Directed Graph는 방향이 있는 연결을 다룬다.
 
 ## 같은 연결을 두 가지 방식으로 저장하기
 

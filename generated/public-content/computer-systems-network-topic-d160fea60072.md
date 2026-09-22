@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-d160fea60072/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-d160fea60072
-projection_sha256: 7f5777162f83168f85c6eebf421382d668b5acc3662e105dce1c2be515164969
+projection_sha256: c1f211d3878c231a478568cad80a0d8d28ff53f07366f396fdcad65bf7a7264e
 parent: OS
 content_status: ready
 public_parent_id: Wiki/computer-systems-network/os
@@ -25,7 +25,7 @@ ancestor: CS 기초
 # 메모리 관리
 {: .no_toc }
 
-OS의 메모리 관리는 프로그램이 사용할 주소를 정하고, 실제 공간을 배정하며, 필요하지 않은 공간을 회수하는 일로 이어진다. [주소 공간](/wiki/computer-systems-network-topic-3521ee6344f1/)은 프로그램이 어떤 주소를 사용할 수 있는지 설명하고, [가상 메모리](/wiki/computer-systems-network-topic-1cf0821635df/)는 그 주소와 물리 메모리의 관계를 다룬다.
+OS의 메모리 관리는 프로그램이 사용할 주소를 정하고, 실제 공간을 배정하며, 필요하지 않은 공간을 회수하는 일로 이어진다. [주소 공간](/wiki/computer-systems-network-topic-3521ee6344f1/)은 프로그램이 어떤 주소를 사용할 수 있는지 설명하고, 가상 메모리는 그 주소와 물리 메모리의 관계를 다룬다.
 
 이때 ‘메모리가 남는다’는 사실만으로 모든 요청을 처리할 수 있는 것은 아니다. 먼저 어느 단위로 공간을 나누고 어떤 연속성을 요구하는지 살펴보면, 할당 실패와 공간 낭비를 구체적으로 설명할 수 있다.
 

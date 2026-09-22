@@ -6,7 +6,7 @@ permalink: /wiki/platform-delivery-operations-topic-f3ba65e8d3b9/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/platform-delivery-operations-topic-f3ba65e8d3b9
-projection_sha256: 3c77049f4d3b23bedde301d9267198574ec762bb84153e4dca24f5466d53829b
+projection_sha256: a16b39a1731bda39ef0d33bb587071bf18e0d00a0140d1c0894710fcaa38ebf8
 parent: 클라우드
 content_status: ready
 public_parent_id: Wiki/platform-delivery-operations/cloud
@@ -24,7 +24,7 @@ AWS에서는 EC2 Instance가 애플리케이션을 실행한다. Application Loa
 
 새 Instance를 만들 때마다 패키지와 애플리케이션을 수동 설치하면 서버마다 설정이 달라지기 쉽다. AMI(Amazon Machine Image)는 서버의 디스크 상태를 바탕으로 Instance를 시작할 이미지를 제공한다. Launch Template은 그 AMI와 함께 Instance Type, Security Group, IAM Instance Profile 등의 생성 설정을 묶는다. AMI가 설치된 파일을 담는다면, Launch Template은 그 이미지로 어떤 Instance를 만들지 정한다.
 
-다음 구성은 AWS 실습 기록에 남은 값으로 역할을 구분하는 예다. 현재 계정에서 생성하거나 부하를 측정한 결과는 아니며, `t2.micro`의 사용 가능 여부와 요금은 실행할 Region과 계정에서 별도로 확인해야 한다.
+다음 예에서는 AWS 실습 기록에 남은 설정값으로 각 리소스의 역할을 설명한다. 현재 계정에서 생성하거나 부하를 측정한 결과는 아니며, `t2.micro`의 사용 가능 여부와 요금은 실행할 Region과 계정에서 별도로 확인해야 한다.
 
 ## 원본 EC2에서 AMI 만들기
 
@@ -47,7 +47,7 @@ AWS에서는 EC2 Instance가 애플리케이션을 실행한다. Application Loa
 
 User Data에서는 웹 서버 패키지를 설치하고 실습 애플리케이션 ZIP을 받은 뒤 Apache HTTP Server를 시작한다. 원본 기록에는 ZIP의 실제 배포 주소와 전체 스크립트가 없으므로 그대로 실행할 완성 명령으로 제시하지 않는다. EC2가 실행 중이어도 이 과정이 실패하면 웹 페이지는 열리지 않는다. System Log, `/var/log/cloud-init-output.log`, HTTP Server 상태를 살펴 설치 실패와 서비스 실행 실패를 구분한다.
 
-웹 서버가 의도한 페이지를 응답하면 이름이 `Web Server v1`, 설명이 `LAMP web server AMI`인 AMI를 만든다. 이후 Instance는 이 이미지의 파일 상태에서 시작한다. AMI를 만든 뒤 원본 서버에서 수정한 파일이 기존 AMI에 자동으로 반영되지는 않는다.
+웹 서버가 의도한 페이지를 반환하면 이름이 `Web Server v1`, 설명이 `LAMP web server AMI`인 AMI를 만든다. 이후 Instance는 이 이미지의 파일 상태에서 시작한다. AMI를 만든 뒤 원본 서버에서 수정한 파일이 기존 AMI에 자동으로 반영되지는 않는다.
 
 ## 외부 요청을 받는 ALB
 

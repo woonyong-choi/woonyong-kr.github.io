@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-63adab3bfc7e/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-63adab3bfc7e
-projection_sha256: a210eb91bb9362f701db481b448e31877998ef1d8711e10d770c3bc4e9ef82d2
+projection_sha256: 0e654df90739ca2396c53446a5a80dadf543fb482025e8420470d274e1cf0dfc
 parent: 파일 시스템
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-2f8a1e4d5189
@@ -120,7 +120,7 @@ ext4는 JBD2를 이용해 저널을 관리한다. 내부 저널은 보통 inode 
 
 Descriptor Block은 뒤따르는 변경 블록을 원래 어느 위치에 쓸지 설명한다. Commit Block은 해당 트랜잭션을 완성된 것으로 식별하는 기록이다. Revoke Record는 복구 때 이전 로그를 특정 블록에 다시 적용하지 않도록 하는 정보다. Revoke를 언제나 커밋 뒤에 추가하는 단계처럼 그리거나, 두 버전 중 새 버전을 표시하는 단순한 덮어쓰기 표식으로 설명하지 않는다.
 
-JBD2의 디스크 필드는 Big Endian이며, ext4의 다른 Metadata와 바이트 순서가 다르다. 저널을 직접 분석할 때는 매직과 블록 타입만 아니라 UUID, Sequence와 활성 Checksum 형식까지 확인해야 한다. [JBD2의 로그 형식](https://www.kernel.org/doc/html/latest/filesystems/ext4/journal.html)
+JBD2의 디스크 필드는 Big Endian이며, ext4의 다른 Metadata와 바이트 순서가 다르다. 저널을 직접 분석할 때는 매직과 블록 타입뿐 아니라 UUID, Sequence와 활성 Checksum 형식까지 확인해야 한다. [JBD2의 로그 형식](https://www.kernel.org/doc/html/latest/filesystems/ext4/journal.html)
 
 JBD2의 Handle은 한 작업이 변경할 수 있는 버퍼 수를 Credit으로 예약한다. 여러 작업이 하나의 커밋 트랜잭션으로 묶일 수 있으므로 `write()` 호출 하나가 곧 Commit Block 하나라는 관계는 성립하지 않는다. ext4의 Superblock 초기화와 복구 경로, JBD2의 `jbd2_journal_commit_transaction()`은 파일 시스템 작업과 실제 저널 쓰기를 연결하는 구현 지점이다. [Linux Journalling API](https://www.kernel.org/doc/html/latest/filesystems/journalling.html)
 

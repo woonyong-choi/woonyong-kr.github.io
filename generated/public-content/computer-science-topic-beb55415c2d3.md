@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-beb55415c2d3/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-beb55415c2d3
-projection_sha256: a9516ef47b1e6a394653d348eaa7d27646177b060761710ff4d8c55918f95a2d
+projection_sha256: aa41bbde0fa9124328a61f003319419ae518f6d604f1fcb51e01b3e0ad74dc63
 parent: Hash Table
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-c3f2953a97c2
@@ -34,7 +34,7 @@ Bucket이 8개이고 정수 키의 시작 위치를 `key % 8`로 정한다고 �
 
 1번 위치에서 키 1을 지운 뒤 그 칸을 일반 빈칸으로 바꾸면, 9를 조회할 때 1번에서 탐색을 멈춰 버린다. 실제로 9는 2번에 있는데 찾지 못하는 것이다. 삭제 표시인 Tombstone을 남기면 그 위치를 지나 다음 칸도 확인할 수 있다.
 
-아래 예제는 `EMPTY`와 `DELETED`를 서로 다른 객체로 구분한다. 저장할 때 삭제된 자리를 기억해 두되, 같은 키가 뒤쪽에 이미 있는지 계속 확인한다. 바로 삭제 자리에 넣어 버리면 기존 키의 값을 갱신하는 대신 같은 키를 두 군데 저장할 수 있기 때문이다.
+아래 예제는 `EMPTY`와 `DELETED`를 서로 다른 객체로 구분한다. 저장할 때 삭제된 자리를 기억해 두되, 같은 키가 뒤쪽에 이미 있는지 계속 확인한다. 바로 삭제된 자리에 넣어 버리면 기존 키의 값을 갱신하는 대신 같은 키를 두 군데에 저장할 수 있기 때문이다.
 
 ```run-python
 EMPTY = object()

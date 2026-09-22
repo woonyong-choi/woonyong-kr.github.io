@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-a4ead10ed55a/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-a4ead10ed55a
-projection_sha256: 3d96766fcc5c88d2a36ccf111ecd2f9d059900649dc87d921589baa34ae9e18a
+projection_sha256: 8a68fde632fe721111635dcbf4a1909e80cfb01fece23ee74d4c984ecb6a4981
 parent: Hash Table
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-c3f2953a97c2
@@ -22,7 +22,7 @@ ancestor: CS 기초
 # Hash Function
 {: .no_toc }
 
-문자열 `cat`을 배열에 저장하려면 먼저 어느 칸을 사용할지 정해야 한다. 문자열을 일정한 크기의 값으로 계산하는 Hash Function과, 그 값을 배열 범위 안의 Bucket 번호로 줄이는 계산이 이 역할을 나눠 맡는다. 입력한 키, 계산한 Hash 값, 최종 Bucket 번호를 구분해 보자.
+문자열 `cat`을 배열에 저장하려면 먼저 어느 칸을 사용할지 정해야 한다. 문자열을 일정한 크기의 값으로 바꾸는 Hash Function과, 그 값을 배열 범위 안의 Bucket 번호로 줄이는 계산이 이 역할을 나눠 맡는다. 입력한 키, 계산한 Hash 값, 최종 Bucket 번호를 구분해 보자.
 
 ## Hash 값과 배열 위치를 구분하기
 

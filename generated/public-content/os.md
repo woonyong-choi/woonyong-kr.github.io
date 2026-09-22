@@ -6,7 +6,7 @@ permalink: /wiki/os/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/computer-systems-network/os
-projection_sha256: f95288036f915fb5ec0e86eb7e2fa70050fe807454d70047e7b0eecb0d960971
+projection_sha256: 8e7e9ac108bcccfcba548ce449af9caaf24679af2f7168dd2e479adc5e4464b1
 parent: Systems
 content_status: ready
 public_parent_id: Wiki/computer-systems-network
@@ -26,7 +26,7 @@ CPU 시간, 메모리, 저장 장치와 네트워크는 한 프로그램만의 �
 
 파일의 이름과 offset도 저장 장치의 실제 배치를 대신하는 인터페이스다. [파일 시스템](/wiki/computer-systems-network-topic-2f8a1e4d5189/)은 이름에서 파일의 내용을 찾고, 구현에 따라 장치·네트워크·커널 정보로 요청을 연결한다. 파일 API가 있다고 모든 읽기가 물리 디스크에 도달하는 것은 아니다.
 
-CPU 시간을 나누는 일은 [프로세스와 스레드](/wiki/computer-systems-network-topic-63b969bafddd/)의 실행 상태와 [Scheduling](/wiki/computer-systems-network-topic-80c365ceda9a/)으로 이어진다. 실행 중인 프로그램이 자발적으로 양보하지 않아도 선점할 수 있지만, 타이머 인터럽트가 올 때마다 반드시 다른 Thread로 바뀌지는 않는다. 다음 대상을 고르는 조건과 실제 전환을 구분해야 한다.
+CPU 시간을 나누는 일은 [프로세스와 스레드](/wiki/computer-systems-network-topic-63b969bafddd/)의 실행 상태와 Scheduling으로 이어진다. 실행 중인 프로그램이 자발적으로 양보하지 않아도 선점할 수 있지만, 타이머 인터럽트가 올 때마다 반드시 다른 Thread로 바뀌지는 않는다. 다음 대상을 고르는 조건과 실제 전환을 구분해야 한다.
 
 OS가 없는 프로그램도 실행할 수 있다. Bare Metal 프로그램은 장치 초기화와 실행에 필요한 기능을 직접 포함하거나 라이브러리를 이용한다. 여러 프로그램을 함께 실행할 때는 자원을 나누는 규칙과 서로의 실행을 보호할 경계가 추가로 필요하다.
 

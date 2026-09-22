@@ -6,7 +6,7 @@ permalink: /wiki/platform-delivery-operations-shell-3c0005980dcf/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/platform-delivery-operations-shell-3c0005980dcf
-projection_sha256: b51713b3616356ce466e6503baaf8765b76a425bfaf6f6a491bf75ce1b80a98d
+projection_sha256: 7677469bd9bdc6284a4405bfc923836fb9fa9cbed5cc656ee99b49b934e9acd7
 parent: Linux
 content_status: ready
 public_parent_id: Wiki/platform-delivery-operations/linux

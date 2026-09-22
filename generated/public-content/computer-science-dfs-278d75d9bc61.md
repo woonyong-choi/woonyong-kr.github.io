@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-dfs-278d75d9bc61/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-dfs-278d75d9bc61
-projection_sha256: 484775896e40c099a8ae6eb4895a42b5996e9a8d1df7691cd51e12d9470a4b63
+projection_sha256: d39606cb8ab8635b79a59abbfc85c59e8547f15be504c68b965b9b966ec3b4ec
 parent: 그래프 알고리즘
 content_status: ready
 public_parent_id: Wiki/keywords/computer-science-topic-f8706f61ab70
@@ -56,7 +56,7 @@ DFS(Depth-First Search, 깊이 우선 탐색)는 **한 갈래를 더 갈 수 없
 
 명시적인 [Stack](/wiki/computer-science-topic-39fd55620efd/)으로 같은 순서를 만들려면, 정점과 다음 이웃의 위치를 함께 저장할 수 있다. 아래 `Frame.vertex`는 현재 정점이고 `Frame.next`는 다음에 확인할 이웃의 인덱스다. 이웃 하나로 내려갈 때 Frame을 넣고, 그 정점의 이웃을 모두 확인했을 때 꺼낸다. 이는 이웃 순회 위치를 기억하는 반복 DFS의 한 형태다. [반복 DFS에서 이웃 순회 위치 보존](https://algs4.cs.princeton.edu/41graph/NonrecursiveDFS.java.html)
 
-이웃을 한꺼번에 Stack에 넣는 구현과는 다르다. 작은 번호부터 넣으면 LIFO 때문에 큰 번호를 먼저 꺼낸다. 또한 꺼낼 때 방문 표시를 하는 방식에서는 같은 정점이 여러 후보로 쌓일 수 있어, 정점 수만큼의 Stack 공간으로 충분하다고 단정할 수 없다. 방문 표시를 넣는 시점으로 옮기는 것만으로 재귀와 같은 DFS 순서나 탐색 트리가 보장되는 것도 아니다. 아래 구현은 미방문 이웃 **하나**를 발견할 때 바로 표시하고 내려가므로, 재귀와 같은 인접 목록 순서를 유지하며 각 정점의 Frame을 한 번만 넣는다. [반복 DFS의 순서와 중복 후보](https://algs4.cs.princeton.edu/41graph/)
+이웃을 한꺼번에 Stack에 넣는 구현과는 다르다. 작은 번호부터 넣으면 LIFO 때문에 큰 번호를 먼저 꺼낸다. 또한 꺼낼 때 방문 표시를 하는 방식에서는 같은 정점이 여러 후보로 쌓일 수 있어, 정점 수만큼의 Stack 공간으로 충분하다고 단정할 수 없다. 방문 표시를 정점을 넣을 때 하도록 바꾸는 것만으로 재귀와 같은 DFS 순서나 탐색 트리가 보장되는 것도 아니다. 아래 구현은 미방문 이웃 **하나**를 발견할 때 바로 표시하고 내려가므로, 재귀와 같은 인접 목록 순서를 유지하며 각 정점의 Frame을 한 번만 넣는다. [반복 DFS의 순서와 중복 후보](https://algs4.cs.princeton.edu/41graph/)
 
 ## C로 재귀와 반복 비교하기
 

@@ -6,7 +6,7 @@ permalink: /wiki/applications/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/ai-machine-learning/applications
-projection_sha256: 079d9c88b8ec7612567796cd5b7d137d0f81a522208dbb861d97b396c2426bed
+projection_sha256: af97a7c04f4075b6b630b68f804b0361b810868954aa3d6e2d663e0b16dc266c
 parent: AI
 content_status: planned
 public_parent_id: Wiki/ai-machine-learning

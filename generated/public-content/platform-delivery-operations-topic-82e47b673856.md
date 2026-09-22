@@ -6,7 +6,7 @@ permalink: /wiki/platform-delivery-operations-topic-82e47b673856/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/platform-delivery-operations-topic-82e47b673856
-projection_sha256: bdac17e4e1c528b943ac8569cde5303c6f99595c26e263d68bb37c4de7f7cf33
+projection_sha256: b9ae0cc061c02bfe6ba8723cf6d023f4453e281f0bcc10eabd23ec64658b1ce9
 parent: 클라우드
 content_status: ready
 public_parent_id: Wiki/platform-delivery-operations/cloud
@@ -126,4 +126,4 @@ Private EC2에서 패키지를 설치하지 못한다면 **Private Subnet의 Rou
 
 ALB에서 웹 서버로 요청이 전달되지 않을 때는 Public과 Private에 따로 배치했다는 사실을 오류로 보지 않는다. Target Group의 등록 대상·포트·Health Check 상태와 ALB에서 서버로 향하는 Security Group 규칙을 확인한다. 이 단계는 [컴퓨팅](/wiki/platform-delivery-operations-topic-f3ba65e8d3b9/)의 ALB·Auto Scaling 구성으로 이어진다.
 
-주소와 Subnet의 원리는 [IP](/wiki/computer-systems-network-ip-cf75ea1b870d/)와 [Subnet](/wiki/computer-systems-network-topic-b22c5b028bc2/), 연결과 이름 해석은 [TCP](/wiki/computer-systems-network-tcp-a7f7f386cd75/)와 [DNS](/wiki/computer-systems-network-dns-c7fd180532b4/)에서 이어서 다룬다. DB의 Private 배치와 연결 오류는 [Aurora](/wiki/aurora/), NAT·Elastic IP 등을 실습 뒤 제거하는 순서는 [비용 관리](/wiki/platform-delivery-operations-topic-342f2ec03420/)에 정리한다.
+주소와 Subnet의 원리는 [IP](/wiki/computer-systems-network-ip-cf75ea1b870d/)와 Subnet, 연결과 이름 해석은 [TCP](/wiki/computer-systems-network-tcp-a7f7f386cd75/)와 [DNS](/wiki/computer-systems-network-dns-c7fd180532b4/)에서 이어서 다룬다. DB의 Private 배치와 연결 오류는 [Aurora](/wiki/aurora/), NAT·Elastic IP 등을 실습 뒤 제거하는 순서는 [비용 관리](/wiki/platform-delivery-operations-topic-342f2ec03420/)에 정리한다.

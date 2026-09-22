@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-swap-11630540adf8/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-swap-11630540adf8
-projection_sha256: dc3ff6907a67ae89517e3b98afe7eb98b879f84ad801fcbc883bede16bbfb431
+projection_sha256: e6b307288c6f73bd4bc21c825d71416369044c0f9ce66d333a51313a54c8dff6
 parent: 가상 메모리 구현
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-83f24986336f

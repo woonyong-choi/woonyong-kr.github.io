@@ -6,7 +6,7 @@ permalink: /wiki/programming-languages-runtime-topic-ced5bd855b7b/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/programming-languages-runtime-topic-ced5bd855b7b
-projection_sha256: 9e61a31da49dbc81946402b3bc92a6cc5f3761c277698fc2818a4b5322b405f0
+projection_sha256: 8fa430f32c49918895a1c1b3b0f37d7fc86fed612e573282627b2470ad200a39
 parent: Python
 content_status: ready
 public_parent_id: Wiki/programming-languages-runtime/python
@@ -78,7 +78,7 @@ print("미리 만든 상태:", flags)
 
 `[True] * len(values)`는 각 위치의 상태를 기록할 때 쓸 수 있다. 여기서 반복하는 `bool`은 불변 값이다. 안쪽 List처럼 변경 가능한 객체를 반복하면 같은 객체를 여러 위치에서 참조하므로 별도로 생성해야 한다. 바깥 List와 안쪽 객체를 따로 복사하는 이유는 아래의 복사 예제에서 확인한다. [List의 변경과 복사](https://docs.python.org/3/tutorial/datastructures.html#more-on-lists)
 
-Type Hint에는 `list[int]`, `list[tuple[int, int]]`처럼 대괄호를 쓴다. `list<tuple<int, int>>` 형태는 Python의 Type Hint 문법이 아니다. Python 3.9 이상에서는 내장 타입을 이렇게 표기할 수 있으며, 표기가 List의 항목 수를 미리 확보하거나 실행 중 타입을 강제하지는 않는다. 자세한 타입 표기는 [Type Hint](/wiki/programming-languages-runtime-topic-044a40a120f8/)에서 다룬다. [Generic Alias](https://docs.python.org/3/library/stdtypes.html#types-genericalias)
+Type Hint에는 `list[int]`, `list[tuple[int, int]]`처럼 대괄호를 쓴다. `list<tuple<int, int>>` 형태는 Python의 Type Hint 문법이 아니다. Python 3.9 이상에서는 내장 타입을 이렇게 표기할 수 있으며, 표기가 List의 항목 수를 미리 확보하거나 실행 중 타입을 강제하지는 않는다. 자세한 타입 표기는 Type Hint에서 다룬다. [Generic Alias](https://docs.python.org/3/library/stdtypes.html#types-genericalias)
 
 ## 복사본에서 무엇을 바꿨는가
 

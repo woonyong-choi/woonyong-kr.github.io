@@ -6,7 +6,7 @@ permalink: /wiki/computer-science-topic-2f43235867e4/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-science-topic-2f43235867e4
-projection_sha256: 1ebd803283d46ed691452147822201cd78ad0a17d644eb69d10283c750805b27
+projection_sha256: 7f4a637e3c6ed0c62d6f028c96f39eb2ab5526618276774d9cd25854e4f2b028
 parent: 자료구조
 content_status: ready
 public_parent_id: Wiki/computer-science/data-structures
@@ -24,7 +24,7 @@ grand_parent: CS 기초
 
 세 번째 원소를 찾으려는데 첫 원소의 주소만 알고 있다면 어떻게 해야 할까. Linked List에서는 첫 노드가 가진 `next`를 읽고, 다음 노드에서 다시 `next`를 읽는다. 원소의 순서는 주소의 크기나 메모리 배치가 아니라 **노드들이 저장한 연결**로 정해진다.
 
-노드마다 다음 위치를 적어 둔 쪽지라고 생각하면 된다. 쪽지를 메모리의 연속한 칸에 놓을 필요는 없다. 다만 실제로 서로 멀리 떨어져 있어야 하는 것도 아니다. 연결을 어떻게 저장했는지가 자료구조를 결정한다.
+각 노드를 다음 위치를 적어 둔 쪽지라고 생각하면 된다. 쪽지를 메모리의 연속한 칸에 놓을 필요는 없다. 다만 실제로 서로 멀리 떨어져 있어야 하는 것도 아니다. 연결을 어떻게 저장했는지가 자료구조를 결정한다.
 
 ## 위치를 찾는 비용과 바꾸는 비용
 

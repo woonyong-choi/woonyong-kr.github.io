@@ -6,7 +6,7 @@ permalink: /wiki/concurrency/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/programming-languages-runtime/concurrency
-projection_sha256: fa78f374133639d392d9b24818c6f1776994714574b5f294d5ed54a323700b1a
+projection_sha256: 9aa60d0d22d9801c4f06c7fcafa7a8ee494b143dfb309ca51e9d5f879760169a
 parent: Programming
 content_status: planned
 public_parent_id: Wiki/programming-languages-runtime

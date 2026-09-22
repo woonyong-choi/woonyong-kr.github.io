@@ -6,7 +6,7 @@ permalink: /wiki/programming-languages-runtime-topic-7a469485c717/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/programming-languages-runtime-topic-7a469485c717
-projection_sha256: 9d34922ee5f306afe50c5c358cb9d4f6b69fb05ffd777599647a0941df84990b
+projection_sha256: 4eac87886a78c306092e2d3ca9457b638eabf4c4cea67228de3396cecd594e63
 parent: 동시성
 content_status: ready
 public_parent_id: Wiki/programming-languages-runtime/concurrency
@@ -34,12 +34,16 @@ Browser Event Loop는 하나 이상의 Task Queue와 별도의 Microtask Queue�
 
 ```run-javascript
 console.log('1: 동기');
-setTimeout(() => console.log('4: 타이머'), 0);
+const timer = new Promise(resolve => setTimeout(() => {
+  console.log('4: 타이머');
+  resolve();
+}, 0));
 Promise.resolve().then(() => console.log('3: 프로미스'));
 console.log('2: 동기');
+await timer;
 ```
 
-Node.js v22.19.0 실행 결과:
+예상 출력:
 
 ```text
 1: 동기
@@ -56,14 +60,10 @@ I/O-bound 작업은 기다림을 외부에 맡길 수 있지만, CPU-bound 계�
 
 ```run-javascript
 const events = [];
-setTimeout(() => {
+const timer = new Promise(resolve => setTimeout(() => {
   events.push("timer");
-  const actual = events.join(" -> ");
-  console.log(actual);
-  if (actual !== "계산 시작 -> 계산 끝 -> 호출 뒤 -> then -> timer") {
-    throw new Error("실행 순서 불일치");
-  }
-}, 0);
+  resolve();
+}, 0));
 async function calculate() {
   events.push("계산 시작");
   let sum = 0;
@@ -73,13 +73,19 @@ async function calculate() {
 }
 const result = calculate();
 events.push("호출 뒤");
-result.then(sum => {
+await result.then(sum => {
   if (sum !== 50005000) throw new Error("합계 불일치");
   events.push("then");
 });
+await timer;
+const actual = events.join(" -> ");
+if (actual !== "계산 시작 -> 계산 끝 -> 호출 뒤 -> then -> timer") {
+  throw new Error("실행 순서 불일치");
+}
+console.log(actual);
 ```
 
-Node.js v22.19.0 실행 결과:
+예상 출력:
 
 ```text
 계산 시작 -> 계산 끝 -> 호출 뒤 -> then -> timer

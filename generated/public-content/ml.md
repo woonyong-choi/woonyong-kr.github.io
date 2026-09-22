@@ -6,7 +6,7 @@ permalink: /wiki/ml/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/ai-machine-learning/ml
-projection_sha256: 38e26c1d4b08ba86c39c25e240e5157d7d17dbcebd0982a08e7a041c7ca8cbb6
+projection_sha256: b40cbdd1064a34934d29764a5bdf5cba27cd5d1aad611cdea0f2a2b8738e5a66
 parent: AI
 content_status: planned
 public_parent_id: Wiki/ai-machine-learning

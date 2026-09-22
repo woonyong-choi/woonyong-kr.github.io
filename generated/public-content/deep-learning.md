@@ -6,7 +6,7 @@ permalink: /wiki/deep-learning/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/ai-machine-learning/deep-learning
-projection_sha256: 5f32ac1db475b5d631e6dc7da90d79e4b71c2d53bf9a9458710b9833e2b00088
+projection_sha256: 0c768fe30b491cf07c6675b5f0f38cc552916e78e7b75fdf5b4bef2eb131801a
 parent: AI
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning
@@ -64,7 +64,7 @@ NumPy에서 permutation한 인덱스로 x와 y를 함께 자르는 작업은, Py
 
 ## 배치 크기가 바꾸는 것은 메모리만이 아니다
 
-입력 60,000×784와 중간 activation 60,000×512를 한 번에 처리하면 큰 메모리와 긴 update 간격이 필요하다. 미니배치는 계산을 나누고 더 자주 갱신한다. 표본이 적으면 gradient 잡음이 커질 수 있고, 큰 배치는 더 많은 activation 메모리를 쓰지만 장치를 효율적으로 사용할 여지도 있다. 같은 에폭에서 update 수가 달라지므로 단순히 큰 배치가 느리다거나 작은 배치가 항상 좋은 해를 찾는다고 결론내리지 않는다.
+입력 60,000×784와 중간 activation 60,000×512를 한 번에 처리하면 큰 메모리와 긴 update 간격이 필요하다. 미니배치는 계산을 나누고 더 자주 갱신한다. 표본이 적으면 gradient 잡음이 커질 수 있고, 큰 배치는 더 많은 activation 메모리를 쓰지만 장치를 효율적으로 사용할 여지도 있다. 같은 에폭에서 update 수가 달라지므로 단순히 큰 배치가 느리다거나 작은 배치가 항상 좋은 해를 찾는다고 결론 내리지 않는다.
 
 에폭마다 인덱스를 permutation하고 같은 인덱스로 x와 y를 자르면 각 샘플을 한 번 사용하면서 순서를 바꿀 수 있다. 독립 이미지의 순서 편향을 줄이는 목적이다. 시간 순서가 의미인 데이터에서는 그 순서를 깨도 되는지 별도로 판단한다.
 

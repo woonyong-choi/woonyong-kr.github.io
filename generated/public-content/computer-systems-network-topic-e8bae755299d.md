@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-e8bae755299d/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-e8bae755299d
-projection_sha256: a70ab92c16a8d2936018fb812891775f2669d2d06e19136ef6e52df50abf33de
+projection_sha256: 9f9b3d832119ee041db7ff5b384ff0a010dc1365d9678cc3b84a033652f4fec8
 parent: 트래픽 처리
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-7b8f000c7073
@@ -27,7 +27,7 @@ Proxy는 클라이언트와 서버 사이에서 요청이나 데이터를 중계
 
 클라이언트가 Proxy에 보낸 요청과 Proxy가 원본에 보낸 요청은 같은 애플리케이션 작업으로 이어질 수 있지만, 동일한 네트워크 연결은 아니다. 한쪽 연결이 닫혔을 때 다른 쪽의 대기와 진행 중인 작업을 어떻게 처리할지도 정해야 한다.
 
-Forward Proxy는 클라이언트가 사용할 중계 서버로 선택하는 형태를 설명할 때 쓴다. 원본 서비스 앞에서 클라이언트 요청을 받는 [Reverse Proxy](/wiki/computer-systems-network-topic-a60fe7b10695/)는 서버 측의 진입점 역할을 한다. HTTP 규격은 Proxy, Gateway와 Tunnel을 구분하므로 구체적인 중계 방식을 함께 봐야 한다. [HTTP 중간 구성 요소](https://www.rfc-editor.org/rfc/rfc9110.html#section-3.7)
+Forward Proxy는 클라이언트가 사용할 중계 서버로 선택하는 형태를 설명할 때 쓴다. 원본 서비스 앞에서 클라이언트 요청을 받는 Reverse Proxy는 서버 측의 진입점 역할을 한다. HTTP 규격은 Proxy, Gateway와 Tunnel을 구분하므로 구체적인 중계 방식을 함께 봐야 한다. [HTTP 중간 구성 요소](https://www.rfc-editor.org/rfc/rfc9110.html#section-3.7)
 
 HTTP 메시지를 해석하는 Proxy는 목적지와 전달할 Header를 판단한다. 반면 CONNECT로 만든 Tunnel 같은 구간에서는 이후의 Byte를 전달하며 내부 메시지 해석을 하지 않는 방식도 있다. HTTPS를 중계한다는 말만으로 모든 Proxy가 암호화된 HTTP 내용을 읽는다고 단정해서는 안 된다.
 

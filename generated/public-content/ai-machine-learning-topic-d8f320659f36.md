@@ -6,7 +6,7 @@ permalink: /wiki/ai-machine-learning-topic-d8f320659f36/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/ai-machine-learning-topic-d8f320659f36
-projection_sha256: 632fb919b2d7ba013e28109d9893aad228f245760f929ba3ff41719192c8d703
+projection_sha256: 05cc8c389ef73f7f2b18e514e66143d23279d9d54fb8860129e064c6b45ef10d
 parent: 머신러닝
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning/ml
@@ -197,7 +197,7 @@ brighten [[3, 4, 5], [6, 7, 8], [9, 9, 9]]
 flip -> shift -> brighten [[2, 5, 4], [2, 8, 7], [2, 9, 9]]
 ```
 
-모든 결과의 shape은 3×3이지만, 오른쪽 이동은 원래 오른쪽 열을 버리고 밝기 클립은 9보다 큰 값을 9로 모은다. shape 보존이 정보 보존은 아니다. 마지막 줄처럼 세 변형을 이어 적용하면 원본 각각에 적용한 표와 다른 값이 된다. NumPy에서 같은 기본 연산은 `np.fliplr(img)`, `shift=np.zeros_like(img)`로 0을 채운 배열을 만든 뒤 `shift[:,1:]=img[:,:-1]`, `np.clip(img+2,0,9)`로 표현할 수 있다. 이 연산 결과만으로 클래스 라벨이 여전히 맞다고 판정하지는 않는다.
+모든 결과의 shape은 3×3이지만, 오른쪽 이동은 원래 오른쪽 열을 버리고 밝기 클립은 9보다 큰 값을 9로 모은다. shape 보존이 정보 보존은 아니다. 마지막 줄처럼 세 변형을 이어 적용하면 원본에 각각 적용한 표와 다른 값이 된다. NumPy에서 같은 기본 연산은 `np.fliplr(img)`, `shift=np.zeros_like(img)`로 0을 채운 배열을 만든 뒤 `shift[:,1:]=img[:,:-1]`, `np.clip(img+2,0,9)`로 표현할 수 있다. 이 연산 결과만으로 클래스 라벨이 여전히 맞다고 판정하지는 않는다.
 
 실제 이미지 파이프라인에서는 변형의 순서와 입력 형식을 함께 정한다. Torchvision 0.24의 기존 `transforms` API를 읽을 때, RGB PIL 이미지를 기준으로 다음 설정들의 역할을 구분할 수 있다. 이 표는 API의 구성 설명이며 이번 모형에서 Torchvision을 실행한 결과가 아니다.
 

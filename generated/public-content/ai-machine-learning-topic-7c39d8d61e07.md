@@ -6,7 +6,7 @@ permalink: /wiki/ai-machine-learning-topic-7c39d8d61e07/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/ai-machine-learning-topic-7c39d8d61e07
-projection_sha256: b91f3009e894a9577cfee6ab7c475aaf6d05ccf9ba51cc79d49b6ff4b0f82b14
+projection_sha256: 1d6cd7d035b15ef6f60ce54862fbd6029215c1a4a42a8459bc07f9181230d11a
 parent: 딥러닝
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning/deep-learning
@@ -20,7 +20,7 @@ grand_parent: AI
 
 100개 중 70개를 맞히는 분류기가 정답 클래스의 확률을 조금씩 높여도, 최종 예측 라벨이 바뀌기 전까지 정확도는 70%에 머문다. 정확도는 라벨이 유지되는 구간에서 가중치를 바꿔도 일정하고, 결정 경계에서는 불연속적으로 바뀐다. 경사 하강법에는 이런 작은 변화를 구분할 학습 신호가 필요하다.
 
-손실 함수는 학습에서 줄일 오차를 수치로 정의한다. 회귀에서는 예측 실수와 정답의 차이를, 분류에서는 정답에 부여한 확률 등을 비교한다. 모든 손실이 확률을 입력받거나 모든 지점에서 미분 가능한 것은 아니다. [회귀의 MSE·MAE·Huber](/wiki/ai-machine-learning-topic-93581f9e6303/)처럼 학습 목적에 맞는 오차와 평균 방식을 먼저 정하고, 미분 또는 필요한 지점의 subgradient를 이용한다.
+손실 함수는 학습에서 줄일 오차를 수치로 정의한다. 회귀에서는 예측한 실숫값과 정답의 차이를, 분류에서는 정답에 부여한 확률 등을 비교한다. 모든 손실이 확률을 입력받거나 모든 지점에서 미분 가능한 것은 아니다. [회귀의 MSE·MAE·Huber](/wiki/ai-machine-learning-topic-93581f9e6303/)처럼 학습 목적에 맞는 오차와 평균 방식을 먼저 정하고, 미분 또는 필요한 지점의 subgradient를 이용한다.
 
 분류에서는 모델의 마지막 선형층이 클래스별 실수 점수인 logits z를 출력하고, softmax로 확률 p를 만든다. 정답 분포 q에 대한 Cross Entropy는 `H(q,p) = -Σ q_i log p_i`다. 대칭성이나 삼각부등식을 만족하는 거리 함수는 아니다. 배치 B개의 categorical loss는 클래스 C개를 먼저 더한 뒤 샘플을 평균해 `L = -(1/B) Σ_b Σ_c q_bc log p_bc`로 계산한다.
 

@@ -6,7 +6,7 @@ permalink: /wiki/ai-machine-learning-topic-3d6e9bea717e/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/ai-machine-learning-topic-3d6e9bea717e
-projection_sha256: 3a36a1127b95dbb0e504272b217233e37fa16efb9b325f5712eef3abfd9aa9e9
+projection_sha256: 2d644919a9790a6cd836579839a22243c490f1adf4a14129a14f6794ab557fbc
 parent: 딥러닝
 content_status: ready
 public_parent_id: Wiki/ai-machine-learning/deep-learning
@@ -18,7 +18,7 @@ grand_parent: AI
 
 ## 기울기는 국소적인 이동 방향을 알려 준다
 
-경사 하강법은 `x_new=x-lr·∇f(x)`로 파라미터를 갱신한다. 미분 가능한 함수에서 gradient는 유클리드 거리 기준 가장 빠르게 증가하는 국소 방향이다. 0이 아닌 gradient의 반대 방향으로 충분히 작게 이동하면 감소를 기대할 수 있지만 임의의 큰 보폭까지 손실 감소를 보장하지 않는다.
+경사 하강법은 `x_new=x-lr·∇f(x)`로 파라미터를 갱신한다. 미분 가능한 함수에서 gradient는 유클리드 거리를 기준으로 함숫값이 가장 빠르게 증가하는 국소 방향이다. 0이 아닌 gradient의 반대 방향으로 충분히 작게 이동하면 감소를 기대할 수 있지만 임의의 큰 보폭까지 손실 감소를 보장하지 않는다.
 
 기울기는 수식·역전파·수치 미분 등으로 구할 수 있다. 경사 하강법은 그 값을 이동으로 바꾸는 규칙이다. 미니배치 SGD는 전체 손실 대신 샘플 묶음에서 gradient를 추정하므로 각 update 뒤 전체 손실이 항상 감소하는 것도 아니다.
 

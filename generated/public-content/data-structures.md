@@ -6,7 +6,7 @@ permalink: /wiki/data-structures/
 publication_state: publish
 has_toc: false
 projection_id: Wiki/computer-science/data-structures
-projection_sha256: 8ffbb07c3a82a042c736ff66fb9eca80216248399d6e0e6e7e296e345a71790e
+projection_sha256: 081ef9f34d4397312e6b35fab1e8d9f1aada6f07cc92d0b15bb4703dc483f940
 parent: CS 기초
 content_status: ready
 public_parent_id: Wiki/computer-science
@@ -15,7 +15,7 @@ public_parent_id: Wiki/computer-science
 # 자료구조
 {: .no_toc }
 
-같은 값도 어떻게 저장하고 찾아가는지에 따라 연산 비용이 달라진다. 여기서는 자료구조를 고를 때 주로 하려는 연산에 따라 찾아간다. 무엇을 자주 읽고, 어디에 넣고 빼며, 어떤 관계를 따라가야 하는지부터 살펴본다.
+같은 값도 어떻게 저장하고 찾아가는지에 따라 연산 비용이 달라진다. 여기서는 주로 하려는 연산에 따라 자료구조를 찾아본다. 무엇을 자주 읽고, 어디에 넣고 빼며, 어떤 관계를 따라가야 하는지부터 살펴본다.
 
 ## 위치와 연결로 접근하기
 
@@ -30,14 +30,14 @@ Stack과 Queue는 저장된 값 중 어느 것을 먼저 꺼낼지 정한다. St
 
 - [Stack](/wiki/computer-science-topic-39fd55620efd/)
 - [Queue](/wiki/computer-science-topic-fd1595b77add/)
-- [Heap](/wiki/computer-science-topic-4a9423be930c/)
+- Heap
 
 ## 키와 관계로 찾기
 
 키로 값을 찾는 Hash Table, 접두사로 문자열을 찾는 Trie, 계층과 연결을 다루는 Tree·Graph, 같은 집합인지 확인하는 서로소 집합으로 이어진다.
 
 - [Hash Table](/wiki/computer-science-topic-c3f2953a97c2/)
-- [Trie](/wiki/computer-science-topic-c6415ece8059/)
+- Trie
 - [Tree](/wiki/computer-science-topic-a06ebc760118/)
 - [Graph](/wiki/computer-science-topic-1a8e559de264/)
-- [서로소 집합](/wiki/computer-science-topic-5962577d796a/)
+- 서로소 집합

@@ -6,7 +6,7 @@ permalink: /wiki/data-b-tree-99b399d45cdf/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/data-b-tree-99b399d45cdf
-projection_sha256: 66b26d5c58e255a19f081b91cfa727134c2a6d844b3e0dec2e96b94c1188dcce
+projection_sha256: 4475b745551df66c8479223c03a681041310712407ddec1438033a9bb8a317e2
 parent: SQL 엔진 구현
 content_status: ready
 public_parent_id: Wiki/projects/minidb
@@ -21,7 +21,7 @@ ancestor: Data
 
 ## 페이지 ID와 리프 엔트리
 
-이 문서에 제시된 lrn-sql는 노드 하나를 디스크 페이지 하나에 대응시킨다. 자식 참조에는 메모리 포인터 대신 페이지 ID(`page_id`)를 사용한다. 디스크에 저장할 때는 실행 중인 포인터 주소가 아니라 파일 안의 위치 번호가 필요하기 때문이다.
+이 문서에 제시된 lrn-sql은 노드 하나를 디스크 페이지 하나에 대응시킨다. 자식 참조에는 메모리 포인터 대신 페이지 ID(`page_id`)를 사용한다. 디스크에 저장할 때는 실행 중인 포인터 주소가 아니라 파일 안의 위치 번호가 필요하기 때문이다.
 
 리프 노드의 엔트리는 다음과 같이 구성된다.
 

@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-cdn-a6d4d37d4c09/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-cdn-a6d4d37d4c09
-projection_sha256: 00d63e214c3f14cb95128270a697206b7aac16419353d75c5a9ae252fc5cda88
+projection_sha256: 34da21f8ac02dadde960eb18c2b3401008a1e818282b409d8388f3fc3a5fff7b
 parent: 트래픽 처리
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-7b8f000c7073
@@ -55,7 +55,7 @@ flowchart TD
 
 HIT는 캐시에서 처리한 경우를, MISS는 필요한 사본을 찾지 못한 경우를 설명할 때 쓰는 용어다. 사본이 있어도 오래되었다면 재검증하거나 새로 가져올 수 있다. 여러 캐시 계층을 사용하면 Edge에서 MISS가 나더라도 중간 캐시가 응답할 수 있어, 모든 MISS가 원본 요청 한 번과 일대일로 대응하지는 않는다.
 
-응답을 받았다고 항상 캐시에 저장하는 것도 아니다. 개인화된 응답이나 저장을 금지한 응답은 재사용 대상에서 제외될 수 있다. 저장과 재사용의 HTTP 규칙은 [HTTP 캐시](/wiki/computer-systems-network-http-6165d2538d18/)에서 다룬다.
+응답을 받았다고 항상 캐시에 저장하는 것도 아니다. 개인화된 응답이나 저장을 금지한 응답은 재사용 대상에서 제외될 수 있다. 저장과 재사용의 HTTP 규칙은 HTTP 캐시에서 다룬다.
 
 ## TTL과 콘텐츠 변경
 

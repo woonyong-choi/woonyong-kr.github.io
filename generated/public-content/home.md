@@ -6,7 +6,7 @@ permalink: /wiki/home/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/developer-wiki
-projection_sha256: 18690e06a13b1502e5e13a1f9ec648a3d3536fa98adb1a81d5c7306382843e81
+projection_sha256: a65c3367e240acaf66222144bb72ce059ec15a1039e062c381d58b4f43837abb
 content_status: ready
 ---
 
@@ -40,7 +40,7 @@ content_status: ready
 - [PintOS](/wiki/pintos/) — OS 팀 학습. [GitHub](https://github.com/woonyong-choi/lrn-pintos)
 - [Malloc](/wiki/computer-systems-network-topic-d160fea60072/) — Heap 할당·해제. [GitHub](https://github.com/woonyong-choi/lrn-malloc)
 - [HTTP Proxy](/wiki/computer-systems-network-topic-e8bae755299d/) — HTTP 중계. [GitHub](https://github.com/woonyong-choi/lrn-http-proxy)
-- [Kotlin](/wiki/kotlin/) — 문법·람다. [GitHub](https://github.com/woonyong-choi/lrn-kotlin)
+- Kotlin — 문법·람다. [GitHub](https://github.com/woonyong-choi/lrn-kotlin)
 - [SQL 엔진 구현](/wiki/lrn-sql/) — SQL 해석·저장. [GitHub](https://github.com/woonyong-choi/lrn-sql)
 - [Redis](/wiki/redis/) — 명령·만료·저장. [GitHub](https://github.com/woonyong-choi/lrn-redis)
 - [React](/wiki/frontend-topic-556b062c7529/) — 상태·DOM 갱신. [GitHub](https://github.com/woonyong-choi/lrn-react)

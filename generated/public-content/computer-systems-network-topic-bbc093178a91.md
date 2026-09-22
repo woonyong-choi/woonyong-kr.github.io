@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-bbc093178a91/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-bbc093178a91
-projection_sha256: cbddea52c5160f786dbf11b538f7e50c2fb8f1fc1c3e5a10b3ad682c73776497
+projection_sha256: f1620925d6160746a012558f827c67f7065d2d70ec6a3f41ce9b1145b789c64f
 parent: 네트워크
 content_status: planned
 public_parent_id: Wiki/computer-systems-network/network

@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-http-6c47fd343b2a/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-http-6c47fd343b2a
-projection_sha256: 65442a93f8ab5628ae32a9cf35860e4485ca9672bcd8c8a2cada5ccf088524bc
+projection_sha256: fcf42de7f9771c172ee2a1da9130c160d3f331270c1ba6e55e63994576e8252b
 parent: HTTP
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-http-2fe226962c51
@@ -148,7 +148,7 @@ Chrome은 106부터 Server Push를 기본 비활성화했다. 실무 적용 여�
 
 ## QUIC을 사용하는 HTTP/3
 
-HTTP/3는 UDP 기반 [QUIC](/wiki/computer-systems-network-quic-c275eb1349c6/) 위에서 동작한다. QUIC은 신뢰성 있는 Stream, 흐름 제어와 혼잡 제어 등을 제공하며, HTTP/3의 Header 압축에는 QPACK을 사용한다. UDP 자체에 이 기능이 모두 들어 있다는 뜻은 아니다. [HTTP/3 규격](https://www.rfc-editor.org/rfc/rfc9114.html)
+HTTP/3는 UDP 기반 QUIC 위에서 동작한다. QUIC은 신뢰성 있는 Stream, 흐름 제어와 혼잡 제어 등을 제공하며, HTTP/3의 Header 압축에는 QPACK을 사용한다. UDP 자체에 이 기능이 모두 들어 있다는 뜻은 아니다. [HTTP/3 규격](https://www.rfc-editor.org/rfc/rfc9114.html)
 
 QUIC은 서로 다른 Stream의 데이터 전달을 나눌 수 있어 한 Stream의 손실 때문에 다른 Stream까지 TCP의 같은 순서 대기를 겪는 문제를 줄인다. 그렇다고 Stream들이 모든 면에서 완전히 독립적인 것은 아니다. 같은 연결의 혼잡 제어나 공유 자원의 영향을 받을 수 있다.
 

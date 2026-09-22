@@ -6,7 +6,7 @@ permalink: /wiki/platform-delivery-operations-dev-container-35451d7f11e4/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/platform-delivery-operations-dev-container-35451d7f11e4
-projection_sha256: 713c25a42eefdd968f814d5bc1f459d8258841d3271ef3b0e7a750a2394c9749
+projection_sha256: 6f1081e07061d966a898053a4693f1db79769ad312cfb1396dc63152d51c2a3e
 parent: 개발 환경
 content_status: ready
 public_parent_id: Wiki/keywords/platform-delivery-operations-topic-eb212956fe45
@@ -16,7 +16,7 @@ grand_parent: DevOps
 # Dev Container
 {: .no_toc }
 
-F5로 C 프로그램을 실행할 때는 VS Code가 어느 환경에서 어떤 compiler를 호출하는지 알아야 한다. Dev Container는 프로젝트에 필요한 도구와 실행 환경을 컨테이너 안에 준비하고 VS Code를 그 환경에 연결한다. 로컬 폴더를 컨테이너에 여는 흐름에서는 `devcontainer.json`이 생성·연결 방법을 지정하고, 연결된 창의 터미널과 개발 도구가 컨테이너 환경을 사용한다. 설정 파일이 있다는 사실과 현재 창이 실제로 연결됐다는 사실은 별도로 확인해야 한다. [VS Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers)
+F5로 C 프로그램을 실행할 때는 VS Code가 어느 환경에서 어떤 compiler를 호출하는지 알아야 한다. Dev Container는 프로젝트에 필요한 도구와 실행 환경을 컨테이너 안에 준비하고 VS Code를 그 환경에 연결한다. 로컬 폴더를 컨테이너에서 여는 흐름에서는 `devcontainer.json`이 생성·연결 방법을 지정하고, 연결된 창의 터미널과 개발 도구가 컨테이너 환경을 사용한다. 설정 파일이 있다는 사실과 현재 창이 실제로 연결됐다는 사실은 별도로 확인해야 한다. [VS Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers)
 
 ## 이미지를 만드는 단계와 C를 컴파일하는 단계
 

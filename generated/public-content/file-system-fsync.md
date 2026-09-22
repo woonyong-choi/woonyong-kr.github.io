@@ -6,7 +6,7 @@ permalink: /wiki/file-system-fsync/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/computer-systems-network/os/file-system/fsync
-projection_sha256: 1a800e997d80c26c8e067e784a4227b71a72353e6318259b80d165256fa1ac3e
+projection_sha256: 76a6a535eb1e4cfae0492d0a999ada48922c43db510b4424cf041fdc198e1f27
 parent: 파일 시스템
 content_status: ready
 public_parent_id: Wiki/keywords/computer-systems-network-topic-2f8a1e4d5189
@@ -66,7 +66,7 @@ ancestor: CS 기초
 
 새 내용으로 설정 파일을 교체할 때는 기존 파일을 바로 잘라 쓰는 대신 같은 디렉터리에 임시 파일을 만들 수 있다. 임시 파일의 쓰기를 마치고 동기화한 뒤, `rename()`으로 기존 이름을 교체하고 마지막으로 부모 디렉터리를 동기화한다.
 
-이 순서는 두 종류의 변경을 다룬다. 파일의 `fsync()`는 내용과 파일 메타데이터를 다룬다. 이름이 어느 파일을 가리키는지는 [Directory](/wiki/computer-systems-network-topic-22d55ff354a8/)에 속하므로 부모 디렉터리의 동기화가 별도로 필요하다. 서로 다른 디렉터리 사이의 이동이라면 영향을 받는 디렉터리도 달라진다.
+이 순서는 두 종류의 변경을 다룬다. 파일의 `fsync()`는 내용과 파일 메타데이터를 다룬다. 이름이 어느 파일을 가리키는지는 Directory에 속하므로 부모 디렉터리의 동기화가 별도로 필요하다. 서로 다른 디렉터리 사이의 이동이라면 영향을 받는 디렉터리도 달라진다.
 
 같은 파일 시스템에서 성공한 `rename()`의 원자성은 다른 실행 주체에게 이름 교체가 중간 상태로 보이지 않는다는 뜻이다. 이것만으로 전원 차단 이후의 이름 보존까지 설명할 수는 없다. [Linux `rename(2)`](https://man7.org/linux/man-pages/man2/rename.2.html)
 

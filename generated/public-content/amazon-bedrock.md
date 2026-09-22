@@ -6,7 +6,7 @@ permalink: /wiki/amazon-bedrock/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/platform-delivery-operations/cloud/amazon-bedrock
-projection_sha256: 05f2f0ac138f67023d4bf05bea5de6f087e8c036f1bd9fa46e7cd3005108cd78
+projection_sha256: 6cb169f3f9952df5453338ac07f031f89650dbc2bb1c6b5bafba2c91ce7a1a4c
 parent: 관리형 서비스
 content_status: ready
 public_parent_id: Wiki/keywords/platform-delivery-operations-topic-f5955687c1b2
@@ -23,9 +23,9 @@ Amazon Bedrock은 모델 호출에 더해 문서 검색, 실행 흐름과 응답
 
 ## 문서를 검색 가능한 근거로 만들기
 
-모델의 학습 데이터에 포함되지 않은 사내 문서나 새로 바뀐 지침은 질문할 때 따로 제공해야 한다. 모든 문서를 매번 프롬프트에 넣으면 입력 길이와 비용이 커진다. [RAG](/wiki/rag/)는 질문과 관련된 부분을 검색한 뒤 모델의 답변 문맥에 넣는 방식이다.
+모델의 학습 데이터에 포함되지 않은 사내 문서나 새로 바뀐 지침은 질문할 때 따로 제공해야 한다. 모든 문서를 매번 프롬프트에 넣으면 입력 길이와 비용이 커진다. RAG는 질문과 관련된 부분을 검색한 뒤 모델의 답변 문맥에 넣는 방식이다.
 
-Knowledge Base의 벡터 검색 구성을 사용하면 문서 처리, Embedding 생성과 Vector Store 연결을 관리형 기능으로 구성할 수 있다. 이때 문서를 준비하는 흐름과 질문에 답하는 흐름을 나누어 읽어야 한다.
+Knowledge Base의 벡터 검색 구성을 사용하면 문서 처리, Embedding 생성과 Vector Store 연결을 관리형 기능으로 구성할 수 있다. 이때 문서 색인을 준비하는 단계와 질문에 답하는 단계를 구분한다.
 
 ```text
 색인 준비
@@ -74,7 +74,7 @@ Sync에 실패하면 S3 경로와 객체 존재 여부부터 확인한다. 다�
 | 검색은 맞지만 답변 근거가 약함 | 생성 답변과 Citation의 실제 대응 관계 |
 | 검색과 생성 중 어디가 문제인지 불명확함 | Generate responses를 끄고 검색 결과부터 재확인 |
 
-직접 RAG를 구현할 때는 Chunking, Embedding, Vector DB, 검색, Prompt 조립과 Citation 처리를 설계한다. Knowledge Base는 이 연결의 상당 부분을 맡지만, 어떤 문서를 넣고 무엇을 좋은 검색 결과로 볼지는 애플리케이션이 정해야 한다. Embedding 자체는 [Embedding](/wiki/ai-machine-learning-topic-7c4a8b2afe4c/), 검색 결과의 품질은 [검색 평가](/wiki/ai-machine-learning-topic-ede7838d4a96/)와 연결된다.
+직접 RAG를 구현할 때는 Chunking, Embedding, Vector DB, 검색, Prompt 조립과 Citation 처리를 설계한다. Knowledge Base는 이 연결의 상당 부분을 맡지만, 어떤 문서를 넣고 무엇을 좋은 검색 결과로 볼지는 애플리케이션이 정해야 한다. Embedding 자체는 [Embedding](/wiki/ai-machine-learning-topic-7c4a8b2afe4c/), 검색 결과의 품질은 검색 평가와 연결된다.
 
 ## 검색과 도구 실행 연결하기
 
@@ -99,7 +99,7 @@ Lambda Target에는 도구 Schema와 Lambda가 기대하는 입력 형식을 맞
   → 최종 답변
 ```
 
-이 흐름에서 Agent는 무엇을 호출할지 선택하고, 함수나 API는 정의된 작업을 실행한다. Schema는 호출 형식을 설명한다. 검색과 도구가 모두 필요할 수 있지만, 연결해 두었다고 매번 의도대로 선택되는 것은 아니다. [AI 에이전트](/wiki/agents/)와 [도구 호출](/wiki/tool-calling/)에서 다루는 판단과 실행의 차이가 여기에 드러난다.
+이 흐름에서 Agent는 무엇을 호출할지 선택하고, 함수나 API는 정의된 작업을 실행한다. Schema는 호출 형식을 설명한다. 검색과 도구가 모두 필요할 수 있지만, 연결해 두었다고 매번 의도대로 선택되는 것은 아니다. AI 에이전트와 도구 호출에서 다루는 판단과 실행의 차이가 여기에 드러난다.
 
 ## 검색·호출·답변을 대조하기
 
@@ -138,7 +138,7 @@ Flow Input(Object)
   → Flow Output
 ```
 
-이것은 역할을 설명하는 배치 예다. 실제 Flow에서는 Condition의 분기 조건과 각 노드의 입력·출력 연결을 정의해야 한다. 정해진 절차와 요청별 판단을 결합할 때도 노드가 받는 값과 반환하는 값을 먼저 맞춘다.
+이 배치는 각 노드의 역할을 설명하기 위한 예다. 실제 Flow에서는 Condition의 분기 조건과 각 노드의 입력·출력 연결을 정의해야 한다. 정해진 절차와 요청별 판단을 결합할 때도 노드가 받는 값과 반환하는 값을 먼저 맞춘다.
 
 ## Guardrail이 검사하는 범위
 
@@ -156,7 +156,7 @@ Guardrail은 금지 주제와 민감정보 같은 운영 정책을 적용한다.
 
 사용 중인 모델·API·Agent 통합에서 어떤 Guardrail 검사가 지원되고 어느 입력·출력에 적용되는지 확인한다. 특히 Contextual Grounding은 근거 자료, 질문, 검사할 응답을 필요로 하므로 Guardrail 하나를 붙였다고 모든 Agent 중간 단계와 도구 결과의 근거 검증이 자동으로 끝난다고 보지 않는다. [Contextual Grounding의 입력 조건](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html)
 
-테스트에는 차단할 입력과 정상적으로 허용할 입력을 함께 넣는다. 정상 질문까지 차단되면 Denied Topic 설명과 Word Filter의 범위부터 살피고, 민감정보가 들어간 입력과 응답에서는 기대한 차단·가림 처리가 적용되는지 별도로 확인한다. 정책 범위와 답변의 근거성은 [AI 안전성](/wiki/safety/)과 [AI 평가](/wiki/evals/)로 이어진다.
+테스트에는 차단할 입력과 정상적으로 허용할 입력을 함께 넣는다. 정상 질문까지 차단되면 Denied Topic 설명과 Word Filter의 범위부터 살피고, 민감정보가 들어간 입력과 응답에서는 기대한 차단·가림 처리가 적용되는지 별도로 확인한다. 정책 범위와 답변의 근거성은 AI 안전성과 AI 평가로 이어진다.
 
 ## 여러 Agent에 역할 나누기
 
@@ -169,6 +169,6 @@ Guardrail은 금지 주제와 민감정보 같은 운영 정책을 적용한다.
 | Policy Specialist | 정책과 가이드라인 해석 |
 | Supervisor | 하위 Agent 조율과 최종 응답 구성 |
 
-역할을 나누면 각 Agent에 어떤 지식과 도구를 맡겼는지 따로 검사할 수 있다. 동시에 호출 횟수, 지연, 비용과 조율 복잡도가 늘어날 수 있다. 분담 자체가 품질 향상을 보장하는 것은 아니므로, 단일 Agent와 비교해 어디에서 도움이 되는지 [여러 에이전트의 협업](/wiki/ai-machine-learning-topic-89942532c697/) 기준으로 확인한다.
+역할을 나누면 각 Agent에 어떤 지식과 도구를 맡겼는지 따로 검사할 수 있다. 동시에 호출 횟수, 지연, 비용과 조율 복잡도가 늘어날 수 있다. 분담 자체가 품질 향상을 보장하는 것은 아니므로, 단일 Agent와 비교해 어디에서 도움이 되는지 여러 에이전트의 협업 기준으로 확인한다.
 
 실습을 마친 뒤에는 Knowledge Base만 삭제하고 Vector Store가 남아 있지는 않은지 확인한다. S3 원문, OpenSearch Serverless와 관련 리소스의 보존·삭제 범위는 [비용 관리](/wiki/platform-delivery-operations-topic-342f2ec03420/)에서 다룬다.

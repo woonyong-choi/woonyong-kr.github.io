@@ -6,7 +6,7 @@ permalink: /wiki/computer-systems-network-topic-41c6d9a5eb18/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/computer-systems-network-topic-41c6d9a5eb18
-projection_sha256: 63b428ad0d5a9209b6f986c13093078309d1330b0adf7efcd828d89e0b6c8f40
+projection_sha256: b4cd02bbb73a616ae7be1e2bc1020a3c096a6b7aec1c8a0e84795b343343a1bf
 parent: OS
 content_status: ready
 public_parent_id: Wiki/computer-systems-network/os
@@ -119,7 +119,7 @@ lock_release (&lock_a);
 
 한 함수의 순서만 맞추면 끝나는 것은 아니다. Helper가 안에서 다른 Lock을 잡는 경우, Callback이 상위 기능으로 다시 들어오는 경우, 오류 처리와 취소 경로도 포함한다. 정렬 기준을 객체 ID나 자원 종류로 정했다면 모든 사용자가 같은 기준을 적용해야 한다. 해제 순서를 반대로 하는 습관만으로 획득 순서의 순환이 사라지지는 않는다.
 
-다른 예방 방법은 필요한 자원을 함께 확보하거나, 일부 획득에 실패하면 이미 확보한 자원을 반환하고 재시도하는 것이다. 이 경우 실패 중간에 수행한 변경을 되돌릴 수 있어야 한다. 재시도 간격과 경쟁 규칙이 없으면 서로 양보만 하는 Livelock이나 Starvation이 생길 수 있다.
+다른 예방 방법은 필요한 자원을 함께 확보하거나, 일부 획득에 실패하면 이미 확보한 자원을 반환하고 재시도하는 것이다. 이 경우 중간에 실패하면 수행한 변경을 되돌릴 수 있어야 한다. 재시도 간격과 경쟁 규칙이 없으면 서로 양보만 하는 Livelock이나 Starvation이 생길 수 있다.
 
 ## 예방·회피·탐지와 복구
 

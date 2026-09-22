@@ -6,7 +6,7 @@ permalink: /wiki/programming-languages-runtime-async-await-16ab8decaafb/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/programming-languages-runtime-async-await-16ab8decaafb
-projection_sha256: ac4d6b1a9800cb481e27e9681b7fe882ad90c41b2fbc3a1978aa7072f245e7cf
+projection_sha256: 20f274aa744ed2c9f931314de2a624191e2d79341a023ec38ad4e65253932283
 parent: JavaScript
 content_status: ready
 public_parent_id: Wiki/programming-languages-runtime/javascript
@@ -72,11 +72,12 @@ async function main() {
     console.log(`catch: ${error.message}`);
   }
 }
-main();
+const pending = main();
 console.log("호출자는 계속 실행");
+await pending;
 ```
 
-Node.js v22.19.0 실행 결과:
+예상 출력:
 
 ```text
 시작: A

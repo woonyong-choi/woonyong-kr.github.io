@@ -6,7 +6,7 @@ permalink: /wiki/backend-services-topic-d031406d8def/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/backend-services-topic-d031406d8def
-projection_sha256: c81ea662bc1ece45f387a46592e60843b98d365292d9ea7aee731770c7216749
+projection_sha256: e2288f811665510b4b1482f42ac6275eb002f01db824634bbdfc4d271913ddee
 parent: 암호학
 content_status: ready
 public_parent_id: Wiki/security/cryptography
@@ -32,7 +32,7 @@ ancestor: CS 기초
 Web Crypto secure context/Worker에서 실행하는 독립 예제다. 모든 키와 메시지는 실행 중에만 존재한다.
 
 ```run-javascript
-(async () => {
+await (async () => {
   const algorithm = {name: "RSA-PSS", modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: "SHA-256"};
   const pair = await crypto.subtle.generateKey(algorithm, false, ["sign", "verify"]);
   const other = await crypto.subtle.generateKey(algorithm, false, ["sign", "verify"]);

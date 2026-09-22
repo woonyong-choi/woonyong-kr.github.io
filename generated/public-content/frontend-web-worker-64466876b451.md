@@ -6,7 +6,7 @@ permalink: /wiki/frontend-web-worker-64466876b451/
 publication_state: publish
 has_toc: true
 projection_id: Wiki/keywords/frontend-web-worker-64466876b451
-projection_sha256: e0e23bfd115312a944c94c348f4071d7d5637fd2e8c6c20bd9bdd0561d709b2d
+projection_sha256: 58e78ad35d77d5ab2352803d77bdbb70e1327ea81d2866ff61e61e2ea7271fd0
 parent: Browser
 content_status: ready
 public_parent_id: Wiki/keywords/frontend-topic-7c6123c11353
@@ -40,9 +40,35 @@ Worker 안에서는 `document`나 `window`로 페이지 DOM을 조작하지 않�
 
 ## 합계와 Buffer 소유권을 직접 확인하기
 
-다음 Run은 **Browser의 Worker·Blob·URL API**가 필요하다. 별도의 `worker.js` 대신 Blob URL로 작은 Worker를 만든다. DOM을 사용하지 않아 Worker를 만들 수 있는 Browser Worker 환경에서도 실행할 수 있지만, 이를 Node.js의 `node:worker_threads` API와 혼용하지 않는다. 호스트의 CSP나 실행 정책이 Worker 또는 Blob URL을 막으면 해당 환경에서는 실행할 수 없다.
+먼저 `structuredClone()`으로 복제와 이전의 차이를 확인한다. 복제한 뒤 원본을 바꾸어도 복사본은 유지되고, 이전하면 원본 Buffer가 분리된다. 아래 Run은 이 두 동작을 실제 API로 검사한다. 별도 Worker의 실행이나 메시지 전달 시간을 측정하는 예제는 아니다. [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/structuredClone)
 
 ```run-javascript
+for (const transfer of [false, true]) {
+  const values = new Uint8Array([1, 2, 3, 4]);
+  const buffer = values.buffer;
+  const received = transfer
+    ? structuredClone(buffer, { transfer: [buffer] })
+    : structuredClone(buffer);
+  const senderBytes = buffer.byteLength;
+  if (!transfer) values[0] = 99;
+  const sum = new Uint8Array(received).reduce((a, b) => a + b, 0);
+  if (senderBytes !== (transfer ? 0 : 4) || sum !== 10) {
+    throw new Error("복제·이전 확인 실패");
+  }
+  console.log(`${transfer ? "이전" : "복제"}: sender=${senderBytes}, sum=${sum}`);
+}
+```
+
+예상 출력:
+
+```text
+복제: sender=4, sum=10
+이전: sender=0, sum=10
+```
+
+다음은 실제 Worker와 메시지를 주고받는 예제다. **Browser의 개발자 도구 Console**에서 실행하며, Worker·Blob·URL API가 필요하다. 이 페이지의 Run에서는 추가 Worker 생성을 허용하지 않으므로 아래 코드는 Console에서 실행한다. 별도의 `worker.js` 대신 Blob URL을 사용하며, 호스트의 CSP가 Worker 또는 Blob URL을 막으면 실행할 수 없다. Node.js의 `node:worker_threads`와는 다른 API다.
+
+```javascript
 (async () => {
   const source = `self.onmessage = ({ data }) => {
     const sum = new Uint8Array(data).reduce((a, b) => a + b, 0);
