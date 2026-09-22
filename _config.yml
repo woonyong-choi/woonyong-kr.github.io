@@ -12,6 +12,10 @@ permalink: pretty
 runnable_code_blocks:
   personal_compiler_endpoint: "https://runner.woonyong.com"
 
+site_tabs:
+  # 공개할 글이 생기면 true 로 바꾼다. false 이면 아티클 탭을 렌더하지 않는다.
+  articles_enabled: false
+
 theme: just-the-docs
 color_scheme: woon-light
 
@@ -33,8 +37,18 @@ defaults:
       layout: "default"
       nav_exclude: true
       search_exclude: true
+  # 프로젝트 본문은 저장소 README 를 그대로 옮긴 생성물이다. Liquid 를 평가하지
+  # 않고, Just the Docs 사이드바(= 위키 트리)에도 넣지 않는다.
+  - scope:
+      path: "generated/projects/*.md"
+      type: "pages"
+    values:
+      layout: "project"
+      nav_exclude: true
+      render_with_liquid: false
 
 exclude:
+  - _data/projects.yml
   - .bundle/
   - .jekyll-cache/
   - .sass-cache/

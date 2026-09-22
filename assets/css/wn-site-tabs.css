@@ -1,0 +1,77 @@
+/* 사이트 최상위 구획 탭. Just the Docs 헤더 안에 놓고, 데스크톱에서는 헤더에
+   그대로 두며 모바일에서는 header_custom 의 스크립트가 사이드바 머리로 복제한다. */
+.wn-site-tabs {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: 0.125rem;
+  margin-right: auto;
+  padding: 0 0.5rem;
+}
+
+.wn-site-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #5c5962;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 140ms ease-out, border-color 140ms ease-out, background-color 140ms ease-out;
+}
+
+.wn-site-tab:hover,
+.wn-site-tab:focus-visible {
+  color: #00863f;
+  text-decoration: none;
+  background-image: none;
+}
+
+.wn-site-tab:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.wn-site-tab--current {
+  color: #00863f;
+  border-bottom-color: #00863f;
+}
+
+[data-wn-theme="dark"] .wn-site-tab { color: #bab9c3; }
+[data-wn-theme="dark"] .wn-site-tab:hover,
+[data-wn-theme="dark"] .wn-site-tab:focus-visible { color: #00d970; }
+[data-wn-theme="dark"] .wn-site-tab--current { color: #00d970; border-bottom-color: #00d970; }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-wn-theme]) .wn-site-tab { color: #bab9c3; }
+  html:not([data-wn-theme]) .wn-site-tab:hover,
+  html:not([data-wn-theme]) .wn-site-tab:focus-visible { color: #00d970; }
+  html:not([data-wn-theme]) .wn-site-tab--current { color: #00d970; border-bottom-color: #00d970; }
+}
+
+/* 위키 화면의 좁은 폭에서는 .main-header 가 숨으므로 사이드바 머리의 복제본을 쓴다. */
+.wn-site-tabs--mobile {
+  display: flex;
+  width: 100%;
+  margin-right: 0;
+  padding: 0 1rem;
+  border-bottom: 1px solid #eeebee;
+}
+
+[data-wn-theme="dark"] .wn-site-tabs--mobile { border-bottom-color: #44434d; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-wn-theme]) .wn-site-tabs--mobile { border-bottom-color: #44434d; }
+}
+
+.wn-site-tabs--mobile .wn-site-tab { padding: 0.5rem 0.75rem; }
+
+@media (min-width: 50rem) {
+  .wn-site-tabs--mobile { display: none; }
+}
+
+@media print {
+  .wn-site-tabs,
+  .wn-site-tabs--mobile { display: none !important; }
+}

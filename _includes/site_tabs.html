@@ -1,0 +1,24 @@
+{%- comment -%}
+사이트 최상위 구획 탭. 위키(Just the Docs 사이드바)와 사이트 소유 섹션을
+같은 높이에서 오가게 한다. 아티클은 공개할 글이 생기면 _config.yml 의
+site_tabs.articles_enabled 로 켠다.
+{%- endcomment -%}
+{%- assign wn_tab_current = "wiki" -%}
+{%- if page.url == "/projects/" or page.url contains "/projects/" -%}
+  {%- assign wn_tab_current = "projects" -%}
+{%- elsif page.url contains "/articles/" -%}
+  {%- assign wn_tab_current = "articles" -%}
+{%- endif -%}
+<nav class="wn-site-tabs" aria-label="사이트 구획">
+  {%- if site.site_tabs.articles_enabled -%}
+  <a class="wn-site-tab{% if wn_tab_current == 'articles' %} wn-site-tab--current{% endif %}"
+     href="{{ '/articles/' | relative_url }}"
+     {% if wn_tab_current == 'articles' %}aria-current="page"{% endif %}>아티클</a>
+  {%- endif -%}
+  <a class="wn-site-tab{% if wn_tab_current == 'wiki' %} wn-site-tab--current{% endif %}"
+     href="{{ '/wiki/home/' | relative_url }}"
+     {% if wn_tab_current == 'wiki' %}aria-current="page"{% endif %}>위키</a>
+  <a class="wn-site-tab{% if wn_tab_current == 'projects' %} wn-site-tab--current{% endif %}"
+     href="{{ '/projects/' | relative_url }}"
+     {% if wn_tab_current == 'projects' %}aria-current="page"{% endif %}>프로젝트</a>
+</nav>

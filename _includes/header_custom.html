@@ -1,3 +1,4 @@
+{% include site_tabs.html %}
 <div class="wn-header-actions" aria-label="Site controls">
   <a class="wn-header-action wn-header-action--github" href="https://github.com/woonyong-kr" target="_blank" rel="noopener noreferrer" aria-label="Open Woon's GitHub profile" title="GitHub profile">
     <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -68,6 +69,21 @@
       });
     }
 
+    /* 사이드바가 있는 화면에서는 좁은 폭에서 .main-header 가 숨는다. 그 경우에만
+       본문 머리에 탭을 복제한다. 사이드바 안에 넣으면 위키 navigation 링크와
+       같은 href 가 중복되므로 .main 의 첫 자식으로 둔다. */
+    function createMobileTabs() {
+      var tabs = document.querySelector(".main-header .wn-site-tabs");
+      var main = document.querySelector(".main");
+      if (!tabs || !main || !document.querySelector(".side-bar")) return;
+      if (document.querySelector(".wn-site-tabs--mobile")) return;
+      var copy = tabs.cloneNode(true);
+      copy.classList.add("wn-site-tabs--mobile");
+      copy.setAttribute("aria-label", "사이트 구획 (좁은 화면)");
+      main.insertBefore(copy, main.firstChild);
+    }
+
+    createMobileTabs();
     mobileToggle = createMobileControls();
     bindThemeToggle(desktopToggle);
     bindThemeToggle(mobileToggle);

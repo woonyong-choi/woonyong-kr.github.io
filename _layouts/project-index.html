@@ -1,0 +1,38 @@
+---
+layout: minimal
+nav_enabled: false
+---
+{{ content }}
+<ul class="wn-project-grid">
+{%- for project in site.data.projects %}
+  {%- assign wn_status_label = project.status -%}
+  {%- if project.status == "completed" %}{% assign wn_status_label = "종료" %}
+  {%- elsif project.status == "active" %}{% assign wn_status_label = "진행 중" %}
+  {%- elsif project.status == "planned" %}{% assign wn_status_label = "계획" %}
+  {%- elsif project.status == "archived" %}{% assign wn_status_label = "보관" %}
+  {%- endif -%}
+  {%- assign wn_href = '/projects/' | append: project.slug | append: '/' | relative_url -%}
+  {%- assign wn_image = project.card_image | default: project.extract.image -%}
+  <li class="wn-project-card">
+    <div class="wn-project-card__media">
+      {%- if wn_image %}
+      <img src="{% if project.card_image %}{{ project.card_image | relative_url }}{% else %}{{ wn_image }}{% endif %}" alt="{{ project.card_image_alt | default: project.extract.image_alt | default: project.title }}" loading="lazy">
+      {%- else %}
+      <span class="wn-project-card__fallback" aria-hidden="true">{{ project.title | slice: 0, 2 }}</span>
+      {%- endif %}
+    </div>
+    <div class="wn-project-card__body">
+      {%- comment -%}
+        href 는 언제나 전체 페이지다. data-project-slug 는 나중에 모달을 붙일 때
+        클릭을 가로채기 위한 자리이며, 지금은 아무 스크립트도 이를 읽지 않는다.
+      {%- endcomment -%}
+      <h2 class="wn-project-card__title"><a href="{{ wn_href }}" data-project-slug="{{ project.slug }}">{{ project.title }}</a></h2>
+      <p class="wn-project-card__summary">{{ project.summary }}</p>
+      <p class="wn-project-card__meta">
+        <span class="wn-status wn-status--{{ project.status }}">{{ wn_status_label }}</span>
+        <span>{{ project.period }}</span>
+      </p>
+    </div>
+  </li>
+{%- endfor %}
+</ul>

@@ -1,0 +1,241 @@
+/* /projects/ 카드 그리드와 프로젝트 페이지의 얇은 헤더. */
+.wn-projects-intro {
+  margin-bottom: 1.5rem;
+  color: #5c5962;
+}
+
+.wn-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wn-project-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid #eeebee;
+  border-radius: 0.5rem;
+  transition: border-color 140ms ease-out, transform 140ms ease-out;
+}
+
+.wn-project-card:hover { border-color: #00863f; transform: translateY(-2px); }
+.wn-project-card:focus-within { border-color: #00863f; }
+
+.wn-project-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: #f5f6fa;
+}
+
+.wn-project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 대표 이미지가 아직 없는 프로젝트의 폴백 타일. */
+.wn-project-card__fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #00863f;
+  background-image: linear-gradient(135deg, rgba(0, 134, 63, 0.10), rgba(0, 134, 63, 0.02));
+}
+
+.wn-project-card__body { display: flex; flex: 1 1 auto; flex-direction: column; padding: 0.875rem 1rem 1rem; }
+
+.wn-project-card__title { margin: 0 0 0.375rem; font-size: 0.9375rem; font-weight: 600; line-height: 1.35; }
+.wn-project-card__title a { text-decoration: none; }
+.wn-project-card__title a::after { content: ""; position: absolute; inset: 0; }
+.wn-project-card { position: relative; }
+
+.wn-project-card__summary { flex: 1 1 auto; margin: 0 0 0.75rem; font-size: 0.8125rem; line-height: 1.55; color: #5c5962; }
+
+.wn-project-card__meta,
+.wn-project-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  color: #7a7a85;
+}
+
+.wn-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.0625rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.6;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.wn-status--completed { color: #00863f; }
+.wn-status--active { color: #1a73b7; }
+.wn-status--planned { color: #8a7420; }
+.wn-status--archived { color: #6b6a73; }
+
+/* 프로젝트 페이지 상단의 얇은 헤더. README 본문 위에만 얹는다. */
+.wn-project-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eeebee; }
+.wn-project-header__summary { margin: 0 0 0.625rem; color: #5c5962; }
+.wn-project-header__concepts { margin: 0.625rem 0 0; font-size: 0.8125rem; }
+.wn-project-header__concepts .wn-project-header__label { color: #7a7a85; }
+.wn-project-header__concepts a + a::before { content: " · "; color: #7a7a85; }
+
+[data-wn-theme="dark"] .wn-project-card { background-color: #2f2e35; border-color: #44434d; }
+[data-wn-theme="dark"] .wn-project-card__media { background-color: #27262b; }
+[data-wn-theme="dark"] .wn-project-card:hover,
+[data-wn-theme="dark"] .wn-project-card:focus-within { border-color: #00d970; }
+[data-wn-theme="dark"] .wn-project-card__fallback { color: #00d970; background-image: linear-gradient(135deg, rgba(0, 217, 112, 0.14), rgba(0, 217, 112, 0.03)); }
+[data-wn-theme="dark"] .wn-projects-intro,
+[data-wn-theme="dark"] .wn-project-card__summary,
+[data-wn-theme="dark"] .wn-project-header__summary { color: #bab9c3; }
+[data-wn-theme="dark"] .wn-project-card__meta,
+[data-wn-theme="dark"] .wn-project-header__meta,
+[data-wn-theme="dark"] .wn-project-header__concepts .wn-project-header__label { color: #9b9aa4; }
+[data-wn-theme="dark"] .wn-project-header { border-bottom-color: #44434d; }
+[data-wn-theme="dark"] .wn-status--completed { color: #00d970; }
+[data-wn-theme="dark"] .wn-status--active { color: #5fb3f0; }
+[data-wn-theme="dark"] .wn-status--planned { color: #d8bf5e; }
+[data-wn-theme="dark"] .wn-status--archived { color: #9b9aa4; }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-wn-theme]) .wn-project-card { background-color: #2f2e35; border-color: #44434d; }
+  html:not([data-wn-theme]) .wn-project-card__media { background-color: #27262b; }
+  html:not([data-wn-theme]) .wn-project-card__fallback { color: #00d970; background-image: linear-gradient(135deg, rgba(0, 217, 112, 0.14), rgba(0, 217, 112, 0.03)); }
+  html:not([data-wn-theme]) .wn-projects-intro,
+  html:not([data-wn-theme]) .wn-project-card__summary,
+  html:not([data-wn-theme]) .wn-project-header__summary { color: #bab9c3; }
+  html:not([data-wn-theme]) .wn-project-card__meta,
+  html:not([data-wn-theme]) .wn-project-header__meta { color: #9b9aa4; }
+  html:not([data-wn-theme]) .wn-project-header { border-bottom-color: #44434d; }
+  html:not([data-wn-theme]) .wn-status--completed { color: #00d970; }
+  html:not([data-wn-theme]) .wn-status--active { color: #5fb3f0; }
+}
+
+/* 프로젝트 헤더 3열: 역할 / 기간 / 개념. 접기·탭·모달 없이 항상 펼쳐 둔다. */
+.wn-project-header__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem 1.25rem;
+  margin: 0;
+}
+
+.wn-project-header__cell { min-width: 0; }
+.wn-project-header__cell dt {
+  margin: 0 0 0.1875rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #7a7a85;
+}
+.wn-project-header__cell dd { margin: 0; font-size: 0.8125rem; line-height: 1.6; }
+.wn-project-header__cell dd a + a::before { content: " · "; color: #7a7a85; }
+.wn-project-header__cell .wn-status { margin-left: 0.25rem; }
+.wn-project-header__repo { margin: 0.75rem 0 0; font-size: 0.8125rem; }
+.wn-project-header__source { font-size: 0.8125rem; color: #7a7a85; }
+
+@media (max-width: 34rem) {
+  .wn-project-header__grid { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+}
+
+[data-wn-theme="dark"] .wn-project-header__cell dt,
+[data-wn-theme="dark"] .wn-project-header__source { color: #9b9aa4; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-wn-theme]) .wn-project-header__cell dt,
+  html:not([data-wn-theme]) .wn-project-header__source { color: #9b9aa4; }
+}
+
+/* ---------------------------------------------------------------------------
+   인쇄: 프로젝트 하나가 문서 한 부로 나온다.
+   화면 장치(탭·내비·푸터·카드 그리드)를 걷어내고 README 본문을 한 흐름으로 둔다.
+   --------------------------------------------------------------------------- */
+@media print {
+  .side-bar,
+  .site-header,
+  .main-header,
+  .site-footer,
+  .site-nav,
+  #back-to-top,
+  .breadcrumb-nav,
+  .search,
+  .wn-header-actions,
+  .wn-mobile-header-actions,
+  .wn-project-grid,
+  .wn-projects-intro,
+  .wn-screen-only {
+    display: none !important;
+  }
+
+  html, body { background: #fff !important; color: #000 !important; }
+
+  .main,
+  .main-content-wrap,
+  .main-content,
+  #main-content {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .wn-project-header {
+    border-bottom: 1px solid #999;
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  .wn-project-header__grid { gap: 0.5rem 1rem; }
+  .wn-project-header__cell dt { color: #000; }
+  .wn-status { border-color: #000 !important; color: #000 !important; }
+
+  /* 페이지 경계는 절(h2) 앞에서만 만든다. 첫 절은 헤더에 이어 붙인다. */
+  #main-content h2 { break-before: page; break-after: avoid; break-inside: avoid; }
+  #main-content h2:first-of-type { break-before: avoid; }
+  #main-content h1,
+  #main-content h3,
+  #main-content h4,
+  #main-content h5,
+  #main-content h6 { break-after: avoid; break-inside: avoid; }
+
+  pre, table, img, picture, figure, blockquote, .highlight {
+    break-inside: avoid;
+  }
+
+  pre, .highlight {
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: 1px solid #999;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  img, picture img { max-width: 100% !important; height: auto !important; }
+
+  /* 종이에서는 목적지를 볼 수 없으므로 외부 링크에만 URL 을 병기한다. */
+  #main-content a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    word-break: break-all;
+  }
+  #main-content a[href^="http"] .anchor-heading::after,
+  #main-content h1 a[href^="http"]::after,
+  #main-content h2 a[href^="http"]::after,
+  #main-content h3 a[href^="http"]::after { content: ""; }
+  .anchor-heading { display: none !important; }
+
+  @page { margin: 14mm 12mm; }
+}

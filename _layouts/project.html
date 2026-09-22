@@ -1,0 +1,41 @@
+---
+layout: minimal
+nav_enabled: false
+---
+{%- assign wn_status_label = page.status -%}
+{%- if page.status == "completed" %}{% assign wn_status_label = "종료" %}
+{%- elsif page.status == "active" %}{% assign wn_status_label = "진행 중" %}
+{%- elsif page.status == "planned" %}{% assign wn_status_label = "계획" %}
+{%- elsif page.status == "archived" %}{% assign wn_status_label = "보관" %}
+{%- endif -%}
+<header class="wn-project-header">
+  <p class="wn-project-header__summary">{{ page.summary }}</p>
+  <dl class="wn-project-header__grid">
+    <div class="wn-project-header__cell">
+      <dt>역할</dt>
+      <dd>{{ page.role }} <span class="wn-status wn-status--{{ page.status }}">{{ wn_status_label }}</span></dd>
+    </div>
+    <div class="wn-project-header__cell">
+      <dt>기간</dt>
+      <dd>{{ page.period }}</dd>
+    </div>
+    <div class="wn-project-header__cell">
+      <dt>개념</dt>
+      <dd>
+        {%- for concept in page.concepts %}
+        <a href="{{ concept.url | relative_url }}">{{ concept.title }}</a>
+        {%- endfor %}
+      </dd>
+    </div>
+  </dl>
+  <p class="wn-project-header__repo"><a href="{{ page.repo_url }}">{{ page.repo }}</a></p>
+</header>
+
+{{ content }}
+
+<hr>
+<p class="wn-project-header__source">
+  이 페이지의 본문은 <a href="{{ page.readme_url }}">{{ page.repo }} 의 README</a>(커밋
+  <code>{{ page.repo_ref | slice: 0, 7 }}</code>)를 그대로 옮긴 것입니다.
+  <span class="wn-screen-only"><a href="{{ '/projects/' | relative_url }}">프로젝트 목록으로</a></span>
+</p>
