@@ -4,9 +4,9 @@ title: Projects
 nav_order: 10
 permalink: /wiki/projects/
 publication_state: publish
-has_toc: true
+has_toc: false
 projection_id: Wiki/projects
-projection_sha256: 2885c2141d96532de07b3abc5a41c3b2645b0e60ae19f4a75e0fe4d412d9d637
+projection_sha256: 9a35f2aeb02442224e36f1641617e0c7ed0248054ab2be906b02d4fc4a2fc8ee
 content_status: overview
 search_terms:
 - 프로젝트
