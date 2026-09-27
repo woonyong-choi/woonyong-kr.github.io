@@ -59,7 +59,11 @@ test('resume publication keeps its exact file scope and rejects changed build by
     await mkdir(join(output, 'resume'));
     await writeFile(join(output, index.path), bytes);
     assert.deepEqual(await verifyResumeFiles(output, [index]), [index.path]);
-    for (const files of [[], [index, index], [index, { ...index, path: 'private/source.md' }], [index, { ...index, path: 'resume/assets/../source.js' }]]) {
+    const figure = { ...index, path: 'resume/fig/clue/ui/diagram.svg' };
+    await mkdir(join(output, 'resume/fig/clue/ui'), { recursive: true });
+    await writeFile(join(output, figure.path), bytes);
+    assert.deepEqual(await verifyResumeFiles(output, [index, figure]), [index.path, figure.path]);
+    for (const files of [[], [index, index], [index, { ...index, path: 'private/source.md' }], [index, { ...index, path: 'resume/assets/../source.js' }], [index, { ...figure, path: 'resume/fig/../source.svg' }], [index, { ...figure, path: 'resume/fig/script.js' }]]) {
       await assert.rejects(verifyResumeFiles(output, files));
     }
     await writeFile(join(output, index.path), 'changed');

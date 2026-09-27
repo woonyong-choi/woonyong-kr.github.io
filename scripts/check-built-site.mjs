@@ -107,7 +107,7 @@ export async function verifyResumeFiles(output, files) {
   }
   const paths = new Set();
   for (const file of files) {
-    if (!/^resume\/(?:index\.html|assets\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:js|css|woff2|jpg|png|svg|webp|ico)|pdf\/[a-z0-9-]+\.pdf)$/u.test(file.path)
+    if (!/^resume\/(?:index\.html|assets\/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:js|css|woff2|jpg|png|svg|webp|ico)|fig\/(?:[a-z0-9-]+\/)*[a-z0-9-]+\.(?:png|svg)|pdf\/[a-z0-9-]+\.pdf)$/u.test(file.path)
         || paths.has(file.path) || !/^[a-f0-9]{64}$/u.test(file.sha256)
         || !Number.isSafeInteger(file.bytes) || file.bytes <= 0) {
       throw new Error('Invalid resume publication file');
